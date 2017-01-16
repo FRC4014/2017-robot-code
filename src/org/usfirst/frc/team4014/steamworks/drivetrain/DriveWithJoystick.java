@@ -1,7 +1,7 @@
 /*
- * The Top Hat Technician's 2016 Robot Code
+ * The Top Hat Technician's 2017 Robot Code
  *
- *      (c) 2016 Top Hat Technicians 
+ *      (c) 2017 Top Hat Technicians 
  *      tophattechnicians.com | FRC team 4014
  *
  * NOTICE:  All information contained herein is, and remains
@@ -18,8 +18,7 @@ package org.usfirst.frc.team4014.steamworks.drivetrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team4014.steamworks.OI;
-import org.usfirst.frc4014.stronghold.Robot;
-import org.usfirst.frc4014.stronghold.drivetrain.DriveTrain;
+
 
 /**
  * Operates the DriveTrain with the driver joystick.  Should be the "default
@@ -27,16 +26,15 @@ import org.usfirst.frc4014.stronghold.drivetrain.DriveTrain;
  */
 public class  DriveWithJoystick extends Command {
 	
-	private DriveTrain driveTrain;
-	private OI oi;
-
-    public DriveWithJoystick() {
-        driveTrain = DriveTrain.getInstance();
-        oi = OI.getInstance();
-
+	private final DriveTrain driveTrain;
+	private final OI oi;
+	
+    public DriveWithJoystick(OI oi, DriveTrain driveTrain) {
+		this.oi = oi;
+		this.driveTrain = driveTrain;
         requires(driveTrain);
-    }
-
+	}
+    
     // Called just before this Command runs the first time
     protected void initialize() {
     }

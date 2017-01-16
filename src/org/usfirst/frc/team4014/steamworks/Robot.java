@@ -28,14 +28,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		DriveTrain.getInstance();
-		OI.getInstance();
+		OI oi = new OI();
+		DriveTrain driveTrain = new DriveTrain(oi);
+	
 		
 		// TODO: research what chooser default is all about.
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 
-		SmartDashboard.putData("Auto mode", chooser);
+		//SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**

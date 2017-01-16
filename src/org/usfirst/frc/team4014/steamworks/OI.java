@@ -2,6 +2,8 @@ package org.usfirst.frc.team4014.steamworks;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -9,18 +11,12 @@ import edu.wpi.first.wpilibj.buttons.Button;
  */
 public class OI {
 	
-	private static OI instance;
-
     public Joystick driverJoystick;
-
-	public static synchronized OI getInstance() {
-		if (instance == null) instance = new OI();
-		
-		return instance;
-	}
 	
 	public OI() {
         driverJoystick = new Joystick(0);
+        SmartDashboard.putData(Scheduler.getInstance()); //put currently running commands
+        SmartDashboard.putString("Foo", "Bar");
 	}
 
 	public Joystick getDriverJoystick() {
