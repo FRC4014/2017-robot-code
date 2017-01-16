@@ -1,14 +1,33 @@
 package org.usfirst.frc.team4014.steamworks;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-
-import org.usfirst.frc.team4014.steamworks.commands.ExampleCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	
+	private static OI instance;
+
+    public Joystick driverJoystick;
+
+	public static synchronized OI getInstance() {
+		if (instance == null) instance = new OI();
+		
+		return instance;
+	}
+	
+	public OI() {
+        driverJoystick = new Joystick(0);
+	}
+
+	public Joystick getDriverJoystick() {
+		// TODO Auto-generated method stub
+		return driverJoystick;
+	}
+	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
