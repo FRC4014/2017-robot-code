@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
+import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+import org.usfirst.frc.team4014.steamworksAUTO.FakeAutoCode;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,6 +21,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
  */
 public class Robot extends IterativeRobot {
 
+	private OI oi;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -28,15 +31,28 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		OI oi = new OI();
+		oi = new OI();
 		DriveTrain driveTrain = new DriveTrain(oi);
+		Shooter shooter = new Shooter(oi);
 	
 		
 		// TODO: research what chooser default is all about.
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+//		 chooser.addDefault("Default Auto", new FakeAutoCode());
+//		 chooser.addObject("My Auto", new FakeAutoCode());
+		SmartDashboard.putNumber("Z-Axis", 11);
+		SmartDashboard.putString("xxxx", "");
+		SmartDashboard.putBoolean("asdf", true);
+		
+		
+		chooser.addDefault("default auto", FakeAutoCode());
+		chooser.addObject("other auto", FakeAutoCode());
 
-		//SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Auto mode", chooser);
+	}
+
+	private Command FakeAutoCode() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
@@ -105,6 +121,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Z-Axis", oi.getMateJoystick().getZ());
+		//putDouble("Z-Axis", oi.getMateJoystick().getZ());
 	}
 
 	/**
