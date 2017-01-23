@@ -2,6 +2,15 @@
 package org.usfirst.frc.team4014.steamworks;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
+import com.ctre.CANTalon;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.vision.VisionRunner;
+import edu.wpi.first.wpilibj.vision.VisionThread;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -9,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
+import org.usfirst.frc.team4014.steamworks.vision.GripPipeline;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,6 +29,14 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
  */
 public class Robot extends IterativeRobot {
 
+	private static final int IMG_WIDTH = 320;
+	private static final int IMG_HEIGHT = 240;
+	
+	private VisionThread visionThread;
+	private double centerX = 0.0;
+	private RobotDrive drive;
+	
+	private final Object imgLock = new Object();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -30,7 +48,19 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		OI oi = new OI();
 		DriveTrain driveTrain = new DriveTrain(oi);
-	
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		camera.setExposureManual(-10);
+		camera.setBrightness(0);
+		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
+			if (!pipeline.filterContoursOutput().isEmpty()) {
+			Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+		    	synchronized (imgLock) {
+		    		centerX = r.x + (r.width / 2);
+		    	}
+		    }
+		});
+		visionThread.start();
 		
 		// TODO: research what chooser default is all about.
 		// chooser.addDefault("Default Auto", new ExampleCommand());
@@ -87,6 +117,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		double centerX;
+		synchronized (imgLock) {
+			centerX = this.centerX;
+		}
+		double turn = centerX - (IMG_WIDTH / 2);
+		drive.arcadeDrive(-0.6, turn * 0.005);
 	}
 
 	@Override
