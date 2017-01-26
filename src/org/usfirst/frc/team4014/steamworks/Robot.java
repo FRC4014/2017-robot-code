@@ -2,13 +2,16 @@
 package org.usfirst.frc.team4014.steamworks;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
+import org.usfirst.frc.team4014.steamworks.drivetrain.DriveWithJoystick;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,10 +36,14 @@ public class Robot extends IterativeRobot {
 	
 		
 		// TODO: research what chooser default is all about.
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+//		chooser.addDefault("Default Auto", new FakeAutonomousCommand());
+//		chooser.addObject("My Auto", new FakeAutonomousCommand());
 
-		//SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Chooser", chooser);
+//		SmartDashboard.putDa
+		SmartDashboard.putNumber("test", 42);
+		
+		SmartDashboard.putString("xxxx", "hello");
 	}
 
 	/**

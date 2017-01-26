@@ -26,6 +26,8 @@ import org.usfirst.frc.team4014.steamworks.OI;
  */
 public class  DriveWithJoystick extends Command {
 	
+//	public float test;
+	
 	private final DriveTrain driveTrain;
 	private final OI oi;
 	
