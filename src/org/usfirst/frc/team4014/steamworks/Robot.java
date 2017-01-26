@@ -11,7 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
+<<<<<<< HEAD
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveWithJoystick;
+=======
+import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+import org.usfirst.frc.team4014.steamworksAUTO.FakeAutoCode;
+>>>>>>> 19b29d8af30d4a36ac65a29a1c94d964f6640f88
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +27,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveWithJoystick;
  */
 public class Robot extends IterativeRobot {
 
+	private OI oi;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -31,11 +37,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		OI oi = new OI();
+		oi = new OI();
 		DriveTrain driveTrain = new DriveTrain(oi);
+		Shooter shooter = new Shooter(oi);
 	
 		
 		// TODO: research what chooser default is all about.
+<<<<<<< HEAD
 //		chooser.addDefault("Default Auto", new FakeAutonomousCommand());
 //		chooser.addObject("My Auto", new FakeAutonomousCommand());
 
@@ -44,6 +52,24 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("test", 42);
 		
 		SmartDashboard.putString("xxxx", "hello");
+=======
+//		 chooser.addDefault("Default Auto", new FakeAutoCode());
+//		 chooser.addObject("My Auto", new FakeAutoCode());
+		SmartDashboard.putNumber("Z-Axis", 11);
+		SmartDashboard.putString("xxxx", "");
+		SmartDashboard.putBoolean("asdf", true);
+		
+		
+		chooser.addDefault("default auto", FakeAutoCode());
+		chooser.addObject("other auto", FakeAutoCode());
+
+		SmartDashboard.putData("Auto mode", chooser);
+	}
+
+	private Command FakeAutoCode() {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> 19b29d8af30d4a36ac65a29a1c94d964f6640f88
 	}
 
 	/**
@@ -112,6 +138,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Z-Axis", oi.getMateJoystick().getZ());
+		//putDouble("Z-Axis", oi.getMateJoystick().getZ());
 	}
 
 	/**

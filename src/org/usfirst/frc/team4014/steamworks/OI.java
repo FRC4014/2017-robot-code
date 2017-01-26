@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4014.steamworks;
 
+import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -11,10 +13,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	
-    public Joystick driverJoystick;
+    public Joystick driverJoystick, mateJoystick;
+    public Shooter shooter;
 	
 	public OI() {
         driverJoystick = new Joystick(0);
+        mateJoystick = new Joystick(1);
         SmartDashboard.putData(Scheduler.getInstance()); //put currently running commands
         SmartDashboard.putString("Foo", "Bar");
 	}
@@ -22,6 +26,10 @@ public class OI {
 	public Joystick getDriverJoystick() {
 		// TODO Auto-generated method stub
 		return driverJoystick;
+	}
+	
+	public Joystick getMateJoystick() {
+		return mateJoystick;
 	}
 	
 	//// CREATING BUTTONS
