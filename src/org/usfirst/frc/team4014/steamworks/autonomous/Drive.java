@@ -14,8 +14,10 @@ public class Drive extends Command {
 	private double distance;
 	private Encoder enc;
 	
-	public Drive(DriveTrain driveTrain) {
+	public Drive(DriveTrain driveTrain, double distance, double speed) {
 		this.driveTrain = driveTrain;
+		this.distance = distance;
+		this.speed = speed;
 	}
 
 	protected void initialize(){
