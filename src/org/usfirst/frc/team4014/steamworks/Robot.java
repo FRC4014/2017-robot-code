@@ -35,6 +35,7 @@ public class Robot extends IterativeRobot {
 	private VisionThread visionThread;
 	private double centerX = 0.0;
 	private RobotDrive drive;
+	private DriveTrain driveTrain;
 	
 	private final Object imgLock = new Object();
 	Command autonomousCommand;
@@ -47,7 +48,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		OI oi = new OI();
-		DriveTrain driveTrain = new DriveTrain(oi);
+		driveTrain = new DriveTrain(oi);
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		camera.setExposureManual(-10);
@@ -121,8 +122,15 @@ public class Robot extends IterativeRobot {
 		synchronized (imgLock) {
 			centerX = this.centerX;
 		}
-		double turn = centerX - (IMG_WIDTH / 2);
-		drive.arcadeDrive(-0.6, turn * 0.005);
+		//if centerx is less we need to turn to the left
+		if(centerX < IMG_WIDTH){
+			driveTrain.drive(-0.5,0.5);
+		}
+		if(centerX > IMG_WIDTH){
+			driveTrain.drive(0.5, -0.5);
+		}
+		//double turn = centerX - (IMG_WIDTH / 2);
+		//drive.arcadeDrive(-0.6, turn * 0.005);
 	}
 
 	@Override
