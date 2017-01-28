@@ -98,7 +98,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		//autonomousCommand = chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -122,6 +122,7 @@ public class Robot extends IterativeRobot {
 		synchronized (imgLock) {
 			centerX = this.centerX;
 		}
+		SmartDashboard.putNumber("centerX", centerX);
 		//if centerx is less we need to turn to the left
 		if(centerX < IMG_WIDTH){
 			driveTrain.drive(-0.5,0.5);
