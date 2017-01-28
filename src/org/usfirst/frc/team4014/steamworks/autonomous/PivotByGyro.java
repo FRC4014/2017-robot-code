@@ -35,13 +35,9 @@ public class PivotByGyro extends Command {
 		if(gyro.getAngle() >= angle){
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
-		// TODO return false until the encoder return the right value, then return true
-		
-		
 	}
 
 }

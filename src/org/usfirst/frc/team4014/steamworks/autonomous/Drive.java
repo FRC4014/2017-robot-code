@@ -5,10 +5,12 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * drives forward distance (in inches)
+ * at speed (range from -1 to 1)
+ */
 public class Drive extends Command {
-	
-	//TODO: figure out how to set these variables in the cumulative Autonomous class
-	
+	//TODO: Find out if driving backwards work. if it doesn't, make it work
 	private final DriveTrain driveTrain;
 	private double speed;
 	private double distance;
@@ -20,12 +22,17 @@ public class Drive extends Command {
 		this.speed = speed;
 	}
 
-	protected void initialize(){
+	protected void initialize (){
 		enc = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 		enc.setDistancePerPulse(18.8495559); //wheel diameter * pi
 		enc.setMaxPeriod(.1);
 		enc.setMinRate(10);
-		enc.setReverseDirection(false);
+		if(distance < 0){
+			enc.setReverseDirection(true);
+			distance = distance * -1;
+		} else {
+			enc.setReverseDirection(false);
+		}
 	}
 	
 		//Calls repeatedly
@@ -39,8 +46,7 @@ public class Drive extends Command {
 			enc.reset();
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 		// TODO: Return false until encoder reaches the right value; then return true.
