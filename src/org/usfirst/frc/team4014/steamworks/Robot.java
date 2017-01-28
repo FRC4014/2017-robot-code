@@ -1,22 +1,15 @@
 
 package org.usfirst.frc.team4014.steamworks;
 
+import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
+import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
-import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
-<<<<<<< HEAD
-import org.usfirst.frc.team4014.steamworks.drivetrain.DriveWithJoystick;
-=======
-import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
-import org.usfirst.frc.team4014.steamworksAUTO.FakeAutoCode;
->>>>>>> 19b29d8af30d4a36ac65a29a1c94d964f6640f88
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -43,18 +36,11 @@ public class Robot extends IterativeRobot {
 	
 		
 		// TODO: research what chooser default is all about.
-<<<<<<< HEAD
-//		chooser.addDefault("Default Auto", new FakeAutonomousCommand());
-//		chooser.addObject("My Auto", new FakeAutonomousCommand());
 
 		SmartDashboard.putData("Chooser", chooser);
-//		SmartDashboard.putDa
 		SmartDashboard.putNumber("test", 42);
 		
 		SmartDashboard.putString("xxxx", "hello");
-=======
-//		 chooser.addDefault("Default Auto", new FakeAutoCode());
-//		 chooser.addObject("My Auto", new FakeAutoCode());
 		SmartDashboard.putNumber("Z-Axis", 11);
 		SmartDashboard.putString("xxxx", "");
 		SmartDashboard.putBoolean("asdf", true);
@@ -69,7 +55,6 @@ public class Robot extends IterativeRobot {
 	private Command FakeAutoCode() {
 		// TODO Auto-generated method stub
 		return null;
->>>>>>> 19b29d8af30d4a36ac65a29a1c94d964f6640f88
 	}
 
 	/**
