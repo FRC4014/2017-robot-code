@@ -12,38 +12,51 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  */
 public class PivotByGyro extends Command {
 
+	private static final double SPEED = 1;
+	
 	private final DriveTrain driveTrain;
-	private double speed;
 	private double angle;
 	private Gyro gyro;
+	private final double left;
+	private final double right;
+	private boolean done = true;
 	
 	public PivotByGyro(DriveTrain driveTrain, Gyro gyro, double angle) {
 		this.driveTrain = driveTrain;
-		this.speed = speed;
 		this.angle = angle;
 		this.gyro = gyro;
+		if (angle > 0){
+			left = -SPEED;
+			right = SPEED;
+		} else {
+			left = SPEED;
+			right = -SPEED;
+		}
 	}
 	
 	protected void initialize(){
 		gyro.reset();
+		done = false;
 	}
 	
 	protected void execute(){
-		driveTrain.drive(-speed, speed);
+		while (!done && 
+			   Math.abs(gyro.getAngle()) < Math.abs(angle)) {
+			driveTrain.drive(left, right);
+//			try {
+//				Thread.sleep(2);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		}
+		driveTrain.drive(0, 0);
+		done = true;
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if(gyro.getAngle() >= angle){
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		// TODO return false until the encoder return the right value, then return true
-		
-		
+		return done;
 	}
 
 }
