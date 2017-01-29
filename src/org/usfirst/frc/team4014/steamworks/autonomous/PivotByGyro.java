@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  */
 public class PivotByGyro extends Command {
 
-	private static final double SPEED = 1;
+	private static final double SPEED = 0.25;
 	
 	private final DriveTrain driveTrain;
 	private double angle;
@@ -40,7 +40,7 @@ public class PivotByGyro extends Command {
 	protected void execute(){
 		while (!done && 
 			   Math.abs(gyro.getAngle()) < Math.abs(angle)) {
-			usedLeft = (-0.013*left) + 1;
+			usedLeft = ((-(1-SPEED)/Math.abs(angle))*Math.abs(gyro.getAngle())) + 1;
 			driveTrain.drive(usedLeft, -usedLeft);
 //			try {
 //				Thread.sleep(2);
