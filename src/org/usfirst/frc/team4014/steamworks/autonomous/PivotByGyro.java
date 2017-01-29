@@ -18,8 +18,8 @@ public class PivotByGyro extends Command {
 	private double angle;
 	private Gyro gyro;
 	private final double left;
-	private final double right;
 	private boolean done = true;
+	private double usedLeft;
 	
 	public PivotByGyro(DriveTrain driveTrain, Gyro gyro, double angle) {
 		this.driveTrain = driveTrain;
@@ -27,10 +27,8 @@ public class PivotByGyro extends Command {
 		this.gyro = gyro;
 		if (angle > 0){
 			left = -SPEED;
-			right = SPEED;
 		} else {
 			left = SPEED;
-			right = -SPEED;
 		}
 	}
 	
@@ -42,7 +40,8 @@ public class PivotByGyro extends Command {
 	protected void execute(){
 		while (!done && 
 			   Math.abs(gyro.getAngle()) < Math.abs(angle)) {
-			driveTrain.drive(left, right);
+			usedLeft = (-0.013*left) + 1;
+			driveTrain.drive(usedLeft, -usedLeft);
 //			try {
 //				Thread.sleep(2);
 //			} catch (InterruptedException e) {
