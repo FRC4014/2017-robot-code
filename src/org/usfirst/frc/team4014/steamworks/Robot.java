@@ -51,15 +51,17 @@ public class Robot extends IterativeRobot {
 		driveTrain = new DriveTrain(oi);
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		camera.setExposureManual(-10);
-		camera.setBrightness(0);
+		camera.setExposureManual(-100);
+		camera.setExposureHoldCurrent();
+		camera.setBrightness(-1000);
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			if (!pipeline.filterContoursOutput().isEmpty()) {
-			Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+				Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
 		    	synchronized (imgLock) {
 		    		centerX = r.x + (r.width / 2);
 		    	}
-		    }
+		    	SmartDashboard.putNumber("centerX", centerX);
+			}
 		});
 		visionThread.start();
 		
@@ -122,16 +124,16 @@ public class Robot extends IterativeRobot {
 		synchronized (imgLock) {
 			centerX = this.centerX;
 		}
-		SmartDashboard.putNumber("centerX", centerX);
-		//if centerx is less we need to turn to the left
-		if(centerX < IMG_WIDTH){
+//		SmartDashboard.putNumber("centerX", centerX);
+//		  if centerx is less we need to turn to the left
+		if(centerX < IMG_WIDTH/2){
 			driveTrain.drive(-0.5,0.5);
 		}
-		if(centerX > IMG_WIDTH){
+		if(centerX > IMG_WIDTH/2){
 			driveTrain.drive(0.5, -0.5);
 		}
-		//double turn = centerX - (IMG_WIDTH / 2);
-		//drive.arcadeDrive(-0.6, turn * 0.005);
+//		double turn = centerX - (IMG_WIDTH / 2);
+//		drive.arcadeDrive(-0.6, turn * 0.005);
 	}
 
 	@Override
