@@ -126,11 +126,13 @@ public class Robot extends IterativeRobot {
 		}
 //		SmartDashboard.putNumber("centerX", centerX);
 //		  if centerx is less we need to turn to the left
-		if(centerX < IMG_WIDTH/2){
-			driveTrain.drive(-0.5,0.5);
-		}
-		if(centerX > IMG_WIDTH/2){
-			driveTrain.drive(0.5, -0.5);
+		if(Math.abs((IMG_WIDTH/2)-(centerX)) > 3){
+			if(centerX < IMG_WIDTH/2){
+				driveTrain.drive(-0.3,0.3);
+			}
+			if(centerX > IMG_WIDTH/2){
+				driveTrain.drive(0.5, -0.5);
+			}
 		}
 //		double turn = centerX - (IMG_WIDTH / 2);
 //		drive.arcadeDrive(-0.6, turn * 0.005);
