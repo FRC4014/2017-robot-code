@@ -19,7 +19,6 @@ public class PivotByGyro extends Command {
 	private Gyro gyro;
 	private final double left;
 	private boolean done = true;
-	private double usedLeft;
 	
 	public PivotByGyro(DriveTrain driveTrain, Gyro gyro, double angle) {
 		this.driveTrain = driveTrain;
@@ -40,8 +39,7 @@ public class PivotByGyro extends Command {
 	protected void execute(){
 		while (!done && 
 			   Math.abs(gyro.getAngle()) < Math.abs(angle)) {
-			usedLeft = ((-(1-SPEED)/Math.abs(angle))*Math.abs(gyro.getAngle())) + 1;
-			driveTrain.drive(usedLeft, -usedLeft);
+			driveTrain.drive(left, -left);
 //			try {
 //				Thread.sleep(2);
 //			} catch (InterruptedException e) {
