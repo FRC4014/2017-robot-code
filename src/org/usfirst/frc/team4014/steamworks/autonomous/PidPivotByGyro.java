@@ -4,6 +4,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PidPivotByGyro extends PIDCommand {
@@ -16,6 +17,12 @@ public class PidPivotByGyro extends PIDCommand {
 		this.gyro = gyro;
 		this.driveTrain = driveTrain;
 		setSetpoint(angle);
+	}
+	
+	@Override
+	protected void initialize() {
+		super.initialize();
+
 		getPIDController().setAbsoluteTolerance(.007);
 //		getPIDController().setContinuous();
 		gyro.reset();
@@ -23,8 +30,10 @@ public class PidPivotByGyro extends PIDCommand {
 		SmartDashboard.putNumber("Gyro PID Output", 0);
 		SmartDashboard.putNumber("Gyro Angle", 0);
 		SmartDashboard.putNumber("Gyro PID Position", 0);
-		SmartDashboard.putNumber("Gyro PID Setpoint", angle);
+		SmartDashboard.putNumber("Gyro PID Setpoint", getSetpoint());
 		SmartDashboard.putBoolean("Gyro PID Is On Target", false);
+
+		LiveWindow.addActuator("Drive", "Pivot", getPIDController());
 	}
 
 	@Override
