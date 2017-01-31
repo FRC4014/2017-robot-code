@@ -12,7 +12,7 @@ public class PidPivotByGyro extends PIDCommand {
 	private final DriveTrain driveTrain;
 	
 	public PidPivotByGyro(AnalogGyro gyro, DriveTrain driveTrain, double angle) {
-		super(1, 0, .3);
+		super(SmartDashboard.getNumber("P",1),SmartDashboard.getNumber("I",0),SmartDashboard.getNumber("D",0.3));
 		this.gyro = gyro;
 		this.driveTrain = driveTrain;
 		setSetpoint(angle);
