@@ -13,7 +13,7 @@ public class PidPivotByGyro extends PIDCommand {
 	private final DriveTrain driveTrain;
 	
 	public PidPivotByGyro(AnalogGyro gyro, DriveTrain driveTrain, double angle) {
-		super(SmartDashboard.getNumber("P",1),SmartDashboard.getNumber("I",0),SmartDashboard.getNumber("D",0.3));
+		super(0.9,0,0);
 		this.gyro = gyro;
 		this.driveTrain = driveTrain;
 		setSetpoint(angle);
@@ -22,7 +22,8 @@ public class PidPivotByGyro extends PIDCommand {
 	@Override
 	protected void initialize() {
 		super.initialize();
-
+		
+		getPIDController().setPID(.7, 0, .5,.5);
 		getPIDController().setAbsoluteTolerance(.007);
 //		getPIDController().setContinuous();
 		gyro.reset();
@@ -33,6 +34,7 @@ public class PidPivotByGyro extends PIDCommand {
 		SmartDashboard.putNumber("Gyro PID Setpoint", getSetpoint());
 		SmartDashboard.putBoolean("Gyro PID Is On Target", false);
 
+		LiveWindow.addActuator("Gyro", "Gyro", gyro);
 		LiveWindow.addActuator("Drive", "Pivot", getPIDController());
 	}
 

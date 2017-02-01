@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("P", 1);
 		SmartDashboard.putNumber("I", 0);
 		SmartDashboard.putNumber("D", 0.3);
+		SmartDashboard.putNumber("F", 0.3);
 		SmartDashboard.putString("xxxx", "hello");
 		SmartDashboard.putNumber("Z-Axis", 11);
 		SmartDashboard.putString("xxxx", "");

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 
-	public final CANTalon shooterMotorOne = new CANTalon(7), shooterMotorTwo = new CANTalon(8);
+//	public final CANTalon shooterMotorOne = new CANTalon(7), shooterMotorTwo = new CANTalon(8);
 	
 	private final OI oi;
 	
@@ -25,11 +25,11 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void shoot(Joystick joystick) {
-		shooterMotorOne.set(joystick.getZ());
+//		shooterMotorOne.set(joystick.getZ());
 	}
 	
 	public void stop() {
-		shooterMotorOne.set(0);
+//		shooterMotorOne.set(0);
 	}
 	
 }
