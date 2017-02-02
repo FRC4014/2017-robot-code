@@ -40,15 +40,10 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData("Chooser", chooser);
 		
-		chooser.addDefault("default auto", FakeAutoCode());
-		chooser.addObject("other auto", FakeAutoCode());
+		chooser.addDefault("default auto", null);
+		chooser.addObject("other auto", null);
 
 		SmartDashboard.putData("Auto mode", chooser);
-	}
-
-	private Command FakeAutoCode() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	/**
