@@ -34,9 +34,6 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain(oi);
 		Shooter shooter = new Shooter(oi);
-	
-		
-		// TODO: research what chooser default is all about.
 
 		SmartDashboard.putData("Chooser", chooser);
 		
@@ -44,16 +41,6 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("other auto", null);
 
 		SmartDashboard.putData("Auto mode", chooser);
-	}
-
-	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
-	 */
-	@Override
-	public void disabledInit() {
-
 	}
 
 	/**
@@ -70,7 +57,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 //		autonomousCommand = chooser.getSelected();
-		autonomousCommand = new PivotTest(driveTrain);
+	   autonomousCommand = new PivotTest(driveTrain);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -101,7 +88,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Z-Axis", oi.getMateJoystick().getZ());
 		//putDouble("Z-Axis", oi.getMateJoystick().getZ());
 	}
-
+	
 	@Override
 	public void testInit() {
 		LiveWindow.run();
