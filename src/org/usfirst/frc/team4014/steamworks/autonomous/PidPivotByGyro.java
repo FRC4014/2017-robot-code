@@ -13,48 +13,54 @@ public class PidPivotByGyro extends PIDCommand {
 	private final DriveTrain driveTrain;
 	
 	public PidPivotByGyro(AnalogGyro gyro, DriveTrain driveTrain, double angle) {
-		super(0.9,0,0);
+		super(0.5,0,0);
 		this.gyro = gyro;
 		this.driveTrain = driveTrain;
 		setSetpoint(angle);
-	}
-	
-	@Override
-	protected void initialize() {
-		super.initialize();
-		
-		getPIDController().setPID(.7, 0, .5,.5);
-		getPIDController().setAbsoluteTolerance(.007);
-//		getPIDController().setContinuous();
-		gyro.reset();
-//		gyro.setSensitivity(0.007);
+
 		SmartDashboard.putNumber("Gyro PID Output", 0);
 		SmartDashboard.putNumber("Gyro Angle", 0);
 		SmartDashboard.putNumber("Gyro PID Position", 0);
 		SmartDashboard.putNumber("Gyro PID Setpoint", getSetpoint());
 		SmartDashboard.putBoolean("Gyro PID Is On Target", false);
+		SmartDashboard.putNumber("P", 1);
+		SmartDashboard.putNumber("I", 0);
+		SmartDashboard.putNumber("D", 0.3);
+		SmartDashboard.putNumber("F", 0.3);
 
-		LiveWindow.addActuator("Gyro", "Gyro", gyro);
+		LiveWindow.addSensor("Gyro", "Gyro", gyro);
 		LiveWindow.addActuator("Drive", "Pivot", getPIDController());
+		System.out.println("PidPivotByGyro says hello");
+	}
+	
+	@Override
+	protected void initialize() {
+		super.initialize();
+		System.out.println("PidPivotByGyro.initialize");
+		
+//		getPIDController().setPID(.5, 0, .15, .15);
+		getPIDController().setAbsoluteTolerance(.1);
+//		getPIDController().setContinuous();
+		gyro.reset();
+//		gyro.setSensitivity(0.007);
 	}
 
 	@Override
 	protected double returnPIDInput() {
 		double a = gyro.getAngle();
+		System.out.println("PidPivotByGyro.returnPIDInput: gyro angle = " + a);
 		SmartDashboard.putNumber("Gyro Angle", a);
 		return a;
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
+		System.out.println("PidPivotByGyro.usePIDOutput: output = " + output);
+		
 		SmartDashboard.putNumber("Gyro PID Output", output);
 		SmartDashboard.putNumber("Gyro PID Position", getPosition());
 		SmartDashboard.putNumber("Gyro PID Setpoint", getSetpoint());
-//		if(getSetpoint() > gyro.getAngle()) {
-			driveTrain.drive(output, -output);
-//		} else {
-//			driveTrain.drive(-output, output);
-//		}
+		driveTrain.drive(output, -output);
 	}
 
 	@Override

@@ -11,7 +11,8 @@ public class PivotTest extends CommandGroup{
 	
 	public PivotTest(DriveTrain driveTrain) {
 		gyro = new AnalogGyro(1);
-		addSequential(new PidPivotByGyro(gyro, driveTrain, 90));
+		addSequential(new PidPivotByGyro(gyro, driveTrain, 45));
+//		addSequential(new PivotByGyro(driveTrain, gyro, 90));
 //		new WaitCommand(1000);
 //		addSequential(new PidPivotByGyro(gyro, driveTrain, -45));
 //		new WaitCommand(1000);
