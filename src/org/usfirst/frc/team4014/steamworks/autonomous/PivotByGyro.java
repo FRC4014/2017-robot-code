@@ -17,8 +17,9 @@ public class PivotByGyro extends Command {
 	private final DriveTrain driveTrain;
 	private double angle;
 	private Gyro gyro;
-	private final double left;
+	private double left;
 	private boolean done = true;
+	private double endRange;
 	
 	public PivotByGyro(DriveTrain driveTrain, Gyro gyro, double angle) {
 		this.driveTrain = driveTrain;
@@ -34,6 +35,7 @@ public class PivotByGyro extends Command {
 	protected void initialize(){
 		gyro.reset();
 		done = false;
+		endRange = 0.2;
 	}
 	
 	protected void execute(){
@@ -53,7 +55,16 @@ public class PivotByGyro extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return done;
+		if (done == true){
+			if(Math.abs(angle) - Math.abs(gyro.getAngle()) <= endRange){
+				return true;
+			} else {
+				left = -left/2;
+				return false;
+			}
+		}
+		return false;
+//		return done;
 	}
 
 }
