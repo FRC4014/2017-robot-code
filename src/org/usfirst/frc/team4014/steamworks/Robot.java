@@ -102,11 +102,8 @@ public class Robot extends IterativeRobot {
 		//putDouble("Z-Axis", oi.getMateJoystick().getZ());
 	}
 
-	/**
-	 * This function is called periodically during test mode
-	 */
 	@Override
-	public void testPeriodic() {
+	public void testInit() {
 		LiveWindow.run();
 	}
 }
