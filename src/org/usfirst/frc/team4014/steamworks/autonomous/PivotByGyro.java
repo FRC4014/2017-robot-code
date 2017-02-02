@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  */
 public class PivotByGyro extends Command {
 
-	private static final double SPEED = 0.25;
+	private static final double SPEED = 0.5;
 	
 	private final DriveTrain driveTrain;
 	private double angle;
