@@ -14,6 +14,8 @@ public class PidPivotByGyro extends PIDCommand {
 	
 	public PidPivotByGyro(AnalogGyro gyro, DriveTrain driveTrain, double angle) {
 		super(0.5,0,0);
+        requires(driveTrain);
+
 		this.gyro = gyro;
 		this.driveTrain = driveTrain;
 		setSetpoint(angle);
