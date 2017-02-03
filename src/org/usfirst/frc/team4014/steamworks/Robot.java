@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	private OI oi;
+	private Shooter shooter;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -32,8 +33,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		DriveTrain driveTrain = new DriveTrain(oi);
-		Shooter shooter = new Shooter(oi);
-	
+		shooter = new Shooter(oi);
 		
 		// TODO: research what chooser default is all about.
 
@@ -41,7 +41,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("test", 42);
 		
 		SmartDashboard.putString("xxxx", "hello");
-		SmartDashboard.putNumber("Z-Axis", 11);
 		SmartDashboard.putString("xxxx", "");
 		SmartDashboard.putBoolean("asdf", true);
 		
@@ -123,7 +122,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Z-Axis", (0.095 * (oi.getMateJoystick().getZ())) + 0.895);
 		//putDouble("Z-Axis", oi.getMateJoystick().getZ());
 	}
 

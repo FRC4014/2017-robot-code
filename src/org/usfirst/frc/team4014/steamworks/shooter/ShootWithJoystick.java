@@ -2,6 +2,7 @@ package org.usfirst.frc.team4014.steamworks.shooter;
 
 import org.usfirst.frc.team4014.steamworks.OI;
 
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.command.Command;
 
 
@@ -22,6 +23,11 @@ public class ShootWithJoystick extends Command {
 	}
 	
 	protected void execute() {
+		/*double leftYstick = oi.mateJoystick.getAxis(AxisType.kY);
+		double motorOutput = shooter.getTalon().getOutputVoltage() / shooter.getTalon().getBusVoltage();
+		
+		shooter.getBuilderOfStrings().*/
+		
 		shooter.shoot(oi.mateJoystick);
 	}
 	
