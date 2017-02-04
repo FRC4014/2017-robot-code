@@ -9,6 +9,7 @@ import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -47,10 +48,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
-	private Command FakeAutoCode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
