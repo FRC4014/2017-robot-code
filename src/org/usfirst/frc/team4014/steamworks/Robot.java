@@ -41,8 +41,8 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData("Chooser", chooser);
 		
-		chooser.addDefault("PID Pivot", new PidPivotByGyro(new AnalogGyro(1), driveTrain, -45));
-		chooser.addObject("Nicholas Pivot", new PivotByGyro(driveTrain, new AnalogGyro(1), 45));
+//		chooser.addDefault("PID Pivot", new PidPivotByGyro(new AnalogGyro(1), driveTrain, -45));
+//		chooser.addObject("Nicholas Pivot", new PivotByGyro(driveTrain, new AnalogGyro(1), 45));
 
 		SmartDashboard.putData("Auto mode", chooser);
 	}
@@ -80,8 +80,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
-//	      autonomousCommand = new PivotTest(driveTrain);
+//		autonomousCommand = chooser.getSelected();
+	      autonomousCommand = new PivotTest(driveTrain);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

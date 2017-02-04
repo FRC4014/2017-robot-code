@@ -4,6 +4,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 /**
  * Pivots the robot. 
@@ -18,7 +19,6 @@ public class PivotByGyro extends Command {
 	private double angle;
 	private Gyro gyro;
 	private double left;
-	private boolean done = true;
 	private double endRange;
 	
 	public PivotByGyro(DriveTrain driveTrain, Gyro gyro, double angle) {
@@ -34,28 +34,17 @@ public class PivotByGyro extends Command {
 	
 	protected void initialize(){
 		gyro.reset();
-		done = false;
 		endRange = 0.2;
 	}
 	
 	protected void execute(){
-		while (!done && 
-			   Math.abs(gyro.getAngle()) < Math.abs(angle)) {
 			driveTrain.drive(left, -left);
-//			try {
-//				Thread.sleep(2);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-		}
-		driveTrain.drive(0, 0);
-		done = true;
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if (done == true){
+		if ( Math.abs(gyro.getAngle()) > Math.abs(angle)){
+			new WaitCommand(.2);
 			if(Math.abs(angle) - Math.abs(gyro.getAngle()) <= endRange){
 				return true;
 			} else {

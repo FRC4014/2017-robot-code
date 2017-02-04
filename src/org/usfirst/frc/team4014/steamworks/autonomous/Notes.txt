@@ -1,0 +1,10 @@
+
+ERROR  1  ERROR Unhandled exception: java.lang.RuntimeException:  Code: -1029. HAL: Resource already allocated at [edu.wpi.first.wpilibj.hal.AnalogJNI.initializeAnalogInputPort(Native Method), edu.wpi.first.wpilibj.AnalogInput.<init>(AnalogInput.java:53), edu.wpi.first.wpilibj.AnalogGyro.<init>(AnalogGyro.java:61), org.usfirst.frc.team4014.steamworks.autonomous.PivotTest.<init>(PivotTest.java:13), org.usfirst.frc.team4014.steamworks.Robot.autonomousInit(Robot.java:84), edu.wpi.first.wpilibj.IterativeRobot.startCompetition(IterativeRobot.java:110), edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:247)]  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:249) 
+ Error at edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:249): ERROR Unhandled exception: java.lang.RuntimeException:  Code: -1029. HAL: Resource already allocated at [edu.wpi.first.wpilibj.hal.AnalogJNI.initializeAnalogInputPort(Native Method), edu.wpi.first.wpilibj.AnalogInput.<init>(AnalogInput.java:53), edu.wpi.first.wpilibj.AnalogGyro.<init>(AnalogGyro.java:61), org.usfirst.frc.team4014.steamworks.autonomous.PivotTest.<init>(PivotTest.java:13), org.usfirst.frc.team4014.steamworks.Robot.autonomousInit(Robot.java:84), edu.wpi.first.wpilibj.IterativeRobot.startCompetition(IterativeRobot.java:110), edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:247)] 
+ WARNING: Robots don't quit! 
+ ---> The startCompetition() method (or methods called by it) should have handled the exception above. 
+ ➔ Launching «'/usr/local/frc/JRE/bin/java' '-Djava.library.path=/usr/local/frc/lib/' '-jar' '/home/lvuser/FRCUserProgram.jar'» 
+ ********** Robot program starting ********** 
+Warning  44003  FRC:  No robot code is currently running.  Driver Station 
+ NT: server: client CONNECTED: 169.254.136.237 port 62317 
+ Default IterativeRobot.robotPeriodic() method... Overload me! 
