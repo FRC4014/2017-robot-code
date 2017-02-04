@@ -7,6 +7,7 @@ import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -43,6 +44,26 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
+	private Command FakeAutoCode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * This function is called once each time the robot enters Disabled mode.
+	 * You can use it to reset any subsystem information you want to clear when
+	 * the robot is disabled.
+	 */
+	@Override
+	public void disabledInit() {
+
+	}
+
+	@Override
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+	}
+
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
 	 * between different autonomous modes using the dashboard. The sendable
@@ -70,6 +91,14 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 	}
 
+	/**
+	 * This function is called periodically during autonomous
+	 */
+	@Override
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
+	}
+
 	@Override
 	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
@@ -85,6 +114,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Z-Axis", oi.getMateJoystick().getZ());
 		//putDouble("Z-Axis", oi.getMateJoystick().getZ());
 	}
