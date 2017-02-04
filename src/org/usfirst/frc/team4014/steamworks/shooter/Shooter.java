@@ -27,11 +27,12 @@ public class Shooter extends Subsystem {
 		shooterMotorOne.configPeakOutputVoltage(+12.0f, -12.0f);
 		
 		shooterMotorOne.setProfile(0);
-		shooterMotorOne.setF(0);
+		shooterMotorOne.setF(0.7);
 		shooterMotorOne.setP(0);
 		shooterMotorOne.setI(0);
 		shooterMotorOne.setD(0);
-		//shooterMotorOne.changeControlMode(CANTalon.TalonControlMode.Position);
+		
+		shooterMotorOne.changeControlMode(CANTalon.TalonControlMode.Speed);
 	}
 	
 	/*public StringBuilder getBuilderOfStrings() {
@@ -53,8 +54,16 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void shoot(Joystick joystick) {
-		SmartDashboard.putNumber("Z-Axis", shooterMotorOne.getSpeed());
-		shooterMotorOne.set(oi.getMateJoystick().getY() * 5000);
+		SmartDashboard.putNumber("Z-Axis", shooterMotorOne.getEncVelocity());
+		//if (joystick.getY() == 1){
+			//shooterMotorOne.changeControlMode(CANTalon.TalonControlMode.Speed);
+			shooterMotorOne.set(joystick.getY() * 1500);
+		//}
+		//else
+		//{
+			//shooterMotorOne.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		//}
+		
 	}
 	
 	public void stop() {
