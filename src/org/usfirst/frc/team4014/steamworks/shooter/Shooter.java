@@ -10,16 +10,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter extends Subsystem {
 	//((0.03 * (joystick.getZ())) + 0.96)
+	private static final double SCALE = 0.076923;
+	private static final double ENCODER_TICKS = 60000;
+	private static final double TARGET_RPM_VALUE = SCALE * ENCODER_TICKS;
+	
 	private final CANTalon shooterMotorOne = new CANTalon(7), shooterMotorTwo = new CANTalon(8);
 	
 	private final OI oi;
-
-	//private StringBuilder builderOfStrings;
 	
 	public Shooter(OI oi) {
 		this.oi = oi;
-		///builderOfStrings = new StringBuilder();
 		SmartDashboard.putNumber("Z-Axis", 11);
+		/*
 		shooterMotorOne.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		shooterMotorOne.configEncoderCodesPerRev(2048);
 		
@@ -31,13 +33,10 @@ public class Shooter extends Subsystem {
 		shooterMotorOne.setP(0);
 		shooterMotorOne.setI(0);
 		shooterMotorOne.setD(0);
+		*/
 		
 		shooterMotorOne.changeControlMode(CANTalon.TalonControlMode.Speed);
 	}
-	
-	/*public StringBuilder getBuilderOfStrings() {
-		return builderOfStrings;
-	}*/
 	
 	public CANTalon getTalon() {
 		return shooterMotorOne;
@@ -55,13 +54,13 @@ public class Shooter extends Subsystem {
 	
 	public void shoot(Joystick joystick) {
 		SmartDashboard.putNumber("Z-Axis", shooterMotorOne.getEncVelocity());
-		//if (joystick.getY() == 1){
+		//if (Math.abs(joystick.getY()) <= 0.1){
 			//shooterMotorOne.changeControlMode(CANTalon.TalonControlMode.Speed);
-			shooterMotorOne.set(joystick.getY() * 1500);
+			//shooterMotorOne.set(0);
 		//}
 		//else
 		//{
-			//shooterMotorOne.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+			shooterMotorOne.set(joystick.getY() * 100);
 		//}
 		
 	}
