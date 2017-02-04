@@ -57,6 +57,7 @@ public class Robot extends IterativeRobot {
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			if (!pipeline.filterContoursOutput().isEmpty()) {
 				Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+				
 		    	synchronized (imgLock) {
 		    		centerX = r.x + (r.width / 2);
 		    	}
