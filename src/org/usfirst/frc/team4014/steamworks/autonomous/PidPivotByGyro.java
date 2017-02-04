@@ -3,7 +3,6 @@ package org.usfirst.frc.team4014.steamworks.autonomous;
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -11,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PidPivotByGyro extends PIDCommand {
 	
-	Preferences prefs;
 	private final AnalogGyro gyro;
 	private final DriveTrain driveTrain;
 	
@@ -44,9 +42,9 @@ public class PidPivotByGyro extends PIDCommand {
 		setSetpoint(SmartDashboard.getNumber("Gyro PID Setpoint", 45));
 
 		getPIDController().setPID(
-				prefs.getDouble("Pivot P", 0.7),
-				prefs.getDouble("Pivot I", 0),
-				prefs.getDouble("Pivot D", 0)
+				SmartDashboard.getNumber("P", 7),
+				SmartDashboard.getNumber("I", 0),
+				SmartDashboard.getNumber("D", 0)
 				);
 
 		getPIDController().setAbsoluteTolerance(
