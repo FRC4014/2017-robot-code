@@ -5,31 +5,28 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PidPivotByGyro extends PIDCommand {
 	
-	private final AnalogGyro gyro;
+//	private static final AnalogGyro GYRO = new AnalogGyro(1);
+	private static AnalogGyro GYRO;
+	
 	private final DriveTrain driveTrain;
 	
-	public PidPivotByGyro(AnalogGyro gyro, DriveTrain driveTrain, double angle) {
-		super(0.7,0,0);
+	public PidPivotByGyro(DriveTrain driveTrain, AnalogGyro GYRO, double angle) {
+		super(0.7, 0, 0, 20);
         requires(driveTrain);
-
-		this.gyro = gyro;
+        this.GYRO = GYRO;
 		this.driveTrain = driveTrain;
 		setSetpoint(angle);
 
-		SmartDashboard.putNumber("Gyro PID Output", 0);
-		SmartDashboard.putNumber("Gyro Angle", 0);
-		SmartDashboard.putNumber("Gyro PID Position", 0);
-//		SmartDashboard.putNumber("Gyro PID Setpoint", getSetpoint());
-		SmartDashboard.putBoolean("Gyro PID Is On Target", false);
-
-//		SmartDashboard.getNumber("Speed Factor", 0.5);
+//		SmartDashboard.putNumber("Gyro PID Output", 0);
+//		SmartDashboard.putNumber("Gyro Angle", 0);
+//		SmartDashboard.putNumber("Gyro PID Position", 0);
+//		SmartDashboard.putBoolean("Gyro PID Is On Target", false);
 		
-		LiveWindow.addSensor("Gyro", "Gyro", gyro);
+		LiveWindow.addSensor("Gyro", "Gyro", GYRO);
 		LiveWindow.addActuator("Drive", "Pivot", getPIDController());
 		System.out.println("PidPivotByGyro says hello");
 	}
@@ -49,14 +46,12 @@ public class PidPivotByGyro extends PIDCommand {
 
 		getPIDController().setAbsoluteTolerance(
 				SmartDashboard.getNumber("PID Absolute Tolerance", 0.07));
-//		getPIDController().setContinuous();
-		gyro.reset();
-//		gyro.setSensitivity(0.007);
+
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		double a = gyro.getAngle();
+		double a = GYRO.getAngle();
 		System.out.println("PidPivotByGyro.returnPIDInput: gyro angle = " + a);
 		SmartDashboard.putNumber("Gyro Angle", a);
 		return a;
@@ -64,18 +59,20 @@ public class PidPivotByGyro extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
+		double speedFactor = SmartDashboard.getNumber("Speed Factor", 0.5);
+
+		// limit speedFactor to reasonable values
+		speedFactor = Math.min(speedFactor, 1.0);
+		speedFactor = Math.max(speedFactor, 0.0);
+
+		double speed = output * speedFactor;
+
 		System.out.println("PidPivotByGyro.usePIDOutput: [output = " + output 
 				+ "] [p = " + getPIDController().getP() 
 				+ "] [I = " + getPIDController().getI() 
-				+ "] [D = " + getPIDController().getD() + "]");
-		
-		SmartDashboard.putNumber("Gyro PID Output", output);
-		SmartDashboard.putNumber("Gyro PID Position", getPosition());
-		SmartDashboard.putNumber("Gyro PID Setpoint", getSetpoint());
-		
-		double speedFactor = SmartDashboard.getNumber("Speed Factor", 0.7);
+				+ "] [D = " + getPIDController().getD() 
+				+ "]");
 
-		double speed = output * speedFactor;
 		driveTrain.drive(speed, -speed);
 	}
 

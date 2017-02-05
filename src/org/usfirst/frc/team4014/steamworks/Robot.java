@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4014.steamworks;
 
+import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
 import org.usfirst.frc.team4014.steamworks.autonomous.PidPivotByGyro;
 import org.usfirst.frc.team4014.steamworks.autonomous.PivotByGyro;
 import org.usfirst.frc.team4014.steamworks.autonomous.PivotTest;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	private static final AnalogGyro GYRO = new AnalogGyro(1);
 	private OI oi;
 	private DriveTrain driveTrain;
 	Command autonomousCommand;
@@ -37,7 +39,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain(oi);
-		Shooter shooter = new Shooter(oi);
+//		Shooter shooter = new Shooter(oi);
 
 		SmartDashboard.putData("Chooser", chooser);
 		
@@ -59,7 +61,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		GYRO.reset();
 	}
 
 	@Override
@@ -81,7 +83,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 //		autonomousCommand = chooser.getSelected();
-	      autonomousCommand = new PivotTest(driveTrain);
+	      autonomousCommand = new PivotTest(driveTrain,GYRO);
+//		autonomousCommand = new FakeAutonomousCommand(driveTrain);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
