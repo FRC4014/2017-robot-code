@@ -13,40 +13,50 @@ public class VisionTracker {
 	private final int LIFECAM_HORIZONTAL_ANGLE = 60;
 	private final int PIXEL_DISTANCE = 226;
 	private VisionThread visionThread;
-	private double centerX = 0.0;
+	private double centerX1 = 0.0;
+	private double centerX2 = 0.0;
 	private final Object imgLock = new Object();
+	private double[] contours = new double[2];
+	public UsbCamera camera;
 	
-	public VisionTracker(){
-	
-	}
-	
-	public VisionTracker(UsbCamera camera) {
+	public VisionTracker() {
+		camera = USBCameraFactory.getCamera();
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			if (!pipeline.filterContoursOutput().isEmpty()) {
-				Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-		    	synchronized (imgLock) {
-		    		centerX = r.x + (r.width / 2);
-		    	}
-		    	SmartDashboard.putNumber("centerX", centerX);
+				if (pipeline.filterContoursOutput().size() > 1){
+					Rect r1 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+			    	Rect r2 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
+					synchronized (imgLock) {
+			    		centerX1 = r1.x + (r1.width / 2);
+			    		centerX2 = r2.x + (r2.width / 2);
+			    	}
+					
+				}
+				SmartDashboard.putNumber("centerX1", centerX1);
+		    	SmartDashboard.putNumber("centerX2", centerX2);
 			}
 		});
 		visionThread.start();
 	}
 	
-	public double findContoursCenterX(){
+	public double[] findContoursCenterX(){
 		synchronized (imgLock) {
-			centerX = this.centerX;
-			return centerX;
+			contours[0] = this.centerX1;
+			contours[1] = this.centerX2;
+			
+			return contours;
 		}
 	}
+	
+	
 	private double calculateDeltaAngle(double targetpixel){
 		double pixelchange = (FOV_WIDTH/2) - targetpixel;
 		double deltaangle = Math.atan((pixelchange/PIXEL_DISTANCE));
 		return deltaangle;
 	}
 	
-	private double middleOfTwoContours(double contour1centerx, double contour2centerx){
-		double middleofcontours = (contour1centerx + contour2centerx)/2;
+	private double middleOfTwoContours(double[] contours){
+		double middleofcontours = (contours[0] + contours[1]) / 2;
 		return middleofcontours;
 	}
 }

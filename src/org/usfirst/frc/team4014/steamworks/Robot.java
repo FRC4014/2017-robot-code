@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.vision.GripPipeline;
+import org.usfirst.frc.team4014.steamworks.vision.USBCameraFactory;
+import org.usfirst.frc.team4014.steamworks.vision.VisionTracker;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,15 +30,12 @@ import org.usfirst.frc.team4014.steamworks.vision.GripPipeline;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	private static final int IMG_WIDTH = 320;
-	private static final int IMG_HEIGHT = 240;
 	
 	private VisionThread visionThread;
+	private VisionTracker vision;
 	private double centerX = 0.0;
 	private RobotDrive drive;
 	private DriveTrain driveTrain;
-	
 	private final Object imgLock = new Object();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -49,22 +48,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		OI oi = new OI();
 		driveTrain = new DriveTrain(oi);
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		camera.setExposureManual(-100);
-		camera.setExposureHoldCurrent();
-		camera.setBrightness(-1000);
-		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
-			if (!pipeline.filterContoursOutput().isEmpty()) {
-				Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-				
-		    	synchronized (imgLock) {
-		    		centerX = r.x + (r.width / 2);
-		    	}
-		    	SmartDashboard.putNumber("centerX", centerX);
-			}
-		});
-		visionThread.start();
+		vision = new VisionTracker();
 		
 		// TODO: research what chooser default is all about.
 		// chooser.addDefault("Default Auto", new ExampleCommand());
@@ -121,23 +105,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		double centerX;
-		synchronized (imgLock) {
-			centerX = this.centerX;
+
 		}
 //		SmartDashboard.putNumber("centerX", centerX);
 //		  if centerx is less we need to turn to the left
-		if(Math.abs((IMG_WIDTH/2)-(centerX)) > 3){
-			if(centerX < IMG_WIDTH/2){
-				driveTrain.drive(-0.3,0.3);
-			}
-			if(centerX > IMG_WIDTH/2){
-				driveTrain.drive(0.5, -0.5);
-			}
-		}
+
+		
 //		double turn = centerX - (IMG_WIDTH / 2);
 //		drive.arcadeDrive(-0.6, turn * 0.005);
-	}
+
 
 	@Override
 	public void teleopInit() {

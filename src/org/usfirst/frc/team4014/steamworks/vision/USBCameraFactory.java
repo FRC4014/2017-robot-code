@@ -3,13 +3,13 @@ package org.usfirst.frc.team4014.steamworks.vision;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 
-public class USBCameraSetup {
+public final class USBCameraFactory {
 	
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
-	private UsbCamera camera;
+	private static UsbCamera camera;
 	
-	public USBCameraSetup() {
+	static {
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		camera.setExposureManual(-100);
@@ -17,7 +17,7 @@ public class USBCameraSetup {
 		camera.setBrightness(-1000);
 	}
 	
-	public UsbCamera getCamera(){
+	public static final UsbCamera getCamera(){
 		return camera;
 	}
 		
