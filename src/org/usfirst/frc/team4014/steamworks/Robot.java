@@ -32,40 +32,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		DriveTrain driveTrain = new DriveTrain(oi);
-		Shooter shooter = new Shooter(oi);
-	
-		
-		// TODO: research what chooser default is all about.
-
-		SmartDashboard.putData("Chooser", chooser);
-		SmartDashboard.putNumber("test", 42);
-		
-		SmartDashboard.putString("xxxx", "hello");
-		SmartDashboard.putNumber("Z-Axis", 11);
-		SmartDashboard.putString("xxxx", "");
-		SmartDashboard.putBoolean("asdf", true);
-		
-		
-		chooser.addDefault("default auto", FakeAutoCode());
-		chooser.addObject("other auto", FakeAutoCode());
-
-		SmartDashboard.putData("Auto mode", chooser);
-	}
-
-	private Command FakeAutoCode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
-	 */
-	@Override
-	public void disabledInit() {
-
+		new DriveTrain(oi);
+		new Shooter(oi);
 	}
 
 	@Override
@@ -125,7 +93,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Z-Axis", (0.095 * (oi.getMateJoystick().getZ())) + 0.895);
-		//putDouble("Z-Axis", oi.getMateJoystick().getZ());
 	}
 
 	/**
