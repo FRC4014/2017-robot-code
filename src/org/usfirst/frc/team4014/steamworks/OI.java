@@ -1,9 +1,6 @@
 package org.usfirst.frc.team4014.steamworks;
 
-import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -14,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 	
     public Joystick driverJoystick, mateJoystick;
-    public Shooter shooter;
 	
 	public OI() {
         driverJoystick = new Joystick(0);
@@ -24,7 +20,6 @@ public class OI {
 	}
 
 	public Joystick getDriverJoystick() {
-		// TODO Auto-generated method stub
 		return driverJoystick;
 	}
 	
