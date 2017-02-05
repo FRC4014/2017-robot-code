@@ -1,0 +1,21 @@
+
+
+
+
+
+
+ERROR  1  ERROR Unhandled exception instantiating robot org.usfirst.frc.team4014.steamworks.Robot 
+java.lang.IllegalStateException: 
+Network tables has already been initialized at [edu.wpi.first.wpilibj.networktables.NetworkTable.checkInit(NetworkTable.java:31), 
+edu.wpi.first.wpilibj.networktables.NetworkTable.setPersistentFilename(NetworkTable.java:160), 
+edu.wpi.first.wpilibj.RobotBase.<init>(RobotBase.java:63), 
+edu.wpi.first.wpilibj.IterativeRobot.<init>(IterativeRobot.java:49), 
+org.usfirst.frc.team4014.steamworks.Robot.<init>(Robot.java:22), 
+sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method), 
+sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62), 
+sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45), 
+java.lang.reflect.Constructor.newInstance(Constructor.java:408), 
+java.lang.Class.newInstance(Class.java:433), 
+edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:216)]  
+edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:218) 
+ Error at edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:218): ERROR Unhandled exception instantiating robot org.usfirst.frc.team4014.steamworks.Robot java.lang.IllegalStateException: Network tables has already been initialized at [edu.wpi.first.wpilibj.networktables.NetworkTable.checkInit(NetworkTable.java:31), edu.wpi.first.wpilibj.networktables.NetworkTable.setPersistentFilename(NetworkTable.java:160), edu.wpi.first.wpilibj.RobotBase.<init>(RobotBase.java:63), edu.wpi.first.wpilibj.IterativeRobot.<init>(IterativeRobot.java:49), org.usfirst.frc.team4014.steamworks.Robot.<init>(Robot.java:22), sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method), sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62), sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45), 

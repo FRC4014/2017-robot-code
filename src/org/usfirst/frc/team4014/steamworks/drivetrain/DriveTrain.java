@@ -31,7 +31,7 @@ public class DriveTrain extends Subsystem {
      */
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoystick(oi, this));
+//		setDefaultCommand(new DriveWithJoystick(oi, this));
 	}
 
     /**

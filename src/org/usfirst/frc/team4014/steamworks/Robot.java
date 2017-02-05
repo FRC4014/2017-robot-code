@@ -1,22 +1,17 @@
 
 package org.usfirst.frc.team4014.steamworks;
 
+import org.usfirst.frc.team4014.steamworks.autonomous.JustPivotAlready;
+import org.usfirst.frc.team4014.steamworks.autonomous.PIDPivotByGyro;
+import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
+
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
-import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
-<<<<<<< HEAD
-import org.usfirst.frc.team4014.steamworks.drivetrain.DriveWithJoystick;
-=======
-import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
-import org.usfirst.frc.team4014.steamworksAUTO.FakeAutoCode;
->>>>>>> 19b29d8af30d4a36ac65a29a1c94d964f6640f88
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,9 +22,17 @@ import org.usfirst.frc.team4014.steamworksAUTO.FakeAutoCode;
  */
 public class Robot extends IterativeRobot {
 
-	private OI oi;
-	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	private Command autonomousCommand;
+	
+	public static final AnalogGyro GYRO = new AnalogGyro(1);
+	static {
+		GYRO.initGyro();
+	}
+
+	public static final OI OI = new OI();
+	public static final DriveTrain DRIVE_TRAIN = new DriveTrain(OI);
+
+	private SendableChooser<Command> chooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -37,49 +40,19 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
-		DriveTrain driveTrain = new DriveTrain(oi);
-		Shooter shooter = new Shooter(oi);
-	
-		
-		// TODO: research what chooser default is all about.
-<<<<<<< HEAD
-//		chooser.addDefault("Default Auto", new FakeAutonomousCommand());
-//		chooser.addObject("My Auto", new FakeAutonomousCommand());
-
-		SmartDashboard.putData("Chooser", chooser);
-//		SmartDashboard.putDa
-		SmartDashboard.putNumber("test", 42);
-		
-		SmartDashboard.putString("xxxx", "hello");
-=======
-//		 chooser.addDefault("Default Auto", new FakeAutoCode());
-//		 chooser.addObject("My Auto", new FakeAutoCode());
-		SmartDashboard.putNumber("Z-Axis", 11);
-		SmartDashboard.putString("xxxx", "");
-		SmartDashboard.putBoolean("asdf", true);
-		
-		
-		chooser.addDefault("default auto", FakeAutoCode());
-		chooser.addObject("other auto", FakeAutoCode());
-
+		chooser = new SendableChooser<>();
+		chooser.addDefault("PID Pivot 45", new PIDPivotByGyro(45));
+		chooser.addObject("Just Pivot 500", new JustPivotAlready(500));
 		SmartDashboard.putData("Auto mode", chooser);
-	}
 
-	private Command FakeAutoCode() {
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> 19b29d8af30d4a36ac65a29a1c94d964f6640f88
-	}
-
-	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
-	 */
-	@Override
-	public void disabledInit() {
-
+		SmartDashboard.putData("Just Pivot 200", new JustPivotAlready(200));
+		SmartDashboard.putData("PID Pivot 45", new PIDPivotByGyro(45));
+		SmartDashboard.putData("PID Pivot -45", new PIDPivotByGyro(-45));
+		SmartDashboard.putData("PID Pivot 90", new PIDPivotByGyro(90));
+		SmartDashboard.putData("PID Pivot -90", new PIDPivotByGyro(-90));
+		
+//		This caused robot to fail 
+//        SmartDashboard.putData(Scheduler.getInstance()); //put currently running commands
 	}
 
 	@Override
@@ -100,16 +73,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+//		autonomousCommand = chooser.getSelected();
+		autonomousCommand = new PIDPivotByGyro(45);
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -138,8 +104,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Z-Axis", oi.getMateJoystick().getZ());
-		//putDouble("Z-Axis", oi.getMateJoystick().getZ());
 	}
 
 	/**

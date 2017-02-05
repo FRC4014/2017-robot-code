@@ -3,9 +3,6 @@ package org.usfirst.frc.team4014.steamworks;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,8 +16,6 @@ public class OI {
 	public OI() {
         driverJoystick = new Joystick(0);
         mateJoystick = new Joystick(1);
-        SmartDashboard.putData(Scheduler.getInstance()); //put currently running commands
-        SmartDashboard.putString("Foo", "Bar");
 	}
 
 	public Joystick getDriverJoystick() {
