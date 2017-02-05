@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 	//((0.03 * (joystick.getZ())) + 0.96)
-	public final CANTalon shooterMotorOne = new CANTalon(7), shooterMotorTwo = new CANTalon(8);
+	public static final CANTalon shooterMotorOne = new CANTalon(7), shooterMotorTwo = new CANTalon(8);
 	
 	private final OI oi;
 	
