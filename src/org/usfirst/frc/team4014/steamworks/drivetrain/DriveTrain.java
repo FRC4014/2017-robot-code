@@ -17,13 +17,12 @@ public class DriveTrain extends Subsystem {
     	rightMotor1 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_1),
     	rightMotor2 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_2);
     
-    public final RobotDrive robotDrive = new RobotDrive(
-        leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-
+    public final RobotDrive robotDrive;
 	private final OI oi;
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
+		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 	}
   
     /**
