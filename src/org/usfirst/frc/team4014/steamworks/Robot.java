@@ -4,7 +4,9 @@ package org.usfirst.frc.team4014.steamworks;
 import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.gear.Gear;
+import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+import org.usfirst.frc.team4014.steamworks.winch.Winch;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -36,6 +38,8 @@ public class Robot extends IterativeRobot {
 		new DriveTrain(oi);
 		new Shooter(oi);
 		new Gear(oi);
+		new Winch(oi);
+		new FuelIntake(oi);	
 	}
 
 	@Override
