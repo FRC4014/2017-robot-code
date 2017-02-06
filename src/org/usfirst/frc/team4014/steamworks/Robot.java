@@ -43,6 +43,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
+	public void robotPeriodic() {
+		Scheduler.getInstance().run();
+	}
+
+	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
