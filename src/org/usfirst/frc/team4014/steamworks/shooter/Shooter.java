@@ -20,7 +20,8 @@ public class Shooter extends Subsystem {
 	
 	public Shooter(OI oi) {
 		this.oi = oi;
-		SmartDashboard.putNumber("Z-Axis", 11);
+		SmartDashboard.putNumber("RPM", 11);
+		SmartDashboard.putNumber("EncVelocity", 11);
 		/*
 		shooterMotorOne.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		shooterMotorOne.configEncoderCodesPerRev(2048);
@@ -53,14 +54,32 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void shoot(Joystick joystick) {
-		SmartDashboard.putNumber("Z-Axis", shooterMotorOne.getEncVelocity());
+		SmartDashboard.putNumber("RPM", (0.019181 * Math.abs(shooterMotorOne.getEncVelocity())) + 67.142);
+		SmartDashboard.putNumber("EncVelocity", shooterMotorOne.getEncVelocity());
+		int rpm = 0;
 		//if (Math.abs(joystick.getY()) <= 0.1){
 			//shooterMotorOne.changeControlMode(CANTalon.TalonControlMode.Speed);
 			//shooterMotorOne.set(0);
 		//}
 		//else
 		//{
-			shooterMotorOne.set(joystick.getY() * 100);
+			if (joystick.getRawButton(2)) {
+				rpm = 300;
+			}
+			else if (joystick.getRawButton(3)) {
+				rpm = 600;
+			}
+			else if (joystick.getRawButton(4)) {
+				rpm = 900;
+			}
+			else if(joystick.getRawButton(5)) {
+				rpm = 1200;
+			}
+			else {
+				rpm = 0;
+			}
+			
+			shooterMotorOne.set(rpm);
 		//}
 		
 	}
