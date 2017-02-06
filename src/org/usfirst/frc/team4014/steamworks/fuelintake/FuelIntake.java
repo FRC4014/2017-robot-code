@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4014.steamworks.fuelintake;
 
+import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import com.ctre.CANTalon;
@@ -9,8 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class FuelIntake extends Subsystem {
 
-	// TODO: what's the real CAN ID?
-	public static final CANTalon motor = new CANTalon(9);
+	public static final CANTalon motor = new CANTalon(CAN.FUEL_INTAKE_MOTOR);
 
 	private final OI oi;
 	private final JoystickButton button;

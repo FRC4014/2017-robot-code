@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4014.steamworks.winch;
 
+import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
 import org.usfirst.frc.team4014.steamworks.shooter.ShootWithJoystick;
 
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Winch extends Subsystem {
 	
-	public static final CANTalon winchmotor = new CANTalon(6);
+	public static final CANTalon winchmotor = new CANTalon(CAN.WINCH_MOTOR);
 	private final OI oi;
 	private static final double WINCH_SPEED = 1;
 	private final JoystickButton winchbutton; 

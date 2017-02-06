@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4014.steamworks.drivetrain;
 
+import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import com.ctre.CANTalon;
@@ -11,10 +12,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
 
     public final CANTalon 
-    	leftMotor1 = new CANTalon(2),
-    	leftMotor2 = new CANTalon(3),
-    	rightMotor1 = new CANTalon(4),
-    	rightMotor2 = new CANTalon(5);
+    	leftMotor1 = new CANTalon(CAN.DRIVE_TRAIN_LEFT_MOTOR_1),
+    	leftMotor2 = new CANTalon(CAN.DRIVE_TRAIN_LEFT_MOTOR_2),
+    	rightMotor1 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_1),
+    	rightMotor2 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_2);
     
     public final RobotDrive robotDrive = new RobotDrive(
         leftMotor1, leftMotor2, rightMotor1, rightMotor2);
