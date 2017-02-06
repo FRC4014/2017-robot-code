@@ -1,5 +1,11 @@
 package org.usfirst.frc.team4014.steamworks.vision;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 
@@ -16,32 +22,32 @@ public class VisionTracker {
 	private double centerX1 = 0.0;
 	private double centerX2 = 0.0;
 	private final Object imgLock = new Object();
-	private double[] contours = new double[2];
 	public UsbCamera camera;
+	private List<Integer> centerXs;
 	
 	public VisionTracker() {
 		camera = USBCameraFactory.getCamera();
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
-			if (!pipeline.filterContoursOutput().isEmpty()) {
-				if (pipeline.filterContoursOutput().size() > 1){
-					Rect r1 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-			    	Rect r2 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
-					synchronized (imgLock) {
-			    		centerX1 = r1.x + (r1.width / 2);
-			    		centerX2 = r2.x + (r2.width / 2);
-			    	}
-					
-				}
-				SmartDashboard.putNumber("centerX1", centerX1);
-		    	SmartDashboard.putNumber("centerX2", centerX2);
+			ArrayList<Rect> rs = new ArrayList<Rect>();
+			Iterator<MatOfPoint> itr = pipeline.filterContoursOutput().iterator();
+			while(itr.hasNext()){
+				Rect r = Imgproc.boundingRect(itr.next());
+				rs.add(r);
 			}
+			Collections.sort(rs, (Rect a, Rect b) -> (a.area - b.area));
+			synchronized (imgLock) {
+				this.centerXs = Collections.unmodifiableList(tempc);
+			}
+					
+			SmartDashboard.putNumber("centerX1", centerX1);
+		    SmartDashboard.putNumber("centerX2", centerX2);
 		});
 		visionThread.start();
 	}
 	
 	public double[] findContoursCenterX(){
 		synchronized (imgLock) {
-			contours[0] = this.centerX1;
+			centerXs0 = this.centerX1;
 			contours[1] = this.centerX2;
 			
 			return contours;
