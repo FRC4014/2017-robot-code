@@ -98,7 +98,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Z-Axis", (0.095 * (oi.getMateJoystick().getZ())) + 0.895);
 	}
 
 	/**

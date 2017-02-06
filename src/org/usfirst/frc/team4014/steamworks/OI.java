@@ -16,7 +16,6 @@ public class OI {
         driverJoystick = new Joystick(0);
         mateJoystick = new Joystick(1);
         SmartDashboard.putData(Scheduler.getInstance()); //put currently running commands
-        SmartDashboard.putString("Foo", "Bar");
 	}
 
 	public Joystick getDriverJoystick() {
