@@ -3,6 +3,7 @@ package org.usfirst.frc.team4014.steamworks;
 
 import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
+import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		new DriveTrain(oi);
 		new Shooter(oi);
+		new Gear(oi);
 	}
 
 	@Override
