@@ -7,6 +7,7 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class FuelIntake extends Subsystem {
 
@@ -21,6 +22,8 @@ public class FuelIntake extends Subsystem {
 
 		button = new JoystickButton(oi.getMateJoystick(), 4);
 		button.toggleWhenPressed(new EatFuel(this));
+		
+		SmartDashboard.putString("Fuel Intake", "OFF");
 	}
 
 	@Override
