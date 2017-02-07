@@ -4,6 +4,7 @@ import org.usfirst.frc.team4014.steamworks.OI;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Gear extends Subsystem{
 
@@ -17,11 +18,12 @@ public class Gear extends Subsystem{
 		this.oi = oi;
 		JoystickButton b = new JoystickButton(oi.mateJoystick, 10);
 		b.toggleWhenPressed(new ReleaseGear(this));
+		SmartDashboard.putString("Gear Control Status", "Closed");
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new ReleaseGear(this));
+
 	}
 
 	public void open(){
