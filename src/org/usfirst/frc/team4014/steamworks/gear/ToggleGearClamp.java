@@ -3,13 +3,13 @@ package org.usfirst.frc.team4014.steamworks.gear;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ReleaseGear extends Command{
+public class ToggleGearClamp extends Command{
 	
 	private final Gear gear;
 	
 	
 
-	public ReleaseGear(Gear gear) {
+	public ToggleGearClamp(Gear gear) {
 		this.gear = gear;
 		requires(gear);
 	}

@@ -17,7 +17,7 @@ public class Gear extends Subsystem{
 	public Gear (OI oi){
 		this.oi = oi;
 		JoystickButton b = new JoystickButton(oi.mateJoystick, 10);
-		b.toggleWhenPressed(new ReleaseGear(this));
+		b.toggleWhenPressed(new ToggleGearClamp(this));
 		SmartDashboard.putString("Gear Control Status", "Closed");
 	}
 	
