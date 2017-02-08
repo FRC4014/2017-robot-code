@@ -7,14 +7,13 @@ import org.usfirst.frc.team4014.steamworks.gear.OpenGearClamp;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class CenterPosition extends CommandGroup {
-
-	public CenterPosition(DriveTrain driveTrain, Gear gear){
-		addSequential(new Drive(driveTrain, 83, 0.8));
-		addSequential(new Drive(driveTrain, 10, 0.2));
+public class BoilerPositionRed extends CommandGroup{
+	public BoilerPositionRed(DriveTrain driveTrain, Gear gear){
+		addSequential(new Drive(driveTrain, 108, 0.8));
+		//TODO: turn 45 degrees and adjust using vision
+		//TODO: figure out how far forward we need to go
 		addSequential(new OpenGearClamp(gear));
 		addSequential(new Drive(driveTrain, -12, -0.25));
 		addSequential(new CloseGearClamp(gear));
 	}
-	
 }
