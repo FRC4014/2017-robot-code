@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LoadingZonePositionBlue extends CommandGroup{
 	public LoadingZonePositionBlue(DriveTrain driveTrain, Gear gear){
 		addSequential(new Drive(driveTrain, 102, 0.8));
-		//TODO: turn 45 degrees and adjust using vision
+		addSequential(new PivotByGyro(driveTrain, 0.5, 45));
+		//TODO: adjust using vision
 		//TODO: figure out how far forward we need to go
 		addSequential(new OpenGearClamp(gear));
 		addSequential(new Drive(driveTrain, -12, -0.25));
