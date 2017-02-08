@@ -1,7 +1,12 @@
 
 package org.usfirst.frc.team4014.steamworks;
 
+import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionBlue;
+import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionRed;
+import org.usfirst.frc.team4014.steamworks.autonomous.CenterPosition;
 import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
+import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionBlue;
+import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionRed;
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
@@ -27,6 +32,7 @@ public class Robot extends IterativeRobot {
 	private OI oi;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -35,11 +41,19 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		new DriveTrain(oi);
+		DriveTrain driveTrain = new DriveTrain(oi);
 		new Shooter(oi);
-		new Gear(oi);
+		Gear gear = new Gear(oi);
 		new Winch(oi);
 		new FuelIntake(oi);	
+		
+		chooser.addDefault("Center", new CenterPosition(driveTrain, gear));
+		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear));
+		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear));
+		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear));
+		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear));
+		chooser.addObject("Do Nothing", new FakeAutonomousCommand());
+		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
 	}
 
 	@Override
@@ -65,7 +79,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new FakeAutonomousCommand();
+		autonomousCommand = chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
