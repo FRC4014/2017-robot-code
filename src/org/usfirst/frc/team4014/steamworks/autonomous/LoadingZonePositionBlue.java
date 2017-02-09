@@ -13,6 +13,7 @@ public class LoadingZonePositionBlue extends CommandGroup{
 		addSequential(new PivotByGyro(driveTrain, 0.5, 45));
 		//TODO: adjust using vision
 		//TODO: figure out how far forward we need to go
+		addSequential(new SlowGearAproach(driveTrain, 0.25, gear));
 		addSequential(new OpenGearClamp(gear));
 		addSequential(new Drive(driveTrain, -12, -0.25));
 		addSequential(new CloseGearClamp(gear));
