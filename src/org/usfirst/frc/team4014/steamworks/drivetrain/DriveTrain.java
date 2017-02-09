@@ -5,6 +5,7 @@ import org.usfirst.frc.team4014.steamworks.OI;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,10 +20,15 @@ public class DriveTrain extends Subsystem {
     
     public final RobotDrive robotDrive;
 	private final OI oi;
+	private Encoder enc;
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+		enc = new Encoder(0,1,false, Encoder.EncodingType.k4X);
+		enc.setDistancePerPulse(18.8495559); //wheel diameter * pi
+		enc.setMaxPeriod(.1);
+		enc.setMinRate(10);
 	}
   
     /**
@@ -61,5 +67,11 @@ public class DriveTrain extends Subsystem {
      */
 	public void stop() {
 		drive(0,0);	
+	}
+	public double encoderDistance(){
+		return enc.getDistance();
+	}
+	public void encoderReset(){
+		enc.reset();
 	}
 }

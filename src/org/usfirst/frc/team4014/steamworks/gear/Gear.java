@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4014.steamworks.gear;
 
 import org.usfirst.frc.team4014.steamworks.OI;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,6 +13,7 @@ public class Gear extends Subsystem{
 	public final Servo 
 		leftServo = new Servo(1),
 		rightServo = new Servo(2);
+	DigitalInput limit = new DigitalInput(0);
 	
 	public final OI oi;
 	
@@ -33,6 +36,9 @@ public class Gear extends Subsystem{
 	public void close(){
 		leftServo.setAngle(0);
 		rightServo.setAngle(0);
+	}
+	public boolean limitSwitch(){
+		return limit.get();
 	}
 	
 }

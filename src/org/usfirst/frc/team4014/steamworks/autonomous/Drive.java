@@ -14,7 +14,7 @@ public class Drive extends Command {
 	private final DriveTrain driveTrain;
 	private double speed;
 	private double distance;
-	private Encoder enc;
+	
 	
 	public Drive(DriveTrain driveTrain, double distance, double speed) {
 		this.driveTrain = driveTrain;
@@ -23,16 +23,12 @@ public class Drive extends Command {
 	}
 
 	protected void initialize (){
-		enc = new Encoder(0,1,false, Encoder.EncodingType.k4X);
-		enc.setDistancePerPulse(18.8495559); //wheel diameter * pi
-		enc.setMaxPeriod(.1);
-		enc.setMinRate(10);
-		if(distance < 0){
-			enc.setReverseDirection(true);
-			distance = distance * -1;
-		} else {
-			enc.setReverseDirection(false);
-		}
+//		if(distance < 0){
+//		enc.setReverseDirection(true);
+//		distance = distance * -1;
+//	} else {
+//		enc.setReverseDirection(false);
+//	}
 	}
 	
 		//Calls repeatedly
@@ -42,8 +38,8 @@ public class Drive extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		if(enc.getDistance() >= distance){
-			enc.reset();
+		if(driveTrain.encoderDistance() >= distance){
+			driveTrain.encoderReset();
 			return true;
 		}
 		else {
