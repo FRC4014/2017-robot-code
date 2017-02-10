@@ -11,7 +11,7 @@ public class CenterPosition extends CommandGroup {
 
 	public CenterPosition(DriveTrain driveTrain, Gear gear){
 		addSequential(new Drive(driveTrain, 83, 0.8));
-		addSequential(new SlowGearAproach(driveTrain, 0.25, gear));
+		addSequential(new SlowGearAproach(driveTrain, 0.5, gear));
 		addSequential(new OpenGearClamp(gear));
 		addSequential(new Drive(driveTrain, -12, -0.25));
 		addSequential(new CloseGearClamp(gear));
