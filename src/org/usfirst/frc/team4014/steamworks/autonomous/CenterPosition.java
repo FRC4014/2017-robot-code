@@ -6,10 +6,11 @@ import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.gear.OpenGearClamp;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class CenterPosition extends CommandGroup {
 
-	public CenterPosition(DriveTrain driveTrain, Gear gear){
+	public CenterPosition(DriveTrain driveTrain, Gear gear, Gyro gyro){
 		addSequential(new Drive(driveTrain, 83, 0.8));
 		addSequential(new SlowGearAproach(driveTrain, 0.5, gear));
 		addSequential(new OpenGearClamp(gear));

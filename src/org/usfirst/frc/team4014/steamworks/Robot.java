@@ -13,6 +13,7 @@ import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
 import org.usfirst.frc.team4014.steamworks.winch.Winch;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -29,6 +30,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	private static final AnalogGyro Gyro = new AnalogGyro(1);
 	private OI oi;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -47,11 +49,11 @@ public class Robot extends IterativeRobot {
 		new Winch(oi);
 		new FuelIntake(oi);	
 		
-		chooser.addDefault("Center", new CenterPosition(driveTrain, gear));
-		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear));
-		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear));
-		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear));
-		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear));
+		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, Gyro));
+		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, Gyro));
+		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, Gyro));
+		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, Gyro));
+		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, Gyro));
 		chooser.addObject("Do Nothing", new FakeAutonomousCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
 	}
@@ -61,6 +63,10 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
+	@Override
+	public void disabledInit() {
+		Gyro.reset();
+	}
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();

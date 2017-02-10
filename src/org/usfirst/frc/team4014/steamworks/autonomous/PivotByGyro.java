@@ -17,10 +17,11 @@ public class PivotByGyro extends Command {
 	private Gyro gyro;
 	private double range;
 	
-	public PivotByGyro(DriveTrain driveTrain, double speed, double angle) {
+	public PivotByGyro(DriveTrain driveTrain, double speed, double angle, Gyro gyro) {
 		this.driveTrain = driveTrain;
 		this.speed = speed;
 		this.angle = angle;
+		this.gyro = gyro;
 	}
 	
 	protected void initialize(){
