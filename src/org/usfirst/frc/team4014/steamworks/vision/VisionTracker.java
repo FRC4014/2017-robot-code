@@ -2,6 +2,7 @@ package org.usfirst.frc.team4014.steamworks.vision;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,11 +20,9 @@ public class VisionTracker {
 	private final int LIFECAM_HORIZONTAL_ANGLE = 60;
 	private final int PIXEL_DISTANCE = 226;
 	private VisionThread visionThread;
-	private double centerX1 = 0.0;
-	private double centerX2 = 0.0;
 	private final Object imgLock = new Object();
 	public UsbCamera camera;
-	private List<Integer> centerXs;
+	private int[] centerXs = {0,0};
 	
 	public VisionTracker() {
 		camera = USBCameraFactory.getCamera();
@@ -34,35 +33,40 @@ public class VisionTracker {
 				Rect r = Imgproc.boundingRect(itr.next());
 				rs.add(r);
 			}
-			Collections.sort(rs, (Rect a, Rect b) -> (a.area - b.area));
+			Collections.sort(rs, (Rect a, Rect b) -> ((int)(a.area() - b.area())));
+
+			int[] xs = new int[] {
+					centerx(rs.get(0)),
+					centerx(rs.get(1))
+			};
 			synchronized (imgLock) {
-				this.centerXs = Collections.unmodifiableList(tempc);
+				centerXs = xs;
 			}
-					
-			SmartDashboard.putNumber("centerX1", centerX1);
-		    SmartDashboard.putNumber("centerX2", centerX2);
+			
+			SmartDashboard.putNumber("centerX1", centerXs[0]);
+		    SmartDashboard.putNumber("centerX2", centerXs[1]);
 		});
 		visionThread.start();
 	}
 	
-	public double[] findContoursCenterX(){
-		synchronized (imgLock) {
-			centerXs0 = this.centerX1;
-			contours[1] = this.centerX2;
-			
-			return contours;
-		}
+	private int centerx(Rect rect) {
+		return rect.x + (rect.width / 2);
 	}
 	
 	
-	private double calculateDeltaAngle(double targetpixel){
-		double pixelchange = (FOV_WIDTH/2) - targetpixel;
-		double deltaangle = Math.atan((pixelchange/PIXEL_DISTANCE));
-		return deltaangle;
+	private double calculateDeltaAngle(double targetPixel){
+		double pixelChange = (FOV_WIDTH/2) - targetPixel;
+		double deltaAngle = Math.atan((pixelChange/PIXEL_DISTANCE));
+		return deltaAngle;
 	}
 	
-	private double middleOfTwoContours(double[] contours){
-		double middleofcontours = (contours[0] + contours[1]) / 2;
-		return middleofcontours;
+	private double middleOfTwoContours(){
+		double middleOfContours = (this.centerXs[0] + this.centerXs[1]) / 2;
+		return middleOfContours;
+	}
+	
+	public double getDeltaAngle(){
+		double pixelTarget = middleOfTwoContours();
+		return calculateDeltaAngle(pixelTarget);
 	}
 }
