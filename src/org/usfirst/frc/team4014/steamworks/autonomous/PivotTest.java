@@ -13,11 +13,10 @@ public class PivotTest extends CommandGroup{
 	Servo rightServo = new Servo(4);
 
 	public PivotTest(DriveTrain driveTrain, AnalogGyro GYRO) {
-//		addSequential(new PidPivotByGyro(driveTrain,GYRO, 45));
+		addSequential(new PidPivotByGyro(driveTrain,GYRO, 45));
 //		addSequential(new FakeAutonomousCommand(driveTrain));
-		addSequential(new PivotByGyro(driveTrain, GYRO, -180));
-		addSequential(new PivotByGyro(driveTrain, GYRO, 180));
-		gyro = new AnalogGyro(1);
+//		addSequential(new PivotByGyro(driveTrain, GYRO, -180));
+//		addSequential(new PivotByGyro(driveTrain, GYRO, 180));
 //		addSequential(new PidPivotByGyro(gyro, driveTrain, 45));
 //		addSequential(new PivotByGyro(driveTrain, gyro, 90));
 //		new WaitCommand(1000);
