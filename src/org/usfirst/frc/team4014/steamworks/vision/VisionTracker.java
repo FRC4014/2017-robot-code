@@ -26,6 +26,8 @@ public class VisionTracker {
 	
 	public VisionTracker() {
 		camera = USBCameraFactory.getCamera();
+		if (camera.isConnected())
+			System.out.println("VisionTracker: There is a camera!");
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			ArrayList<Rect> rs = new ArrayList<Rect>();
 			Iterator<MatOfPoint> itr = pipeline.filterContoursOutput().iterator();
@@ -33,6 +35,9 @@ public class VisionTracker {
 				Rect r = Imgproc.boundingRect(itr.next());
 				rs.add(r);
 			}
+			SmartDashboard.putNumber("rectangles", rs.size());
+			SmartDashboard.putNumber("centerX1", centerXs[0]);
+		    SmartDashboard.putNumber("centerX2", centerXs[1]);
 			if(rs.size() < 2)
 				return;
 			Collections.sort(rs, (Rect a, Rect b) -> ((int)(a.area() - b.area())));
@@ -44,9 +49,6 @@ public class VisionTracker {
 			synchronized (imgLock) {
 				centerXs = xs;
 			}
-			
-			SmartDashboard.putNumber("centerX1", centerXs[0]);
-		    SmartDashboard.putNumber("centerX2", centerXs[1]);
 		});
 		visionThread.start();
 	}
@@ -64,11 +66,17 @@ public class VisionTracker {
 	
 	private double middleOfTwoContours(){
 		double middleOfContours = (this.centerXs[0] + this.centerXs[1]) / 2;
+		SmartDashboard.putNumber("middle", middleOfContours);
 		return middleOfContours;
 	}
 	
+	private double radiansToDegrees(double rads) {
+		return rads * (180/Math.PI);
+	} 
+	
 	public double getDeltaAngle(){
 		double pixelTarget = middleOfTwoContours();
-		return calculateDeltaAngle(pixelTarget);
+		double deltaAngleRads = calculateDeltaAngle(pixelTarget);
+		return radiansToDegrees(deltaAngleRads);
 	}
 }
