@@ -1,6 +1,21 @@
 
 package org.usfirst.frc.team4014.steamworks;
 
+import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionBlue;
+import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionRed;
+import org.usfirst.frc.team4014.steamworks.autonomous.CenterPosition;
+import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
+import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionBlue;
+import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionRed;
+import org.usfirst.frc.team4014.steamworks.autonomous.PIDPivotByGyro;
+import org.usfirst.frc.team4014.steamworks.autonomous.PivotTest;
+import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
+import org.usfirst.frc.team4014.steamworks.gear.Gear;
+import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
+import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+import org.usfirst.frc.team4014.steamworks.winch.Winch;
+
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -17,11 +32,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
-import org.usfirst.frc.team4014.steamworks.vision.GripPipeline;
-import org.usfirst.frc.team4014.steamworks.vision.USBCameraFactory;
-import org.usfirst.frc.team4014.steamworks.vision.VisionTracker;
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -30,15 +40,13 @@ import org.usfirst.frc.team4014.steamworks.vision.VisionTracker;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
-	private VisionThread visionThread;
-	private VisionTracker vision;
-	private double centerX = 0.0;
-	private RobotDrive drive;
-	private DriveTrain driveTrain;
-	private final Object imgLock = new Object();
+
+	private static final AnalogGyro GYRO = new AnalogGyro(1);
+	private OI oi;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	private DriveTrain driveTrain;
+	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -46,27 +54,38 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		OI oi = new OI();
-	//	driveTrain = new DriveTrain(oi);
-		vision = new VisionTracker();
-		
-		// TODO: research what chooser default is all about.
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		oi = new OI();
+		driveTrain = new DriveTrain(oi);
+		new Shooter(oi);
+		Gear gear = new Gear(oi);
+		new Winch(oi);
+		new FuelIntake(oi);	
 
-		//SmartDashboard.putData("Auto mode", chooser);
+		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
+		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
+		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
+		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, GYRO));
+		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
+		chooser.addObject("Do Nothing", new FakeAutonomousCommand());
+		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
+		
+		SmartDashboard.putData("pivot 0.5 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, 45));
+		SmartDashboard.putData("pivot 0.5 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, -45));
+		SmartDashboard.putData("pivot 0.8 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, 45));
+		SmartDashboard.putData("pivot 0.8 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, -45));
+		SmartDashboard.putData("pivot 1 45:", new PIDPivotByGyro(driveTrain, GYRO, 1, 45));
+		SmartDashboard.putData("pivot 1 -45:", new PIDPivotByGyro(driveTrain, GYRO, 1, -45));
 	}
 
-	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
-	 */
+	@Override
+	public void robotPeriodic() {
+		Scheduler.getInstance().run();
+	}
+
 	@Override
 	public void disabledInit() {
-
+		GYRO.reset();
 	}
-
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
@@ -85,16 +104,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//autonomousCommand = chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
+//		autonomousCommand = chooser.getSelected();
+//		autonomousCommand = new PivotTest(driveTrain, GYRO);\
+		
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
