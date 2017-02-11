@@ -47,7 +47,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		OI oi = new OI();
-		driveTrain = new DriveTrain(oi);
+	//	driveTrain = new DriveTrain(oi);
 		vision = new VisionTracker();
 		
 		// TODO: research what chooser default is all about.

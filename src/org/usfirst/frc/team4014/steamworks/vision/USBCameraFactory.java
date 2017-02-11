@@ -9,15 +9,21 @@ public final class USBCameraFactory {
 	private static final int IMG_HEIGHT = 240;
 	private static UsbCamera camera;
 	
-	static {
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-		camera.setExposureManual(-100);
-		camera.setExposureHoldCurrent();
-		camera.setBrightness(-1000);
-	}
-	
-	public static final UsbCamera getCamera(){
+	public static synchronized final UsbCamera getCamera(){
+		if (camera == null) {
+			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+			camera.setExposureManual(-100);
+			camera.setExposureHoldCurrent();
+			camera.setBrightness(-1000);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("USBCameraFactory.getCamera: The camera has been created");
+		}
 		return camera;
 	}
 		

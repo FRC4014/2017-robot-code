@@ -22,7 +22,7 @@ public class VisionTracker {
 	private VisionThread visionThread;
 	private final Object imgLock = new Object();
 	public UsbCamera camera;
-	private int[] centerXs = {0,0};
+	private int[] centerXs = {-1,-1};
 	
 	public VisionTracker() {
 		camera = USBCameraFactory.getCamera();
@@ -33,6 +33,8 @@ public class VisionTracker {
 				Rect r = Imgproc.boundingRect(itr.next());
 				rs.add(r);
 			}
+			if(rs.size() < 2)
+				return;
 			Collections.sort(rs, (Rect a, Rect b) -> ((int)(a.area() - b.area())));
 
 			int[] xs = new int[] {
