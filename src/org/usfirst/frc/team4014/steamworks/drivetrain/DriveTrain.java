@@ -20,15 +20,15 @@ public class DriveTrain extends Subsystem {
     
     public final RobotDrive robotDrive;
 	private final OI oi;
-	private Encoder enc;
+	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-		enc = new Encoder(0,1,false, Encoder.EncodingType.k4X);
-		enc.setDistancePerPulse(18.8495559); //wheel diameter * pi
-		enc.setMaxPeriod(.1);
-		enc.setMinRate(10);
+		
+		ENCODER.setDistancePerPulse(18.8495559); //wheel diameter * pi
+		ENCODER.setMaxPeriod(.1);
+		ENCODER.setMinRate(10);
 	}
   
     /**
@@ -37,7 +37,7 @@ public class DriveTrain extends Subsystem {
      */
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoystick(oi, this));
+//		setDefaultCommand(new DriveWithJoystick(oi, this));
 	}
 
     /**
@@ -69,9 +69,9 @@ public class DriveTrain extends Subsystem {
 		drive(0,0);	
 	}
 	public double encoderDistance(){
-		return enc.getDistance();
+		return ENCODER.getDistance();
 	}
 	public void encoderReset(){
-		enc.reset();
+		ENCODER.reset();
 	}
 }
