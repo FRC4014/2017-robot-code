@@ -32,7 +32,7 @@ public class Gear extends Subsystem {
 
 	public void open() {
 		leftServo.setAngle(90);
-		rightServo.setAngle(90);
+		rightServo.setAngle(-90);
 		SmartDashboard.putString("Gear Control Status", "Open");
 	}
 
