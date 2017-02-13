@@ -40,7 +40,12 @@ public class VisionTracker {
 		    SmartDashboard.putNumber("centerX2", centerXs[1]);
 			if(rs.size() < 2)
 				return;
-			Collections.sort(rs, (Rect a, Rect b) -> ((int)(a.area() - b.area())));
+			Collections.sort(rs, (Rect a, Rect b) -> ((int)(b.area() - a.area())));
+			
+			final StringBuilder x = new StringBuilder();
+			Iterator<Rect> itrr = rs.iterator();
+			while (itrr.hasNext()) x.append(", ").append(itrr.next().area());
+			SmartDashboard.putString("Sorted Rect Areas:", x.substring(2));
 
 			int[] xs = new int[] {
 					centerx(rs.get(0)),
@@ -71,12 +76,12 @@ public class VisionTracker {
 	}
 	
 	private double radiansToDegrees(double rads) {
-		return rads * (180/Math.PI);
+		return rads * (90/Math.PI);
 	} 
 	
 	public double getDeltaAngle(){
 		double pixelTarget = middleOfTwoContours();
 		double deltaAngleRads = calculateDeltaAngle(pixelTarget);
-		return radiansToDegrees(deltaAngleRads);
+		return 0 - radiansToDegrees(deltaAngleRads);
 	}
 }

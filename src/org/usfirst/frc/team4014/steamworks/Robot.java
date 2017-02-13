@@ -13,6 +13,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+import org.usfirst.frc.team4014.steamworks.vision.PivotByVision;
 import org.usfirst.frc.team4014.steamworks.vision.USBCameraFactory;
 import org.usfirst.frc.team4014.steamworks.vision.VisionTracker;
 import org.usfirst.frc.team4014.steamworks.winch.Winch;
@@ -57,8 +58,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-//		oi = new OI();
-//		driveTrain = new DriveTrain(oi);
+		oi = new OI();
+		driveTrain = new DriveTrain(oi);
 		vision = new VisionTracker();
 //		new Shooter(oi);
 //		Gear gear = new Gear(oi);
@@ -79,6 +80,12 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putData("pivot 0.8 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, -45));
 //		SmartDashboard.putData("pivot 1 45:", new PIDPivotByGyro(driveTrain, GYRO, 1, 45));
 //		SmartDashboard.putData("pivot 1 -45:", new PIDPivotByGyro(driveTrain, GYRO, 1, -45));
+
+		SmartDashboard.putNumber("Pivot Speed Factor:", 0.5);
+		SmartDashboard.putNumber("P:", 0.7);
+		SmartDashboard.putNumber("I:", 0);
+		SmartDashboard.putNumber("D:", 0);
+		SmartDashboard.putNumber("Abs Tolerance:", 2);
 	}
 
 	@Override
@@ -110,7 +117,9 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 //		autonomousCommand = chooser.getSelected();
 //		autonomousCommand = new PivotTest(driveTrain, GYRO);\
-		
+		SmartDashboard.putNumber("Delta Angle", vision.getDeltaAngle());
+//		SmartDashboard.putData("pivot 0.5 angle:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, (0 - vision.getDeltaAngle())));
+		SmartDashboard.putData("Pivot by Vision", new PivotByVision(vision, driveTrain, GYRO));
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -122,7 +131,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Delta Angle", vision.getDeltaAngle());
-		}
+	}
 //		SmartDashboard.putNumber("centerX", centerX);
 //		  if centerx is less we need to turn to the left
 
