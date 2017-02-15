@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	
-    public Joystick driverJoystick, mateJoystick;
+    private Joystick driverJoystick, mateJoystick;
 	
 	public OI() {
         driverJoystick = new Joystick(0);

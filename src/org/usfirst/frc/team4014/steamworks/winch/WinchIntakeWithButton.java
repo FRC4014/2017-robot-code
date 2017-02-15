@@ -12,7 +12,6 @@ public class WinchIntakeWithButton extends Command {
 	public WinchIntakeWithButton(Winch winch) {
 		this.winch = winch;
 		requires(winch);
-		
 	}
 
 	protected void initialize() {

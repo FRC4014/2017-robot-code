@@ -51,7 +51,7 @@ public class Robot extends IterativeRobot {
 		Gear gear = new Gear(oi);
 		new Winch(oi);
 		new FuelIntake(oi);	
-		
+		/*
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
@@ -59,7 +59,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
 		chooser.addObject("Do Nothing", new FakeAutonomousCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
-		
+		*/
 		SmartDashboard.putData("pivot 0.5 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, 45));
 		SmartDashboard.putData("pivot 0.5 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, -45));
 		SmartDashboard.putData("pivot 0.8 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, 45));
@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 //		autonomousCommand = chooser.getSelected();
-//		autonomousCommand = new PivotTest(driveTrain, GYRO);
+		autonomousCommand = new PivotTest(driveTrain, GYRO);
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();

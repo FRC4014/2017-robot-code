@@ -22,7 +22,7 @@ public class ShootWithJoystick extends Command {
 	}
 	
 	protected void execute() {
-		shooter.shoot(oi.mateJoystick);
+		shooter.shoot(oi.getMateJoystick());
 	}
 	
 	@Override

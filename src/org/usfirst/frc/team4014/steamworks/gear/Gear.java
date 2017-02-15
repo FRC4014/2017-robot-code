@@ -13,14 +13,14 @@ public class Gear extends Subsystem {
 	private static final Servo 
 		leftServo = new Servo(1),
 		rightServo = new Servo(2);
-	private final DigitalInput limit;
+//	private final DigitalInput limit;
 	
 	private final OI oi;
 	
 	public Gear (OI oi) {
 		this.oi = oi;
-		limit = new DigitalInput(0);
-		JoystickButton b = new JoystickButton(oi.mateJoystick, 10);
+//		limit = new DigitalInput(3);
+		JoystickButton b = new JoystickButton(oi.getMateJoystick(), 10);
 		b.toggleWhenPressed(new ToggleGearClamp(this));
 		SmartDashboard.putString("Gear Control Status", "Closed");
 	}
@@ -32,18 +32,20 @@ public class Gear extends Subsystem {
 
 	public void open() {
 		leftServo.setAngle(90);
-		rightServo.setAngle(-90);
+		rightServo.setAngle(90);
 		SmartDashboard.putString("Gear Control Status", "Open");
 	}
 
 	public void close() {
 		leftServo.setAngle(0);
-		rightServo.setAngle(0);
+		rightServo.setAngle(180);
 		SmartDashboard.putString("Gear Control Status", "Closed");
 	}
 	
 	public boolean limitSwitch() {
-		return limit.get();
+		// TODO: This is returning true just until we get the DIO error figured out.
+		return true;
+//		return limit.get();
 	}
 	
 }

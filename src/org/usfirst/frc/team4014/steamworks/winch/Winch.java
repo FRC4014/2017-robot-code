@@ -16,14 +16,15 @@ public class Winch extends Subsystem {
 	public static final CANTalon winchmotor = new CANTalon(CAN.WINCH_MOTOR);
 	private final OI oi;
 	private static final double WINCH_SPEED = 1;
-	private final JoystickButton winchbutton; 
+	private final JoystickButton winchbutton;
+ 
 	//TODO find real winch speed
 		
 	public Winch(OI oi) {
 		super("Winch");
 		this.oi = oi;
-		winchbutton = new JoystickButton(oi.mateJoystick, 6);
-		winchbutton.whileHeld(new WinchIntakeWithButton(this));
+		winchbutton = new JoystickButton(oi.getMateJoystick(), 1);
+		winchbutton.toggleWhenPressed(new WinchIntakeWithButton(this));
 	}
 
 	@Override
