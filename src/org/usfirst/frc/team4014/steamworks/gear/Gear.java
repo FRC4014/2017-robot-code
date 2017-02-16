@@ -48,7 +48,7 @@ public class Gear extends Subsystem {
 		SmartDashboard.putString("Gear Control Status", "Super Closed");
 	}
 	
-	public boolean limitSwitch() {
+	public boolean isPegInGear() {
 		// TODO: This is returning true just until we get the DIO error figured out.
 		return true;
 //		return limit.get();
