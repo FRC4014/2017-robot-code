@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 		driveTrain = new DriveTrain(oi);
 		new Shooter(oi);
 		Gear gear = new Gear(oi);
-		new Winch(oi);
+		new Winch(oi, gear);
 		new FuelIntake(oi);	
 		/*
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
