@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain(oi);
 		new Shooter(oi);
-		Gear gear = new Gear(oi);
+//		Gear gear = new Gear(oi);
 		new Winch(oi);
 		new FuelIntake(oi);	
 		/*
