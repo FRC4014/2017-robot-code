@@ -26,7 +26,7 @@ public class SlowGearAproach extends Command{
 	protected boolean isFinished() {
 		// TODO: This is returning true just until we get the DIO error figured out.
 		return true;
-//		return gear.limitSwitch();
+//		return gear.isPegInGear();
 	}
 
 }

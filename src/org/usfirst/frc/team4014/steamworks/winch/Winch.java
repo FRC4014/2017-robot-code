@@ -2,6 +2,7 @@ package org.usfirst.frc.team4014.steamworks.winch;
 
 import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
+import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.shooter.ShootWithJoystick;
 
 import com.ctre.CANTalon;
@@ -17,14 +18,16 @@ public class Winch extends Subsystem {
 	private final OI oi;
 	private static final double WINCH_SPEED = 1;
 	private final JoystickButton winchbutton;
+	private final Gear gear;
  
 	//TODO find real winch speed
 		
-	public Winch(OI oi) {
+	public Winch(OI oi, Gear gear) {
 		super("Winch");
+		this.gear = gear;
 		this.oi = oi;
 		winchbutton = new JoystickButton(oi.getMateJoystick(), 1);
-		winchbutton.toggleWhenPressed(new WinchIntakeWithButton(this));
+		winchbutton.toggleWhenPressed(new WinchIntakeWithButton(this, gear));
 	}
 
 	@Override

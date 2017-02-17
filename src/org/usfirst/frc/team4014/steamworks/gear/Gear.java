@@ -22,7 +22,7 @@ public class Gear extends Subsystem {
 //		limit = new DigitalInput(3);
 		JoystickButton b = new JoystickButton(oi.getMateJoystick(), 10);
 		b.toggleWhenPressed(new ToggleGearClamp(this));
-		SmartDashboard.putString("Gear Control Status", "Closed");
+		SmartDashboard.putString("Gear Control Status", "Super Closed");
 	}
 	
 	@Override
@@ -42,7 +42,13 @@ public class Gear extends Subsystem {
 		SmartDashboard.putString("Gear Control Status", "Closed");
 	}
 	
-	public boolean limitSwitch() {
+	public void superClose() {
+		leftServo.setAngle(0);
+		rightServo.setAngle(180);
+		SmartDashboard.putString("Gear Control Status", "Super Closed");
+	}
+	
+	public boolean isPegInGear() {
 		// TODO: This is returning true just until we get the DIO error figured out.
 		return true;
 //		return limit.get();
