@@ -24,6 +24,7 @@ public class DriveTrain extends Subsystem {
 	private final OI oi;
 	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 	private boolean isReversed;
+	private double speedMultiplier;
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
@@ -35,6 +36,9 @@ public class DriveTrain extends Subsystem {
 		
 		JoystickButton t = new JoystickButton(oi.getDriverJoystick(), 11);
 		t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
+		
+		JoystickButton h = new JoystickButton(oi.getDriverJoystick(), 12);
+		t.toggleWhenActive(new HalfSpeed(this));
 	}
   
     /**
@@ -66,9 +70,9 @@ public class DriveTrain extends Subsystem {
      */
     public void drive(Joystick joystick) {
     	if (isReversed == false){
-    		robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist(), true);
+    		robotDrive.arcadeDrive(-joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
     	} else {
-    		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist(), true);
+    		robotDrive.arcadeDrive(joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
     	}
     }
 	
@@ -91,5 +95,8 @@ public class DriveTrain extends Subsystem {
 	public void standardDriveDirection(){
 		isReversed = false;
 		SmartDashboard.putBoolean("Reversed Joystick", false);
+	}
+	public void changeSpeedModefier (double newModifier) {
+		speedMultiplier = newModifier;
 	}
 }
