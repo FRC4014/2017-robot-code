@@ -8,7 +8,9 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends Subsystem {
 
@@ -21,6 +23,7 @@ public class DriveTrain extends Subsystem {
     public final RobotDrive robotDrive;
 	private final OI oi;
 	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
+	private boolean isReversed;
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
@@ -29,6 +32,9 @@ public class DriveTrain extends Subsystem {
 		ENCODER.setDistancePerPulse(18.8495559); //wheel diameter * pi
 		ENCODER.setMaxPeriod(.1);
 		ENCODER.setMinRate(10);
+		
+		JoystickButton t = new JoystickButton(oi.getDriverJoystick(), 11);
+		t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
 	}
   
     /**
@@ -59,7 +65,11 @@ public class DriveTrain extends Subsystem {
      * attenuator)
      */
     public void drive(Joystick joystick) {
-        robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist(), true);
+    	if (isReversed == false){
+    		robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist(), true);
+    	} else {
+    		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist(), true);
+    	}
     }
 	
     /**
@@ -73,5 +83,13 @@ public class DriveTrain extends Subsystem {
 	}
 	public void encoderReset(){
 		ENCODER.reset();
+	}
+	public void reverseDriveDirection(){
+		isReversed = true;
+		SmartDashboard.putBoolean("Reversed Joystick", true);
+	}
+	public void standardDriveDirection(){
+		isReversed = false;
+		SmartDashboard.putBoolean("Reversed Joystick", false);
 	}
 }
