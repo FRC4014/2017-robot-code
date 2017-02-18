@@ -22,12 +22,13 @@ public class VisionTracker {
 	private VisionThread visionThread;
 	private final Object imgLock = new Object();
 	public UsbCamera camera;
-	private int[] centerXs = {-1,-1};
+	private int[] centerXs;
 	
 	public VisionTracker() {
 		camera = USBCameraFactory.getCamera();
 		if (camera.isConnected())
 			System.out.println("VisionTracker: There is a camera!");
+		
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			ArrayList<Rect> rs = new ArrayList<Rect>();
 			Iterator<MatOfPoint> itr = pipeline.filterContoursOutput().iterator();
@@ -38,19 +39,22 @@ public class VisionTracker {
 			SmartDashboard.putNumber("rectangles", rs.size());
 			SmartDashboard.putNumber("centerX1", centerXs[0]);
 		    SmartDashboard.putNumber("centerX2", centerXs[1]);
-			if(rs.size() < 2)
-				return;
+		    
 			Collections.sort(rs, (Rect a, Rect b) -> ((int)(b.area() - a.area())));
-			
 			final StringBuilder x = new StringBuilder();
 			Iterator<Rect> itrr = rs.iterator();
 			while (itrr.hasNext()) x.append(", ").append(itrr.next().area());
 			SmartDashboard.putString("Sorted Rect Areas:", x.substring(2));
-
-			int[] xs = new int[] {
-					centerx(rs.get(0)),
-					centerx(rs.get(1))
-			};
+			int[] xs;
+			if (rs.size() == 1) {
+		    	 xs = new int[] {centerx(rs.get(0))};
+		    }
+		    else if (rs.size() > 1) {
+		    	 xs = new int[] {centerx(rs.get(0)), centerx(rs.get(1))};
+		    }
+		    else{
+		    	 xs = new int[] {};
+		    }
 			synchronized (imgLock) {
 				centerXs = xs;
 			}
@@ -69,8 +73,8 @@ public class VisionTracker {
 		return deltaAngle;
 	}
 	
-	private double middleOfTwoContours(){
-		double middleOfContours = (this.centerXs[0] + this.centerXs[1]) / 2;
+	private double middleOfTwoContours(double centerX1, double centerX2){
+		double middleOfContours = (centerX1 + centerX2) / 2;
 		SmartDashboard.putNumber("middle", middleOfContours);
 		return middleOfContours;
 	}
@@ -79,9 +83,33 @@ public class VisionTracker {
 		return rads * (90/Math.PI);
 	} 
 	
-	public double getDeltaAngle(){
-		double pixelTarget = middleOfTwoContours();
+	private double getDeltaAngle(double centerX1, double centerX2){
+		double pixelTarget = middleOfTwoContours(centerX1, centerX2);
 		double deltaAngleRads = calculateDeltaAngle(pixelTarget);
 		return 0 - radiansToDegrees(deltaAngleRads);
+	}
+	public int[] getCenterXs(){
+		return centerXs;
+	}
+	
+	public VisionState getState(){
+		int[] xs = centerXs;
+	
+		int contourcount = 0;
+		double angle = 0;
+		boolean centered = false;
+		
+		if (xs.length == 1){
+			contourcount = 1;
+			angle = getDeltaAngle(xs[0], 160);
+			centered = false;
+		}
+		else if((xs.length == 2)) {
+			contourcount = 2;
+			angle = getDeltaAngle(xs[0], xs[1]);
+			centered = (angle < 1);
+		}
+		
+		return new VisionState(angle, centered, contourcount);
 	}
 }

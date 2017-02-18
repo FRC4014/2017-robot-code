@@ -116,8 +116,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 //		autonomousCommand = chooser.getSelected();
-//		autonomousCommand = new PivotTest(driveTrain, GYRO);\
-		SmartDashboard.putNumber("Delta Angle", vision.getDeltaAngle());
+//		autonomousCommand = new PivotTest(driveTrain, GYRO);\;
 //		SmartDashboard.putData("pivot 0.5 angle:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, (0 - vision.getDeltaAngle())));
 		SmartDashboard.putData("Pivot by Vision", new PivotByVision(vision, driveTrain, GYRO));
 		if (autonomousCommand != null)
@@ -130,7 +129,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Delta Angle", vision.getDeltaAngle());
 	}
 //		SmartDashboard.putNumber("centerX", centerX);
 //		  if centerx is less we need to turn to the left
