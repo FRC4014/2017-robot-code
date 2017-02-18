@@ -87,11 +87,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void () {
+	public void disabledInit() {
 		GYRO.reset();
 	}
 	@Override
-	public void disabledPerdisabledInitiodic() {
+	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
