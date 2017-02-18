@@ -4,6 +4,7 @@ import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -29,7 +30,9 @@ public class Shooter extends Subsystem {
 	
 	public void shoot(Joystick joystick) {
 		if(joystick.getRawButton(3)){
-			shooterMotorOne.set(-1);
+			shooterMotorOne.changeControlMode(TalonControlMode.Voltage);
+			shooterMotorOne.setVoltageRampRate(24.0);
+			shooterMotorOne.set(joystick.getZ() * 12);
 		}
 		else{
 			shooterMotorOne.set(0);
