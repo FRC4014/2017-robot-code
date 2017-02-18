@@ -6,6 +6,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Servo;
 
 public class PivotByVision extends Command {
 	
@@ -15,11 +16,14 @@ public class PivotByVision extends Command {
 	private PIDPivotByGyro pivot;
 	private long timeInit;
 	private VisionState visionstate;
+	
+	
 
 	public PivotByVision(VisionTracker vision, DriveTrain driveTrain, Gyro gyro) {
 		this.vision = vision;
 		this.driveTrain = driveTrain;
 		this.gyro = gyro;
+
 	}
 
 	@Override

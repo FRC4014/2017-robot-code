@@ -17,12 +17,16 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 public class VisionTracker {
 	
 	private final int FOV_WIDTH = 320;
+	private final int FOV_HEIGHT = 240;
 	private final int LIFECAM_HORIZONTAL_ANGLE = 60;
-	private final int PIXEL_DISTANCE = 226;
+	private final int LIFECAM_VERTICAL_ANGLE = 41;
+	private final int HORIZONTAL_PIXEL_DISTANCE = 226;
+	private final int VERTICAL_PIXEL_DISTANCE = 321;
 	private VisionThread visionThread;
 	private final Object imgLock = new Object();
 	public UsbCamera camera;
 	private int[] centerXs;
+	private int[] centerYs;
 	
 	public VisionTracker() {
 		camera = USBCameraFactory.getCamera();
@@ -46,17 +50,22 @@ public class VisionTracker {
 			while (itrr.hasNext()) x.append(", ").append(itrr.next().area());
 			SmartDashboard.putString("Sorted Rect Areas:", x.substring(2));
 			int[] xs;
+			int[] ys;
 			if (rs.size() == 1) {
 		    	 xs = new int[] {centerx(rs.get(0))};
+		    	 ys = new int[] {centery(rs.get(0))};
 		    }
 		    else if (rs.size() > 1) {
 		    	 xs = new int[] {centerx(rs.get(0)), centerx(rs.get(1))};
+		    	 ys = new int[] {centery(rs.get(0)), centery(rs.get(1))};
 		    }
 		    else{
 		    	 xs = new int[] {};
+		    	 ys = new int[] {};
 		    }
 			synchronized (imgLock) {
 				centerXs = xs;
+				centerYs = ys;
 			}
 		});
 		visionThread.start();
@@ -66,10 +75,13 @@ public class VisionTracker {
 		return rect.x + (rect.width / 2);
 	}
 	
+	private int centery(Rect rect) {
+		return rect.y + (rect.height/2);
+	}
 	
-	private double calculateDeltaAngle(double targetPixel){
-		double pixelChange = (FOV_WIDTH/2) - targetPixel;
-		double deltaAngle = Math.atan((pixelChange/PIXEL_DISTANCE));
+	private double calculateDeltaAngle(double targetPixel, int pixelsize, int middledistance){
+		double pixelChange = (pixelsize/2) - targetPixel;
+		double deltaAngle = Math.atan((pixelChange/middledistance));
 		return deltaAngle;
 	}
 	
@@ -83,33 +95,49 @@ public class VisionTracker {
 		return rads * (90/Math.PI);
 	} 
 	
-	private double getDeltaAngle(double centerX1, double centerX2){
-		double pixelTarget = middleOfTwoContours(centerX1, centerX2);
-		double deltaAngleRads = calculateDeltaAngle(pixelTarget);
-		return 0 - radiansToDegrees(deltaAngleRads);
+	private double getHorizontalDeltaAngle(double centerX1, double centerX2){
+		double horizontalPixelTarget = middleOfTwoContours(centerX1, centerX2);
+		double horizontalDeltaAngleRads = calculateDeltaAngle(horizontalPixelTarget, FOV_WIDTH, HORIZONTAL_PIXEL_DISTANCE);
+		return 0 - radiansToDegrees(horizontalDeltaAngleRads);
+	}
+	
+	private double getVerticalDeltaAngle(double centerY1, double centerY2){
+		double verticalPixelTarget = middleOfTwoContours(centerY1, centerY2);
+		double verticalDeltaAngleRads = calculateDeltaAngle(verticalPixelTarget, FOV_HEIGHT, VERTICAL_PIXEL_DISTANCE);
+		return 0 - radiansToDegrees(verticalDeltaAngleRads);
 	}
 	public int[] getCenterXs(){
 		return centerXs;
 	}
 	
 	public VisionState getState(){
-		int[] xs = centerXs;
-	
+		int[] xs;
+		int[] ys;
 		int contourcount = 0;
-		double angle = 0;
-		boolean centered = false;
+		double horizontalangle = 0;
+		double verticalangle = 0;
+		boolean xCentered = false;
+		boolean yCentered = false;
+		synchronized(imgLock){
+			xs = centerXs;
+			ys = centerYs;
+		}
 		
 		if (xs.length == 1){
 			contourcount = 1;
-			angle = getDeltaAngle(xs[0], 160);
-			centered = false;
+			horizontalangle = getHorizontalDeltaAngle(xs[0], 160);
+			verticalangle = getVerticalDeltaAngle(ys[0], 120);
+			xCentered = false;
+			yCentered = false;
 		}
 		else if((xs.length == 2)) {
 			contourcount = 2;
-			angle = getDeltaAngle(xs[0], xs[1]);
-			centered = (angle < 1);
+			verticalangle = getVerticalDeltaAngle(ys[0], ys[1]);
+			horizontalangle = getHorizontalDeltaAngle(xs[0], xs[1]);
+			xCentered = (horizontalangle < 1);
+			yCentered = (verticalangle < 1);
 		}
 		
-		return new VisionState(angle, centered, contourcount);
+		return new VisionState(horizontalangle, xCentered, contourcount);
 	}
 }
