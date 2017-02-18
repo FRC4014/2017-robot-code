@@ -28,7 +28,12 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void shoot(Joystick joystick) {
-		shooterMotorOne.set((0.095 * (joystick.getZ())) + 0.895);
+		if(joystick.getRawButton(3)){
+			shooterMotorOne.set(-1);
+		}
+		else{
+			shooterMotorOne.set(0);
+		}
 	}
 	
 	public void stop() {

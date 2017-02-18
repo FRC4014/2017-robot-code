@@ -32,7 +32,7 @@ public class FuelIntake extends Subsystem {
 	}
 
 	public void start() {
-		motor.set(1);
+		motor.set(0.8);
 	}
 
 	public void stop() {

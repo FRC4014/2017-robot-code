@@ -8,6 +8,6 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 public class PivotTest extends CommandGroup{
 
 	public PivotTest(DriveTrain driveTrain, Gyro gyro){
-		addSequential(new PIDPivotByGyro(driveTrain, gyro, 0.5, 45));
+		addSequential(new PIDPivotByGyro(driveTrain, gyro, 0.6, 45));
 	}
 }

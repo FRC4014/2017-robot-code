@@ -26,6 +26,7 @@ public class PIDPivotByGyro extends PIDCommand{
 	}
 
 	protected void initialize(){
+<<<<<<< HEAD
 		timeInit = System.currentTimeMillis();
 		gyro.reset();
 		long after = System.currentTimeMillis();
@@ -46,6 +47,18 @@ public class PIDPivotByGyro extends PIDCommand{
 		
 		getPIDController().setPID(p, i, d);
 		getPIDController().setAbsoluteTolerance(absTolerance);
+=======
+		System.out.println("PIDPivotByGyro.initialize: called.");
+		long before = System.currentTimeMillis();
+		gyro.reset();
+		long after = System.currentTimeMillis();
+		System.out.println("Gyro reset delay: " + (after - before));
+
+//		setSetpointRelative(angle);
+
+		getPIDController().setPID(0.7, 0, 0);
+		getPIDController().setAbsoluteTolerance(1);
+>>>>>>> master
 	}
 	
 	@Override

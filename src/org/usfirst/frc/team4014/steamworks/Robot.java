@@ -60,32 +60,25 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain(oi);
-		vision = new VisionTracker();
-//		new Shooter(oi);
-//		Gear gear = new Gear(oi);
-//		new Winch(oi);
-//		new FuelIntake(oi);	
-
-//		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
-//		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
-//		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
-//		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, GYRO));
-//		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
-//		chooser.addObject("Do Nothing", new FakeAutonomousCommand());
-//		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
-//		
-//		SmartDashboard.putData("pivot 0.5 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, 45));
-//		SmartDashboard.putData("pivot 0.5 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, -45));
-//		SmartDashboard.putData("pivot 0.8 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, 45));
-//		SmartDashboard.putData("pivot 0.8 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, -45));
-//		SmartDashboard.putData("pivot 1 45:", new PIDPivotByGyro(driveTrain, GYRO, 1, 45));
-//		SmartDashboard.putData("pivot 1 -45:", new PIDPivotByGyro(driveTrain, GYRO, 1, -45));
-
-		SmartDashboard.putNumber("Pivot Speed Factor:", 0.5);
-		SmartDashboard.putNumber("P:", 0.7);
-		SmartDashboard.putNumber("I:", 0);
-		SmartDashboard.putNumber("D:", 0);
-		SmartDashboard.putNumber("Abs Tolerance:", 2);
+		new Shooter(oi);
+		Gear gear = new Gear(oi);
+		new Winch(oi, gear);
+		new FuelIntake(oi);	
+		/*
+		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
+		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
+		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
+		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, GYRO));
+		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
+		chooser.addObject("Do Nothing", new FakeAutonomousCommand());
+		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
+		*/
+		SmartDashboard.putData("pivot 0.5 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, 45));
+		SmartDashboard.putData("pivot 0.5 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, -45));
+		SmartDashboard.putData("pivot 0.8 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, 45));
+		SmartDashboard.putData("pivot 0.8 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, -45));
+		SmartDashboard.putData("pivot 1 45:", new PIDPivotByGyro(driveTrain, GYRO, 1, 45));
+		SmartDashboard.putData("pivot 1 -45:", new PIDPivotByGyro(driveTrain, GYRO, 1, -45));
 	}
 
 	@Override
@@ -94,11 +87,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void disabledInit() {
+	public void () {
 		GYRO.reset();
 	}
 	@Override
-	public void disabledPeriodic() {
+	public void disabledPerdisabledInitiodic() {
 		Scheduler.getInstance().run();
 	}
 
@@ -116,9 +109,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 //		autonomousCommand = chooser.getSelected();
-//		autonomousCommand = new PivotTest(driveTrain, GYRO);\;
-//		SmartDashboard.putData("pivot 0.5 angle:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, (0 - vision.getDeltaAngle())));
-		SmartDashboard.putData("Pivot by Vision", new PivotByVision(vision, driveTrain, GYRO));
+		autonomousCommand = new PivotTest(driveTrain, GYRO);
+
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
