@@ -114,8 +114,8 @@ public class VisionTracker {
 		int[] xs;
 		int[] ys;
 		int contourcount = 0;
-		double horizontalangle = 0;
-		double verticalangle = 0;
+		double horizontalDeltaAngle = 0;
+		double verticalDeltaAngle = 0;
 		boolean xCentered = false;
 		boolean yCentered = false;
 		synchronized(imgLock){
@@ -125,19 +125,19 @@ public class VisionTracker {
 		
 		if (xs.length == 1){
 			contourcount = 1;
-			horizontalangle = getHorizontalDeltaAngle(xs[0], 160);
-			verticalangle = getVerticalDeltaAngle(ys[0], 120);
+			horizontalDeltaAngle = getHorizontalDeltaAngle(xs[0], 160);
+			verticalDeltaAngle = getVerticalDeltaAngle(ys[0], 120);
 			xCentered = false;
 			yCentered = false;
 		}
 		else if((xs.length == 2)) {
 			contourcount = 2;
-			verticalangle = getVerticalDeltaAngle(ys[0], ys[1]);
-			horizontalangle = getHorizontalDeltaAngle(xs[0], xs[1]);
-			xCentered = (horizontalangle < 1);
-			yCentered = (verticalangle < 1);
+			verticalDeltaAngle = getVerticalDeltaAngle(ys[0], ys[1]);
+			horizontalDeltaAngle = getHorizontalDeltaAngle(xs[0], xs[1]);
+			xCentered = (horizontalDeltaAngle < 1);
+			yCentered = (verticalDeltaAngle < 1);
 		}
 		
-		return new VisionState(horizontalangle, xCentered, contourcount);
+		return new VisionState(horizontalDeltaAngle, xCentered, contourcount, yCentered, verticalDeltaAngle );
 	}
 }

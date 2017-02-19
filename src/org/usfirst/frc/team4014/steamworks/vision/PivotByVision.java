@@ -46,6 +46,7 @@ public class PivotByVision extends Command {
 			pivot.start();
 		}
 		else {
+			//TODO find angle needed if no contours
 			pivot = new PIDPivotByGyro(driveTrain, gyro, 0.6, 50);
 			pivot.start();
 		}
@@ -54,7 +55,7 @@ public class PivotByVision extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		boolean done = visionstate.centered;
+		boolean done = visionstate.xCentered;
 //		boolean done = pivot != null && !pivot.isRunning();
 		if (done) SmartDashboard.putNumber("Vis Piv Time:", System.currentTimeMillis() - timeInit);
 		return done;
