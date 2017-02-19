@@ -6,6 +6,7 @@ import org.usfirst.frc.team4014.steamworks.OI;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
@@ -13,6 +14,10 @@ public class Shooter extends Subsystem {
 	public static final CANTalon 
 		shooterMotorOne = new CANTalon(CAN.SHOOTER_MOTOR_1), 
 		shooterMotorTwo = new CANTalon(CAN.SHOOTER_MOTOR_2);
+	
+	private static final Servo
+		leftGate = new Servo(3),
+		rightGate = new Servo(4);
 	
 	private final OI oi;
 	
@@ -40,4 +45,17 @@ public class Shooter extends Subsystem {
 		shooterMotorOne.set(0);
 	}
 	
+	// TODO: set the angles once the cad/placement of the servos is done
+	public void leftGateOpen() {
+//		leftGate.setAngle();
+	}
+	public void leftGateClose() {
+//		leftGate.setAngle();
+	}
+	public void rightGateOpen() {
+//		rightGate.setAngle();
+	}
+	public void rightGateClose() {
+//		rightGate.setAngle();
+	}
 }
