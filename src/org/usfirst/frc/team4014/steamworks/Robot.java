@@ -13,6 +13,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+import org.usfirst.frc.team4014.steamworks.vision.LEDs;
 import org.usfirst.frc.team4014.steamworks.winch.Winch;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
@@ -51,6 +52,7 @@ public class Robot extends IterativeRobot {
 		Gear gear = new Gear(oi);
 		new Winch(oi, gear);
 		new FuelIntake(oi);	
+		new LEDs(oi);
 		/*
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
