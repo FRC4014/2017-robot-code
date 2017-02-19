@@ -2,9 +2,9 @@ package org.usfirst.frc.team4014.steamworks.vision;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class InclineCamera extends Command {
-	
 	private static final int MAX_SERVO_ANGLE = 100;
 	private static final int MIN_SERVO_ANGLE = 20;
 	private static final int BOILER_INIT_ANGLE = 50;
@@ -12,14 +12,13 @@ public class InclineCamera extends Command {
 	//TODO find what the actual angles are
 	
 	final VisionTracker vision;
-	private final Servo cameraServo;
+	private final Servo cameraServo = new Servo(0);
 	private VisionState visionstate;
 	private final boolean boilerMode;
 	
-	public InclineCamera(VisionTracker vision, Servo cameraServo, boolean boilerMode) {
+	public InclineCamera(VisionTracker vision, boolean boilerMode) {
 		this.boilerMode = boilerMode;
 		this.vision = vision;
-		this.cameraServo = cameraServo;
 	}
 	
 	
@@ -32,6 +31,7 @@ public class InclineCamera extends Command {
 		else {
 			cameraServo.setAngle(PEG_INIT_ANGLE);
 		}
+		System.out.println(cameraServo.getAngle());
 	}
 
 
@@ -50,7 +50,10 @@ public class InclineCamera extends Command {
 			if (currentAngle < MAX_SERVO_ANGLE){
 				cameraServo.setAngle(currentAngle + 2);
 			}
-	
+			SmartDashboard.putNumber("cameraServo Angle", cameraServo.getAngle());
+			SmartDashboard.putNumber("verticalDeltaAngle", visionstate.verticalDeltaAngle);
+
+
 			
 		}
 	}

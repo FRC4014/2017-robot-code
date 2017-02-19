@@ -13,6 +13,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+import org.usfirst.frc.team4014.steamworks.vision.InclineCamera;
 import org.usfirst.frc.team4014.steamworks.vision.PivotByVision;
 import org.usfirst.frc.team4014.steamworks.vision.USBCameraFactory;
 import org.usfirst.frc.team4014.steamworks.vision.VisionTracker;
