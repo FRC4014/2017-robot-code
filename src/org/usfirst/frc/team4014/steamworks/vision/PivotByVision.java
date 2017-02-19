@@ -38,11 +38,11 @@ public class PivotByVision extends Command {
 		super.execute();
 		visionstate  =  vision.getState();
 		if (visionstate.contourCount == 2 ) {
-			pivot = new PIDPivotByGyro(driveTrain, gyro, 0.6, visionstate.deltaAngle);
+			pivot = new PIDPivotByGyro(driveTrain, gyro, 0.6, visionstate.horizontalDeltaAngle);
 			pivot.start();
 		}
 		else if(visionstate.contourCount == 1) {
-			pivot = new PIDPivotByGyro(driveTrain, gyro, 0.6, visionstate.deltaAngle);
+			pivot = new PIDPivotByGyro(driveTrain, gyro, 0.6, visionstate.horizontalDeltaAngle);
 			pivot.start();
 		}
 		else {

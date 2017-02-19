@@ -17,6 +17,7 @@ import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
 import org.usfirst.frc.team4014.steamworks.vision.LEDs;
 
 import org.usfirst.frc.team4014.steamworks.vision.InclineCamera;
+import org.usfirst.frc.team4014.steamworks.vision.OneAndDoneVision;
 import org.usfirst.frc.team4014.steamworks.vision.PivotByVision;
 import org.usfirst.frc.team4014.steamworks.vision.USBCameraFactory;
 import org.usfirst.frc.team4014.steamworks.vision.VisionTracker;
@@ -32,6 +33,8 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.vision.VisionRunner;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 import edu.wpi.first.wpilibj.command.Command;
@@ -70,6 +73,7 @@ public class Robot extends IterativeRobot {
 		new Winch(oi, gear);
 		new FuelIntake(oi);	
 		new LEDs(oi);
+		vision = new VisionTracker();
 		/*
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
@@ -115,7 +119,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 //		autonomousCommand = chooser.getSelected();
-		autonomousCommand = new PivotTest(driveTrain, GYRO);
+	//	autonomousCommand = new PivotTest(driveTrain, GYRO);
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -144,13 +148,16 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+			
 	}
 
 	/**
 	 * This function is called periodically during operator control
-	 */
+	 
 	@Override
 	public void teleopPeriodic() {
+		
+		
 		Scheduler.getInstance().run();
 	}
 

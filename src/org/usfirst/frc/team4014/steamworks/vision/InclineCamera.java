@@ -12,9 +12,10 @@ public class InclineCamera extends Command {
 	//TODO find what the actual angles are
 	
 	final VisionTracker vision;
-	private final Servo cameraServo = new Servo(0);
-	private VisionState visionstate;
+	private static final Servo cameraServo = new Servo(4);
+	private VisionState visionState;
 	private final boolean boilerMode;
+	private boolean oneAndDone = false;
 	
 	public InclineCamera(VisionTracker vision, boolean boilerMode) {
 		this.boilerMode = boilerMode;
@@ -25,6 +26,7 @@ public class InclineCamera extends Command {
 	@Override
 	protected void initialize() {
 		super.initialize();
+		visionState = vision.getState();
 		if (this.boilerMode){
 			cameraServo.setAngle(BOILER_INIT_ANGLE);
 		}
@@ -39,29 +41,36 @@ public class InclineCamera extends Command {
 	protected void execute() {
 		super.execute();
 		double currentAngle = cameraServo.getAngle();
-		visionstate = vision.getState();
-		if (visionstate.contourCount == 2){
-			cameraServo.setAngle(currentAngle + visionstate.verticalDeltaAngle);
-		}
-		else if (visionstate.contourCount == 1) {
-			cameraServo.setAngle(currentAngle + visionstate.verticalDeltaAngle);
-		}
-		else {
-			if (currentAngle < MAX_SERVO_ANGLE){
-				cameraServo.setAngle(currentAngle + 2);
+		System.out.println("Got Angle!");
+		System.out.println(currentAngle);
+		VisionState newVisionState = vision.getState();
+		if (!newVisionState.quickEquals(visionState) || newVisionState.contourCount == 0) {
+			visionState = newVisionState;
+			if (visionState.contourCount == 2){
+				cameraServo.setAngle(currentAngle - visionState.verticalDeltaAngle);
 			}
-			SmartDashboard.putNumber("cameraServo Angle", cameraServo.getAngle());
-			SmartDashboard.putNumber("verticalDeltaAngle", visionstate.verticalDeltaAngle);
-
-
-			
-		}
+			else if (visionState.contourCount == 1) {
+				cameraServo.setAngle(currentAngle - visionState.verticalDeltaAngle);
+			}
+			else {
+			//	if (currentAngle < MAX_SERVO_ANGLE){
+					cameraServo.setAngle(currentAngle + .5);
+			//	}
+			}
+				SmartDashboard.putNumber("cameraServo Angle", cameraServo.getAngle());
+				SmartDashboard.putNumber("verticalDeltaAngle", visionState.verticalDeltaAngle);
+				//oneAndDone = true;
+	
+				
+			}
 	}
 
-
+	public void moveServo(double angle){
+		cameraServo.setAngle(angle);
+	}
 	@Override
 	protected boolean isFinished() {
-		boolean done = visionstate.yCentered;
+		boolean done = visionState.yCentered;
 		return done;
 	}
 

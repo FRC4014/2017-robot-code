@@ -40,15 +40,12 @@ public class VisionTracker {
 				Rect r = Imgproc.boundingRect(itr.next());
 				rs.add(r);
 			}
-			SmartDashboard.putNumber("rectangles", rs.size());
-			SmartDashboard.putNumber("centerX1", centerXs[0]);
-		    SmartDashboard.putNumber("centerX2", centerXs[1]);
 		    
 			Collections.sort(rs, (Rect a, Rect b) -> ((int)(b.area() - a.area())));
-			final StringBuilder x = new StringBuilder();
-			Iterator<Rect> itrr = rs.iterator();
-			while (itrr.hasNext()) x.append(", ").append(itrr.next().area());
-			SmartDashboard.putString("Sorted Rect Areas:", x.substring(2));
+//			final StringBuilder x = new StringBuilder();
+//			Iterator<Rect> itrr = rs.iterator();
+//			while (itrr.hasNext()) x.append(", ").append(itrr.next().area());
+//			SmartDashboard.putString("Sorted Rect Areas:", x.substring(2));
 			int[] xs;
 			int[] ys;
 			if (rs.size() == 1) {
@@ -134,8 +131,9 @@ public class VisionTracker {
 			contourcount = 2;
 			verticalDeltaAngle = getVerticalDeltaAngle(ys[0], ys[1]);
 			horizontalDeltaAngle = getHorizontalDeltaAngle(xs[0], xs[1]);
-			xCentered = (horizontalDeltaAngle < 1);
-			yCentered = (verticalDeltaAngle < 1);
+			System.out.println(verticalDeltaAngle);
+			xCentered = (Math.abs(horizontalDeltaAngle) < 1);
+			yCentered = (Math.abs(verticalDeltaAngle) < 1);
 		}
 		
 		return new VisionState(horizontalDeltaAngle, xCentered, contourcount, yCentered, verticalDeltaAngle );

@@ -1,21 +1,27 @@
 package org.usfirst.frc.team4014.steamworks.vision;
 
 public final class VisionState {
-	final double deltaAngle;
+	final double horizontalDeltaAngle;
 	final boolean xCentered;
 	final int contourCount;
 	final boolean yCentered;
 	final double verticalDeltaAngle;
+	final long timeStamp;
 	
-	public VisionState(double horizontalDeltaAngle, boolean centered, int contourcount, boolean yCentered, double verticalDeltaAngle) {
-		super();
-		this.deltaAngle = horizontalDeltaAngle;
+	public VisionState(double horizontalDeltaAngle, boolean centered, int contourCount, boolean yCentered, double verticalDeltaAngle) {
+		timeStamp = System.currentTimeMillis();
+		this.horizontalDeltaAngle = horizontalDeltaAngle;
 		this.xCentered = centered;
-		this.contourCount = contourcount;
+		this.contourCount = contourCount;
 		this.yCentered = yCentered;
 		this.verticalDeltaAngle = verticalDeltaAngle;
+		System.out.println(verticalDeltaAngle);
+		System.out.println(yCentered);
 		
 	}
-	
+
+	public boolean quickEquals(VisionState other){
+		return (other != null) && (this.horizontalDeltaAngle == other.horizontalDeltaAngle) && (this.verticalDeltaAngle == other.verticalDeltaAngle);
+	}
 	
 }
