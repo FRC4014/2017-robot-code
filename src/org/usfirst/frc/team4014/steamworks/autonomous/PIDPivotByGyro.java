@@ -4,6 +4,7 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PIDPivotByGyro extends PIDCommand{
 
@@ -11,6 +12,7 @@ public class PIDPivotByGyro extends PIDCommand{
 	private final Gyro gyro;
 	private double speedFactor;
 	private double angle;
+	private long timeInit;
 	
 	public PIDPivotByGyro(DriveTrain driveTrain, Gyro gyro, double speedFactor, double angle) {
 		super(0.7, 0, 0);
@@ -49,7 +51,9 @@ public class PIDPivotByGyro extends PIDCommand{
 
 	@Override
 	protected boolean isFinished() {
-		return getPIDController().onTarget();
+		boolean done = getPIDController().onTarget();
+		if (done) SmartDashboard.putNumber("PID Piv Time:", System.currentTimeMillis() - timeInit);
+		return done;
 	}
 
 }

@@ -1,20 +1,19 @@
 package org.usfirst.frc.team4014.steamworks.vision;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.HashMap;
 
-import org.opencv.core.*;
-import org.opencv.core.Core.*;
-import org.opencv.features2d.FeatureDetector;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.*;
-import org.opencv.objdetect.*;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfInt;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.first.wpilibj.vision.VisionPipeline;
 
 /**
 * GripPipeline class.
@@ -23,7 +22,7 @@ import org.opencv.objdetect.*;
 *
 * @author GRIP
 */
-public class GripPipeline {
+public class GripPipeline implements VisionPipeline {
 
 	//Outputs
 	private Mat hsvThresholdOutput = new Mat();
@@ -40,10 +39,19 @@ public class GripPipeline {
 	public void process(Mat source0) {
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = source0;
-		double[] hsvThresholdHue = {34.34969430598864, 97.06484641638222};
-		double[] hsvThresholdSaturation = {202.5284010080071, 255.0};
-		double[] hsvThresholdValue = {105.94424460431657, 255.0};
-		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
+		double hsvThresholdMinHue = 66;
+		double hsvThresholdMaxHue = 81;
+		double hsvThresholdMinSaturation = 200;
+		double hsvThresholdMaxSaturation = 255.0;
+		double hsvThresholdMinValue = 41;
+		double hsvThresholdMaxValue = 255.0;
+		
+		hsvThreshold(hsvThresholdInput, 
+				hsvThresholdMinHue, hsvThresholdMaxHue,
+
+				hsvThresholdMinSaturation, hsvThresholdMaxSaturation, 
+				hsvThresholdMinValue, hsvThresholdMaxValue,
+				hsvThresholdOutput);
 
 		// Step Find_Contours0:
 		Mat findContoursInput = hsvThresholdOutput;
@@ -58,12 +66,22 @@ public class GripPipeline {
 		double filterContoursMaxWidth = 1000.0;
 		double filterContoursMinHeight = 0.0;
 		double filterContoursMaxHeight = 1000.0;
-		double[] filterContoursSolidity = {13.489208633093524, 100};
+		double filterContoursMinSolidity = 60; 
+		double filterContoursMaxSolidity = 100; 
 		double filterContoursMaxVertices = 1000000;
 		double filterContoursMinVertices = 0;
 		double filterContoursMinRatio = 0;
 		double filterContoursMaxRatio = 1000;
-		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
+		filterContours(
+				filterContoursContours, 
+				filterContoursMinArea, 
+				filterContoursMinPerimeter, 
+				filterContoursMinWidth, filterContoursMaxWidth, 
+				filterContoursMinHeight, filterContoursMaxHeight, 
+				filterContoursMinSolidity, filterContoursMaxSolidity,
+				filterContoursMaxVertices, filterContoursMinVertices, 
+				filterContoursMinRatio, filterContoursMaxRatio, 
+				filterContoursOutput);
 
 	}
 
@@ -96,16 +114,22 @@ public class GripPipeline {
 	 * Segment an image based on hue, saturation, and value ranges.
 	 *
 	 * @param input The image on which to perform the HSL threshold.
-	 * @param hue The min and max hue
-	 * @param sat The min and max saturation
-	 * @param val The min and max value
 	 * @param output The image in which to store the output.
 	 */
-	private void hsvThreshold(Mat input, double[] hue, double[] sat, double[] val,
-	    Mat out) {
+	private void hsvThreshold(
+			Mat input,
+			double minHue, double maxHue,
+			double minSaturation, double maxSaturation,
+			double minValue, double maxValue,
+			Mat out) {
+		
 		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(out, new Scalar(hue[0], sat[0], val[0]),
-			new Scalar(hue[1], sat[1], val[1]), out);
+		
+		Core.inRange(
+				out, 
+				new Scalar(minHue, minSaturation, minValue),
+				new Scalar(maxHue, maxSaturation, maxValue), 
+				out);
 	}
 
 	/**
@@ -115,8 +139,7 @@ public class GripPipeline {
 	 * @param maskSize the size of the mask.
 	 * @param output The image in which to store the output.
 	 */
-	private void findContours(Mat input, boolean externalOnly,
-		List<MatOfPoint> contours) {
+	private void findContours(Mat input, boolean externalOnly, List<MatOfPoint> contours) {
 		Mat hierarchy = new Mat();
 		contours.clear();
 		int mode;
@@ -147,21 +170,32 @@ public class GripPipeline {
 	 * @param minRatio minimum ratio of width to height
 	 * @param maxRatio maximum ratio of width to height
 	 */
-	private void filterContours(List<MatOfPoint> inputContours, double minArea,
-		double minPerimeter, double minWidth, double maxWidth, double minHeight, double
-		maxHeight, double[] solidity, double maxVertexCount, double minVertexCount, double
-		minRatio, double maxRatio, List<MatOfPoint> output) {
+	private void filterContours(
+			List<MatOfPoint> inputContours, 
+			double minArea,
+			double minPerimeter, 
+			double minWidth, double maxWidth, 
+			double minHeight, double maxHeight, 
+			double minSolidity, double maxSolidity, 
+			double maxVertexCount, double minVertexCount, 
+			double minRatio, double maxRatio, 
+			List<MatOfPoint> output) {
+
 		final MatOfInt hull = new MatOfInt();
 		output.clear();
+		
 		//operation
 		for (int i = 0; i < inputContours.size(); i++) {
 			final MatOfPoint contour = inputContours.get(i);
+			
 			final Rect bb = Imgproc.boundingRect(contour);
 			if (bb.width < minWidth || bb.width > maxWidth) continue;
 			if (bb.height < minHeight || bb.height > maxHeight) continue;
+			
 			final double area = Imgproc.contourArea(contour);
 			if (area < minArea) continue;
 			if (Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true) < minPerimeter) continue;
+			
 			Imgproc.convexHull(contour, hull);
 			MatOfPoint mopHull = new MatOfPoint();
 			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
@@ -171,10 +205,12 @@ public class GripPipeline {
 				mopHull.put(j, 0, point);
 			}
 			final double solid = 100 * area / Imgproc.contourArea(mopHull);
-			if (solid < solidity[0] || solid > solidity[1]) continue;
+			if (solid < minSolidity || solid > maxSolidity) continue;
 			if (contour.rows() < minVertexCount || contour.rows() > maxVertexCount)	continue;
+			
 			final double ratio = bb.width / (double)bb.height;
 			if (ratio < minRatio || ratio > maxRatio) continue;
+			
 			output.add(contour);
 		}
 	}

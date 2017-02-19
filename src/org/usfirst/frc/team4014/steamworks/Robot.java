@@ -13,11 +13,27 @@ import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
+
 import org.usfirst.frc.team4014.steamworks.vision.LEDs;
+
+import org.usfirst.frc.team4014.steamworks.vision.InclineCamera;
+import org.usfirst.frc.team4014.steamworks.vision.PivotByVision;
+import org.usfirst.frc.team4014.steamworks.vision.USBCameraFactory;
+import org.usfirst.frc.team4014.steamworks.vision.VisionTracker;
+
 import org.usfirst.frc.team4014.steamworks.winch.Winch;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
+import com.ctre.CANTalon;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.vision.VisionRunner;
+import edu.wpi.first.wpilibj.vision.VisionThread;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -38,6 +54,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	private DriveTrain driveTrain;
+	private VisionTracker vision;
 	
 
 	/**
@@ -111,6 +128,13 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
+//		SmartDashboard.putNumber("centerX", centerX);
+//		  if centerx is less we need to turn to the left
+
+		
+//		double turn = centerX - (IMG_WIDTH / 2);
+//		drive.arcadeDrive(-0.6, turn * 0.005);
+
 
 	@Override
 	public void teleopInit() {
