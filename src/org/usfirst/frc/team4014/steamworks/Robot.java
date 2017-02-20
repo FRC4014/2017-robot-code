@@ -15,7 +15,7 @@ import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
 
 import org.usfirst.frc.team4014.steamworks.vision.LEDs;
-
+import org.usfirst.frc.team4014.steamworks.vision.Camera;
 import org.usfirst.frc.team4014.steamworks.vision.InclineCamera;
 import org.usfirst.frc.team4014.steamworks.vision.OneAndDoneVision;
 import org.usfirst.frc.team4014.steamworks.vision.PivotByVision;
@@ -74,6 +74,7 @@ public class Robot extends IterativeRobot {
 		new FuelIntake(oi);	
 		new LEDs(oi);
 		vision = new VisionTracker();
+		new Camera(oi, vision, driveTrain, GYRO);
 		/*
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
