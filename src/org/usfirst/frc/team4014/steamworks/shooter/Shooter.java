@@ -31,7 +31,7 @@ public class Shooter extends Subsystem {
 	public void shoot(Joystick joystick) {
 		if(joystick.getRawButton(3)){
 			shooterMotorOne.changeControlMode(TalonControlMode.Voltage);
-			shooterMotorOne.setVoltageRampRate(24.0);
+			shooterMotorOne.setVoltageCompensationRampRate(12.0);
 			shooterMotorOne.set(joystick.getZ() * 12);
 		}
 		else{
