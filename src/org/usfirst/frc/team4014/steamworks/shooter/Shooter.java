@@ -15,9 +15,9 @@ public class Shooter extends Subsystem {
 		shooterMotorOne = new CANTalon(CAN.SHOOTER_MOTOR_1), 
 		shooterMotorTwo = new CANTalon(CAN.SHOOTER_MOTOR_2);
 	
-	private static final Servo
-		leftGate = new Servo(3),
-		rightGate = new Servo(4);
+//	private static final Servo
+//		leftGate = new Servo(3),
+//		rightGate = new Servo(4);
 	
 	private final OI oi;
 	
