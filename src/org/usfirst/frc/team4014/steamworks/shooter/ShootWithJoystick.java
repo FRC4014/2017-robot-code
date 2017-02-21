@@ -2,6 +2,8 @@ package org.usfirst.frc.team4014.steamworks.shooter;
 
 import org.usfirst.frc.team4014.steamworks.OI;
 
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 
 
