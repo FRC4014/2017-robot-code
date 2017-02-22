@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4014.steamworks.gear;
+ package org.usfirst.frc.team4014.steamworks.gear;
 
 import org.usfirst.frc.team4014.steamworks.OI;
 
@@ -31,14 +31,14 @@ public class Gear extends Subsystem {
 	}
 
 	public void open() {
-		leftServo.setAngle(90);
-		rightServo.setAngle(90);
+		leftServo.setAngle(15);
+		rightServo.setAngle(15); // Formerly 165
 		SmartDashboard.putString("Gear Control Status", "Open");
 	}
 
 	public void close() {
-		leftServo.setAngle(15);
-		rightServo.setAngle(165);
+		leftServo.setAngle(90);
+		rightServo.setAngle(90);
 		SmartDashboard.putString("Gear Control Status", "Closed");
 	}
 	

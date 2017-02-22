@@ -23,7 +23,7 @@ public class WinchIntakeWithButton extends Command {
 	
 	protected void execute() {
 		winch.start();
-		gear.superClose();
+		gear.close();
 	}
 	
 	@Override

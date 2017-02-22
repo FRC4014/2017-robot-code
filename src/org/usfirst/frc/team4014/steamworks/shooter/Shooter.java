@@ -41,8 +41,8 @@ public class Shooter extends Subsystem {
 		shooterMotorTwo.changeControlMode(TalonControlMode.Voltage);
 		shooterMotorOne.setVoltageCompensationRampRate(12.0);
 		shooterMotorTwo.setVoltageCompensationRampRate(12.0);
-		shooterMotorOne.set(-(0.25 * (joystick.getZ()) + 0.75) * 12);
-		shooterMotorTwo.set((0.25 * (joystick.getZ()) + 0.75) * 12);
+		shooterMotorOne.set((0.25 * (joystick.getZ()) + 0.75) * 12);
+		shooterMotorTwo.set(-(0.25 * (joystick.getZ()) + 0.75) * 12);
 
 	}
 	

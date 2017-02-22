@@ -36,7 +36,7 @@ public class Winch extends Subsystem {
 	}
 
 	public void start() {
-		winchmotor.set(WINCH_SPEED);
+		winchmotor.set(-(WINCH_SPEED));
 	}
 	
 	public void stop() {
