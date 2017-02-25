@@ -50,8 +50,8 @@ public class Gear extends Subsystem {
 	}
 	
 	public void superClose() {
-		double left = prefs.getDouble("gear.Gear.close.leftServo", 0);
-		double right = prefs.getDouble("gear.Gear.close.rightServo", 180);
+		double left = prefs.getDouble("gear.Gear.superClose.leftServo", 0);
+		double right = prefs.getDouble("gear.Gear.superClose.rightServo", 180);
 		leftServo.setAngle(left);
 		rightServo.setAngle(right);
 		SmartDashboard.putString("Gear Control Status", "Super Closed");

@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.Servo;
 
 public class PivotByVision extends Command {
 	
-	private static final double PIVOT_SPEED = 0.6;
-	private static final double DEFAULT_TURN_ANGLE = 50;
 	private final VisionTracker vision;
 	private final DriveTrain driveTrain;
 	private final Gyro gyro;
@@ -21,12 +19,6 @@ public class PivotByVision extends Command {
 	private VisionState visionstate;
 	private Preferences prefs;
 	
-	public static void initPreferences() {
-		Preferences prefs = Preferences.getInstance();
-		prefs.putDouble("vision.pivotbyvision.pivot.speed", PIVOT_SPEED);
-		prefs.putDouble("vision.pivotbyvision.pivot.defaultangle", DEFAULT_TURN_ANGLE );
-	}
-
 	public PivotByVision(VisionTracker vision, DriveTrain driveTrain, Gyro gyro) {
 		this.vision = vision;
 		this.driveTrain = driveTrain;
@@ -43,8 +35,8 @@ public class PivotByVision extends Command {
 	protected void execute() {
 		super.execute();
 		visionstate  =  vision.getState();
-		double pivotSpeed = prefs.getDouble("vision.pivotbyvision.pivot.speed", PIVOT_SPEED);
-		double defaultTurnAngle = prefs.getDouble("vision.pivotbyvision.pivot.defaultangle", DEFAULT_TURN_ANGLE );
+		double pivotSpeed = prefs.getDouble("vision.PivotByVision.pivotSpeed", 0.6);
+		double defaultTurnAngle = prefs.getDouble("vision.PivotByVision.defaultTurnAngle", 50);
 		if (visionstate.contourCount == 2 ) {
 			pivot = new PIDPivotByGyro(driveTrain, gyro, pivotSpeed, visionstate.horizontalDeltaAngle);
 			pivot.start();

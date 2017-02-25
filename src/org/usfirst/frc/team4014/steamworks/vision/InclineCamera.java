@@ -8,10 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class InclineCamera extends Command {
 	private static final int MAX_SERVO_ANGLE = 100;
 	private static final int MIN_SERVO_ANGLE = 20;
-	private static final int BOILER_INIT_ANGLE = 50;
-	private static final int PEG_INIT_ANGLE = 10;
-	private static final double DELTA_CAMERA_ANGLE_DEFAULT = 0.5;
-	//TODO find what the actual angles are
 	
 	final VisionTracker vision;
 	private static final Servo cameraServo = new Servo(4);
@@ -20,12 +16,6 @@ public class InclineCamera extends Command {
 	private boolean oneAndDone = false;
 	private Preferences prefs;
 	
-	public static void initPreferences() {
-		Preferences prefs = Preferences.getInstance();
-		prefs.putInt("vision.inclinecamera.boilerinitangle", BOILER_INIT_ANGLE);
-		prefs.putInt("vision.inclinecamera.peginitangle", PEG_INIT_ANGLE);
-		prefs.putDouble("vision.inclinecamera.defaultdeltacameraservo", DELTA_CAMERA_ANGLE_DEFAULT);
-	}
 	
 	public InclineCamera(VisionTracker vision, boolean boilerMode) {
 		this.boilerMode = boilerMode;
@@ -39,11 +29,11 @@ public class InclineCamera extends Command {
 		super.initialize();
 		visionState = vision.getState();
 		if (this.boilerMode){
-			int boilerInitAngle = prefs.getInt("vision.inclinecamera.boilerinitangle", BOILER_INIT_ANGLE);
+			int boilerInitAngle = prefs.getInt("vision.InclineCamera.boilerInitAngle", 50);
 			cameraServo.setAngle(boilerInitAngle);
 		}
 		else {
-			int pegInitAngle = prefs.getInt("vision.inclinecamera.peginitangle", PEG_INIT_ANGLE);
+			int pegInitAngle = prefs.getInt("vision.InclineCamera.pegInitAngle", 10);
 			cameraServo.setAngle(pegInitAngle);
 		}
 		System.out.println(cameraServo.getAngle());
@@ -66,7 +56,7 @@ public class InclineCamera extends Command {
 				cameraServo.setAngle(currentAngle - visionState.verticalDeltaAngle);
 			}
 			else {
-				double defaultDeltaAngle = prefs.getDouble("vision.inclinecamera.defaultdeltacameraservo", DELTA_CAMERA_ANGLE_DEFAULT);
+				double defaultDeltaAngle = prefs.getDouble("vision.InclineCamera.defaultDeltaCameraServo", 0.5);
 				cameraServo.setAngle(currentAngle + defaultDeltaAngle);
 			}
 				SmartDashboard.putNumber("cameraServo Angle", cameraServo.getAngle());

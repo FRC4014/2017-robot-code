@@ -15,8 +15,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Winch extends Subsystem {
 	
-	private static final String WINCH_RUN_SPEED = "winch.winch.run.speed";
-	private static final String AUTO_CENTER_DRIVE_DISTANCE = "auto.center.drive.distance";
 	public static final CANTalon winchmotor = new CANTalon(CAN.WINCH_MOTOR);
 	private final OI oi;
 	private static final double WINCH_SPEED = 1;
@@ -40,7 +38,7 @@ public class Winch extends Subsystem {
 
 	public void start() {
 		Preferences prefs = Preferences.getInstance();
-		double winchSpeed = prefs.getDouble(WINCH_RUN_SPEED, WINCH_SPEED);
+		double winchSpeed = prefs.getDouble("winch.Winch.winchSpeed", WINCH_SPEED);
 		winchmotor.set(-(winchSpeed));
 	}
 	
