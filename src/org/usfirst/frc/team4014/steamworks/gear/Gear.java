@@ -3,6 +3,7 @@
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,6 +17,7 @@ public class Gear extends Subsystem {
 //	private final DigitalInput limit;
 	
 	private final OI oi;
+	private Preferences prefs;
 	
 	public Gear (OI oi) {
 		this.oi = oi;
@@ -23,6 +25,7 @@ public class Gear extends Subsystem {
 		JoystickButton b = new JoystickButton(oi.getMateJoystick(), 10);
 		b.toggleWhenPressed(new ToggleGearClamp(this));
 		SmartDashboard.putString("Gear Control Status", "Super Closed");
+		prefs = Preferences.getInstance();
 	}
 	
 	@Override
@@ -31,20 +34,26 @@ public class Gear extends Subsystem {
 	}
 
 	public void open() {
-		leftServo.setAngle(15);
-		rightServo.setAngle(15); // Formerly 165
+		double left = prefs.getDouble("gear.Gear.open.leftServo", 15);
+		double right = prefs.getDouble("gear.Gear.open.rightServo", 15);
+		leftServo.setAngle(left);
+		rightServo.setAngle(right); // Formerly 165
 		SmartDashboard.putString("Gear Control Status", "Open");
 	}
 
 	public void close() {
-		leftServo.setAngle(90);
-		rightServo.setAngle(90);
+		double left = prefs.getDouble("gear.Gear.close.leftServo", 90);
+		double right = prefs.getDouble("gear.Gear.close.rightServo", 90);
+		leftServo.setAngle(left);
+		rightServo.setAngle(right);
 		SmartDashboard.putString("Gear Control Status", "Closed");
 	}
 	
 	public void superClose() {
-		leftServo.setAngle(0);
-		rightServo.setAngle(180);
+		double left = prefs.getDouble("gear.Gear.close.leftServo", 0);
+		double right = prefs.getDouble("gear.Gear.close.rightServo", 180);
+		leftServo.setAngle(left);
+		rightServo.setAngle(right);
 		SmartDashboard.putString("Gear Control Status", "Super Closed");
 	}
 	

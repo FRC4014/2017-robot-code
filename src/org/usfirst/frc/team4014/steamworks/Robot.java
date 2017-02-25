@@ -83,7 +83,6 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Do Nothing", new FakeAutonomousCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
 		*/
-		SmartDashboard.putData("Init Prefs", new InitPreferencesCommand());
 		SmartDashboard.putData("pivot 0.5 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, 45));
 		SmartDashboard.putData("pivot 0.5 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, -45));
 		SmartDashboard.putData("pivot 0.8 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, 45));

@@ -25,11 +25,6 @@ public class Winch extends Subsystem {
  
 	//TODO find real winch speed
 	
-	public static void initPreferences() {
-		Preferences prefs = Preferences.getInstance();
-		prefs.putDouble(WINCH_RUN_SPEED, WINCH_SPEED);
-		
-	}
 	public Winch(OI oi, Gear gear) {
 		super("Winch");
 		this.gear = gear;
