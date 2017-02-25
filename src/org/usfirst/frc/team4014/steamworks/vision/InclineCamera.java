@@ -72,8 +72,8 @@ public class InclineCamera extends Command {
 	}
 	@Override
 	protected boolean isFinished() {
-		boolean done = visionState.yCentered;
-		return done;
+		//		boolean done = visionState.yCentered;
+		return false;
 	}
 
 }
