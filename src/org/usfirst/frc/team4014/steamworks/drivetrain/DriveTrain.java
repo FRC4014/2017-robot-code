@@ -24,7 +24,7 @@ public class DriveTrain extends Subsystem {
 	private final OI oi;
 	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 	private boolean isReversed;
-	private double speedMultiplier;
+	private double speedMultiplier = 1.0;
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
@@ -69,11 +69,11 @@ public class DriveTrain extends Subsystem {
      * attenuator)
      */
     public void drive(Joystick joystick) {
-    	//if (isReversed == false){
-    		robotDrive.arcadeDrive(-joystick.getY() /** speedMultiplier*/, -joystick.getTwist() /** speedMultiplier*/, true);
-    	//} else {
-    		//robotDrive.arcadeDrive(joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
-    	//}
+	if (isReversed == false){
+		robotDrive.arcadeDrive(-joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
+	} else {
+		robotDrive.arcadeDrive(joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
+	}
     }
 	
     /**
@@ -82,21 +82,26 @@ public class DriveTrain extends Subsystem {
 	public void stop() {
 		drive(0,0);	
 	}
+
 	public double encoderDistance(){
 		return ENCODER.getDistance();
 	}
+
 	public void encoderReset(){
 		ENCODER.reset();
 	}
+
 	public void reverseDriveDirection(){
 		isReversed = true;
-		SmartDashboard.putBoolean("Reversed Joystick", true);
+		SmartDashboard.putBoolean("Reversed Joystick", isReversed);
 	}
+
 	public void standardDriveDirection(){
 		isReversed = false;
-		SmartDashboard.putBoolean("Reversed Joystick", false);
+		SmartDashboard.putBoolean("Reversed Joystick", isReversed);
 	}
-	public void changeSpeedModefier (double newModifier) {
-		speedMultiplier = newModifier;
+
+	public void setSpeedMultiplier (double multiplier) {
+		speedMultiplier = multiplier;
 	}
 }
