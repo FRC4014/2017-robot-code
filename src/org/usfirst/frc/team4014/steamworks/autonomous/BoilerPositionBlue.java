@@ -9,8 +9,9 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
-public class BoilerPositionBlue extends CommandGroup{
-	public BoilerPositionBlue(DriveTrain driveTrain, Gear gear, Gyro gyro){
+public class BoilerPositionBlue extends CommandGroup {
+
+	public BoilerPositionBlue(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 
 		int drive1Distance = prefs.getInt("auto.BoilerPositionBlue.drive1.distance", 108);
@@ -33,7 +34,7 @@ public class BoilerPositionBlue extends CommandGroup{
 		addSequential(new OpenGearClamp(gear));
 		
 		int drive3Distance = prefs.getInt("auto.BoilerPositionBlue.drive3.distance", -12);
-		double drive3Speed = prefs.getDouble("auto.BoilerPositionBlue.drive3.speed", -0.25);
+		double drive3Speed = prefs.getDouble("auto.BoilerPositionBlue.drive3.speed", -0.8);
 		addSequential(new Drive(driveTrain, drive3Distance, drive3Speed));
 		
 		addSequential(new CloseGearClamp(gear));

@@ -11,37 +11,23 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class CenterPosition extends CommandGroup {
 	
-	// Default values
-	private static final int DRIVE_DISTANCE = 93;
-	private static final double DRIVE_SPEED = 0.8;
-
-	public static void initPreferences() {
-		Preferences prefs = Preferences.getInstance();
-		prefs.putInt("auto.center.drive.distance", DRIVE_DISTANCE);
-		prefs.getDouble("auto.center.drive.speed", DRIVE_SPEED);
-	}
-
-	public CenterPosition(DriveTrain driveTrain, Gear gear, Gyro gyro){
+	public CenterPosition(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 		
-		int distance = prefs.getInt("auto.center.drive.distance", DRIVE_DISTANCE);
-		double speed = prefs.getDouble("auto.center.drive.speed", DRIVE_SPEED);
-		addSequential(new Drive(driveTrain, distance, speed));
+		int drive1Distance = prefs.getInt("auto.CenterPosition.drive1.distance", 93);
+		double drive1Speed = prefs.getDouble("auto.CenterPosition.drive1.speed", 0.8);
+		addSequential(new Drive(driveTrain, drive1Distance, drive1Speed));
 		
-		double speed2 = prefs.getDouble("auto.center.SlowGearApproach.speed2", 0.5);
-		
-		
-		addSequential(new SlowGearApproach(driveTrain, speed2, gear));
+		double gearApproachSpeed = prefs.getDouble("auto.CenterPosition.slowApproach.speed", 0.5);
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear));
+
 		addSequential(new OpenGearClamp(gear));
-		addSequential(new Drive(driveTrain, -12, -0.25));
+
+		int drive2Distance = prefs.getInt("auto.CenterPosition.drive2.distance", -12);
+		double drive2Speed = prefs.getDouble("auto.CenterPosition.drive2.speed", -0.8);
+		addSequential(new Drive(driveTrain, drive2Distance, drive2Speed));
+
 		addSequential(new CloseGearClamp(gear));
 	}
-
-	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		super.initialize();
-	}
-	
 	
 }
