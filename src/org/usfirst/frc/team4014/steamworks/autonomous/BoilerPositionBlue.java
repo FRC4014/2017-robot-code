@@ -14,7 +14,7 @@ public class BoilerPositionBlue extends CommandGroup{
 		addSequential(new PivotByGyro(driveTrain, 0.5, -45, gyro));
 		//TODO: adjust using vision
 		addSequential(new Drive(driveTrain, 72, 0.8));
-		addSequential(new SlowGearAproach(driveTrain, 0.5, gear));
+		addSequential(new SlowGearApproach(driveTrain, 0.5, gear));
 		addSequential(new OpenGearClamp(gear));
 		addSequential(new Drive(driveTrain, -12, -0.25));
 		addSequential(new CloseGearClamp(gear));

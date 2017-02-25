@@ -8,6 +8,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
+@Deprecated
+/**
+ * Basic experimental test to test vision and cameraServo commands.
+ * @author Frank Boensch
+ *
+ */
 public class Camera extends Subsystem{
 	
 	 final OI oi;
