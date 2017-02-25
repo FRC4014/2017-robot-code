@@ -16,12 +16,6 @@ public class FuelIntake extends Subsystem {
 	private final OI oi;
 	private final JoystickButton button;
 
-	public static void initPreferences() {
-		Preferences prefs = Preferences.getInstance();
-		prefs.putDouble("fuelintake.fuelintake.run.speed", 0.8);
-		
-	}
-	
 	public FuelIntake(OI oi) {
 		super("Fuel Intake");
 		this.oi = oi;
@@ -39,8 +33,8 @@ public class FuelIntake extends Subsystem {
 
 	public void start() {
 		Preferences prefs = Preferences.getInstance();
-		double fuelIntakeSpeed = prefs.getDouble("fuelintake.fuelintake.run.speed", 0.8);
-		motor.set(fuelIntakeSpeed);
+		double speed = prefs.getDouble("fuelintake.Fuelintake.speed", 0.8);
+		motor.set(speed);
 	}
 
 	public void stop() {
