@@ -8,12 +8,15 @@ import org.usfirst.frc.team4014.steamworks.shooter.ShootWithJoystick;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Winch extends Subsystem {
 	
+	private static final String WINCH_RUN_SPEED = "winch.run.speed";
+	private static final String AUTO_CENTER_DRIVE_DISTANCE = "auto.center.drive.distance";
 	public static final CANTalon winchmotor = new CANTalon(CAN.WINCH_MOTOR);
 	private final OI oi;
 	private static final double WINCH_SPEED = 1;
@@ -21,7 +24,12 @@ public class Winch extends Subsystem {
 	private final Gear gear;
  
 	//TODO find real winch speed
+	
+	public static void initPreferences() {
+		Preferences prefs = Preferences.getInstance();
+		prefs.putDouble(WINCH_RUN_SPEED, WINCH_SPEED);
 		
+	}
 	public Winch(OI oi, Gear gear) {
 		super("Winch");
 		this.gear = gear;
@@ -36,7 +44,9 @@ public class Winch extends Subsystem {
 	}
 
 	public void start() {
-		winchmotor.set(-(WINCH_SPEED));
+		Preferences prefs = Preferences.getInstance();
+		double winchSpeed = prefs.getDouble(WINCH_RUN_SPEED, WINCH_SPEED);
+		winchmotor.set(-(winchSpeed));
 	}
 	
 	public void stop() {

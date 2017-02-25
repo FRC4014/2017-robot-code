@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4014.steamworks;
 
 import org.usfirst.frc.team4014.steamworks.autonomous.CenterPosition;
+import org.usfirst.frc.team4014.steamworks.winch.Winch;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,6 +16,7 @@ public class InitPreferencesCommand extends Command {
 		if (!prefs.getBoolean(INIT_PREFERENCES_BLOCK, false)) {
 			prefs.putBoolean(INIT_PREFERENCES_BLOCK, true);
 			CenterPosition.initPreferences();
+			Winch.initPreferences();
 		}
 	}
 
