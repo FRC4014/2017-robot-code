@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
 		new LEDs(oi);
 		vision = new VisionTracker();
 		new Camera(oi, vision, driveTrain, GYRO);
-		/*
+
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
@@ -83,13 +83,15 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
 		chooser.addObject("Do Nothing", new FakeAutonomousCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
-		*/
+
+		// ---- The following is just for testing. Remove as soon as reasonable. -----------------
 		SmartDashboard.putData("pivot 0.5 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, 45));
 		SmartDashboard.putData("pivot 0.5 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, -45));
 		SmartDashboard.putData("pivot 0.8 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, 45));
 		SmartDashboard.putData("pivot 0.8 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, -45));
 		SmartDashboard.putData("pivot 1 45:", new PIDPivotByGyro(driveTrain, GYRO, 1, 45));
 		SmartDashboard.putData("pivot 1 -45:", new PIDPivotByGyro(driveTrain, GYRO, 1, -45));
+		// ---------------------------------------------------------------------------------------
 	}
 
 	@Override
