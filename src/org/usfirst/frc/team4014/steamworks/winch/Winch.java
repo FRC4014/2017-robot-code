@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Winch extends Subsystem {
 	
-	private static final String WINCH_RUN_SPEED = "winch.run.speed";
+	private static final String WINCH_RUN_SPEED = "winch.winch.run.speed";
 	private static final String AUTO_CENTER_DRIVE_DISTANCE = "auto.center.drive.distance";
 	public static final CANTalon winchmotor = new CANTalon(CAN.WINCH_MOTOR);
 	private final OI oi;
@@ -35,7 +35,7 @@ public class Winch extends Subsystem {
 		this.gear = gear;
 		this.oi = oi;
 		winchbutton = new JoystickButton(oi.getMateJoystick(), 1);
-		winchbutton.toggleWhenPressed(new WinchIntakeWithButton(this, gear));
+		winchbutton.whileHeld(new WinchIntakeWithButton(this, gear));
 	}
 
 	@Override
