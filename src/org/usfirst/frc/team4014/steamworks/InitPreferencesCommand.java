@@ -2,6 +2,7 @@ package org.usfirst.frc.team4014.steamworks;
 
 import org.usfirst.frc.team4014.steamworks.autonomous.CenterPosition;
 import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
+import org.usfirst.frc.team4014.steamworks.vision.InclineCamera;
 import org.usfirst.frc.team4014.steamworks.vision.VisionTracker;
 import org.usfirst.frc.team4014.steamworks.winch.Winch;
 
@@ -20,6 +21,7 @@ public class InitPreferencesCommand extends Command {
 			CenterPosition.initPreferences();
 			Winch.initPreferences();
 			FuelIntake.initPreferences();
+			InclineCamera.initPreferences();
 		}
 	}
 

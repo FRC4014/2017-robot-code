@@ -11,25 +11,21 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class CenterPosition extends CommandGroup {
 	
-	// Dashboard preferences keys
-	private static final String AUTO_CENTER_DRIVE_SPEED = "auto.center.drive.speed";
-	private static final String AUTO_CENTER_DRIVE_DISTANCE = "auto.center.drive.distance";
-
 	// Default values
 	private static final int DRIVE_DISTANCE = 93;
 	private static final double DRIVE_SPEED = 0.8;
 
 	public static void initPreferences() {
 		Preferences prefs = Preferences.getInstance();
-		prefs.putInt(AUTO_CENTER_DRIVE_DISTANCE, DRIVE_DISTANCE);
-		prefs.getDouble(AUTO_CENTER_DRIVE_SPEED, DRIVE_SPEED);
+		prefs.putInt("auto.center.drive.distance", DRIVE_DISTANCE);
+		prefs.getDouble("auto.center.drive.speed", DRIVE_SPEED);
 	}
 
 	public CenterPosition(DriveTrain driveTrain, Gear gear, Gyro gyro){
 		Preferences prefs = Preferences.getInstance();
 		
-		int distance = prefs.getInt(AUTO_CENTER_DRIVE_DISTANCE, DRIVE_DISTANCE);
-		double speed = prefs.getDouble(AUTO_CENTER_DRIVE_SPEED, DRIVE_SPEED);
+		int distance = prefs.getInt("auto.center.drive.distance", DRIVE_DISTANCE);
+		double speed = prefs.getDouble("auto.center.drive.speed", DRIVE_SPEED);
 		addSequential(new Drive(driveTrain, distance, speed));
 		
 		double speed2 = prefs.getDouble("auto.center.SlowGearApproach.speed2", 0.5);

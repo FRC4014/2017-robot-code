@@ -13,15 +13,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class FuelIntake extends Subsystem {
 
 	public static final CANTalon motor = new CANTalon(CAN.FUEL_INTAKE_MOTOR);
-	private static final String FUEL_RUN_SPEED = "fuelintake.run.speed";
-	private static final double INTAKE_SPEED = 0.8;
-			
 	private final OI oi;
 	private final JoystickButton button;
 
 	public static void initPreferences() {
 		Preferences prefs = Preferences.getInstance();
-		prefs.putDouble(FUEL_RUN_SPEED, INTAKE_SPEED);
+		prefs.putDouble("fuelintake.fuelintake.run.speed", 0.8);
 		
 	}
 	
@@ -42,7 +39,7 @@ public class FuelIntake extends Subsystem {
 
 	public void start() {
 		Preferences prefs = Preferences.getInstance();
-		double fuelIntakeSpeed = prefs.getDouble(FUEL_RUN_SPEED, INTAKE_SPEED);
+		double fuelIntakeSpeed = prefs.getDouble("fuelintake.fuelintake.run.speed", 0.8);
 		motor.set(fuelIntakeSpeed);
 	}
 
