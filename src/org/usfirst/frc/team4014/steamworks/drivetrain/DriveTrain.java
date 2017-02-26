@@ -29,13 +29,14 @@ public class DriveTrain extends Subsystem {
     public DriveTrain(OI oi) {
 		this.oi = oi;
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-		
+		isReversed = false;
 		//ENCODER.setDistancePerPulse(18.8495559); //wheel diameter * pi
 		//ENCODER.setMaxPeriod(.1);
 		//ENCODER.setMinRate(10);
 		
 		JoystickButton t = new JoystickButton(oi.getDriverJoystick(), 11);
-		t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
+		//t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
+		t.whenPressed(new ToggleDriveDirection(this, oi));
 		
 		JoystickButton h = new JoystickButton(oi.getDriverJoystick(), 12);
 		t.toggleWhenActive(new HalfSpeed(this));
@@ -69,11 +70,12 @@ public class DriveTrain extends Subsystem {
      * attenuator)
      */
     public void drive(Joystick joystick) {
-	if (isReversed == false){
-		robotDrive.arcadeDrive(-joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
-	} else {
-		robotDrive.arcadeDrive(joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
-	}
+    	if (isReversed == false){
+    		robotDrive.arcadeDrive(-joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
+    	} 
+    	else {
+    		robotDrive.arcadeDrive(joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
+    	}
     }
 	
     /**
