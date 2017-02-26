@@ -14,14 +14,14 @@ public class Gear extends Subsystem {
 	private static final Servo 
 		leftServo = new Servo(1),
 		rightServo = new Servo(2);
-//	private final DigitalInput limit;
+	private final DigitalInput limit;
 	
 	private final OI oi;
 	private Preferences prefs;
 	
 	public Gear (OI oi) {
 		this.oi = oi;
-//		limit = new DigitalInput(3);
+		limit = new DigitalInput(3);
 		JoystickButton b = new JoystickButton(oi.getMateJoystick(), 10);
 		b.toggleWhenPressed(new ToggleGearClamp(this));
 		SmartDashboard.putString("Gear Control Status", "Super Closed");
@@ -47,6 +47,7 @@ public class Gear extends Subsystem {
 		leftServo.setAngle(left);
 		rightServo.setAngle(right);
 		SmartDashboard.putString("Gear Control Status", "Closed");
+		SmartDashboard.putBoolean("Peg Limit Switch Status", limit.get());
 	}
 	
 	public void superClose() {
@@ -59,12 +60,12 @@ public class Gear extends Subsystem {
 	
 	public boolean isPegInGear() {
 		// TODO: This is returning true just until we get the DIO error figured out.
-		return true;
-//		if (limit.get() == 0){
-//			return true;
-//		} else {
-//			return false;
-//		}
+//		return true;
+		if (limit.get() == false){
+			return true;
+		} else {
+			return false;
+		}
 //		return limit.get();
 	}
 	
