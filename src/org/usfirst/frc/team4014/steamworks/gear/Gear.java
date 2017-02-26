@@ -60,6 +60,11 @@ public class Gear extends Subsystem {
 	public boolean isPegInGear() {
 		// TODO: This is returning true just until we get the DIO error figured out.
 		return true;
+//		if (limit.get() == 0){
+//			return true;
+//		} else {
+//			return false;
+//		}
 //		return limit.get();
 	}
 	
