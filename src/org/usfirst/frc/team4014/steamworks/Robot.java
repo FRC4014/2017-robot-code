@@ -4,7 +4,6 @@ package org.usfirst.frc.team4014.steamworks;
 import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionBlue;
 import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionRed;
 import org.usfirst.frc.team4014.steamworks.autonomous.CenterPosition;
-import org.usfirst.frc.team4014.steamworks.autonomous.FakeAutonomousCommand;
 import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionBlue;
 import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionRed;
 import org.usfirst.frc.team4014.steamworks.autonomous.PIDPivotByGyro;
