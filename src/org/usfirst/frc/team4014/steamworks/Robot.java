@@ -121,8 +121,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-//		autonomousCommand = chooser.getSelected();
-	//	autonomousCommand = new PivotTest(driveTrain, GYRO);
+		autonomousCommand = chooser.getSelected();
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
