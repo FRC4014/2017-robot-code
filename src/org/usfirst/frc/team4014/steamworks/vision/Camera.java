@@ -28,7 +28,7 @@ public class Camera extends Subsystem{
 		this.vision = vision;
 		this.driveTrain = driveTrain;
 		this.gyro = gyro;
-		visionPivotButton = new JoystickButton(oi.getDriverJoystick(),9);
+		visionPivotButton = new JoystickButton(oi.getDriverJoystick(),8);
 		visionPivotButton.whenPressed(new PivotByVision(vision, driveTrain, gyro));
 		cameraServoInclineButton = new JoystickButton(oi.getDriverJoystick(),10);
 		cameraServoInclineButton.toggleWhenPressed(new InclineCamera(vision, true));

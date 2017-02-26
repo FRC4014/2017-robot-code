@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4014.steamworks.vision;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public final class VisionState {
 	final double horizontalDeltaAngle;
 	final boolean xCentered;
@@ -15,6 +17,7 @@ public final class VisionState {
 		this.contourCount = contourCount;
 		this.yCentered = yCentered;
 		this.verticalDeltaAngle = verticalDeltaAngle;
+		SmartDashboard.putNumber("contours", this.contourCount);
 		System.out.println(verticalDeltaAngle);
 		System.out.println(yCentered);
 		
