@@ -35,11 +35,10 @@ public class DriveTrain extends Subsystem {
 		//ENCODER.setMinRate(10);
 		
 		JoystickButton t = new JoystickButton(oi.getDriverJoystick(), 11);
-		//t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
-		t.whenPressed(new ToggleDriveDirection(this, oi));
+		t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
 		
 		JoystickButton h = new JoystickButton(oi.getDriverJoystick(), 12);
-		t.toggleWhenActive(new HalfSpeed(this));
+		h.whileHeld(new HalfSpeed(this));
 	}
   
     /**
