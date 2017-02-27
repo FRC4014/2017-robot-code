@@ -26,11 +26,12 @@ public class Gear extends Subsystem {
 		b.toggleWhenPressed(new ToggleGearClamp(this));
 		SmartDashboard.putString("Gear Control Status", "Super Closed");
 		prefs = Preferences.getInstance();
+		new TestLimitSwitch(this).start();
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-
+		
 	}
 
 	public void open() {
@@ -47,7 +48,6 @@ public class Gear extends Subsystem {
 		leftServo.setAngle(left);
 		rightServo.setAngle(right);
 		SmartDashboard.putString("Gear Control Status", "Closed");
-		SmartDashboard.putBoolean("Peg Limit Switch Status", limit.get());
 	}
 	
 	public void superClose() {
@@ -67,6 +67,10 @@ public class Gear extends Subsystem {
 			return false;
 		}
 //		return limit.get();
+	}
+	
+	public void writeLimitSwitchStatus() {
+		SmartDashboard.putBoolean("Peg Limit Switch Status", limit.get());
 	}
 	
 }
