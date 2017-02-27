@@ -67,6 +67,13 @@ public class InclineCamera extends Command {
 			}
 	}
 
+	@Override
+	protected void end() {
+		double endAngle = prefs.getDouble("vision.InclineCamera.endAngle", 80);
+		cameraServo.setAngle(endAngle);
+	}
+
+
 	public void moveServo(double angle){
 		cameraServo.setAngle(angle);
 	}
