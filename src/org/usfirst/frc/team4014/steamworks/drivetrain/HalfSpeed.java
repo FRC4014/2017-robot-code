@@ -13,7 +13,7 @@ public class HalfSpeed extends Command{
 	}
 
 	protected void initialize() {
-		driveTrain.setSpeedMultiplier(0.5);
+		driveTrain.setSpeedMultiplier(0.75);
 	}
 	
 	protected void end() {

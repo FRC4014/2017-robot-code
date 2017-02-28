@@ -70,10 +70,10 @@ public class DriveTrain extends Subsystem {
      */
     public void drive(Joystick joystick) {
     	if (isReversed == false){
-    		robotDrive.arcadeDrive(-joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
+    		robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
     	} 
     	else {
-    		robotDrive.arcadeDrive(joystick.getY() * speedMultiplier, -joystick.getTwist() * speedMultiplier, true);
+    		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
     	}
     }
 	
