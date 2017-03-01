@@ -14,19 +14,20 @@ public class Gear extends Subsystem {
 	private static final Servo 
 		leftServo = new Servo(1),
 		rightServo = new Servo(2);
-	private final DigitalInput limit;
+	private static final DigitalInput limit = new DigitalInput(3);
 	
 	private final OI oi;
 	private Preferences prefs;
 	
 	public Gear (OI oi) {
 		this.oi = oi;
-		limit = new DigitalInput(3);
 		JoystickButton b = new JoystickButton(oi.getMateJoystick(), 10);
 		b.toggleWhenPressed(new ToggleGearClamp(this));
 		SmartDashboard.putString("Gear Control Status", "Super Closed");
 		prefs = Preferences.getInstance();
-		new TestLimitSwitch(this).start();
+		JoystickButton p = new JoystickButton(oi.getMateJoystick(), 8);
+		p.toggleWhenPressed(new TestLimitSwitch(this));
+//		new TestLimitSwitch(this).start();
 	}
 	
 	@Override
@@ -69,8 +70,8 @@ public class Gear extends Subsystem {
 //		return limit.get();
 	}
 	
-	public void writeLimitSwitchStatus() {
-		SmartDashboard.putBoolean("Peg Limit Switch Status", limit.get());
+	public boolean writeLimitSwitchStatus() {
+		return limit.get();
 	}
 	
 }

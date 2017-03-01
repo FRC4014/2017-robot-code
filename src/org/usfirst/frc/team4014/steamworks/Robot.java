@@ -85,12 +85,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
 
 		// ---- The following is just for testing. Remove as soon as reasonable. -----------------
-		SmartDashboard.putData("pivot 0.5 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, 45));
-		SmartDashboard.putData("pivot 0.5 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.5, -45));
-		SmartDashboard.putData("pivot 0.8 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, 45));
-		SmartDashboard.putData("pivot 0.8 -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.8, -45));
-		SmartDashboard.putData("pivot 1 45:", new PIDPivotByGyro(driveTrain, GYRO, 1, 45));
-		SmartDashboard.putData("pivot 1 -45:", new PIDPivotByGyro(driveTrain, GYRO, 1, -45));
+		SmartDashboard.putData("pivot Slow 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, 45));
+		SmartDashboard.putData("pivot Slow -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -45));
+		SmartDashboard.putData("pivot Fast 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, 45));
+		SmartDashboard.putData("pivot Fast -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, -45));
 		// ---------------------------------------------------------------------------------------
 	}
 

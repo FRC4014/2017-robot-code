@@ -40,7 +40,9 @@ public class PIDPivotByGyro extends PIDCommand{
 	
 	@Override
 	protected double returnPIDInput() {
-		return gyro.getAngle();
+		double angle2 = gyro.getAngle();
+		System.out.println("PIDPivotByGyro: gyro angle = " + angle2);
+		return angle2;
 	}
 
 	@Override
