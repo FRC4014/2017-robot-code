@@ -28,6 +28,9 @@ public class DriveTrain extends Subsystem {
 	private double speedMultiplier = 1.0;
 
 	private boolean brakeMode;
+
+	private final Encoder leftEncoder;
+	private final Encoder rightEncoder;
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
@@ -42,6 +45,27 @@ public class DriveTrain extends Subsystem {
 		
 		JoystickButton h = new JoystickButton(oi.getDriverJoystick(), 12);
 		h.whileHeld(new HalfSpeed(this));
+		
+		leftEncoder = makeEncoder(0, 1, false);
+		rightEncoder = makeEncoder(2, 3, false);
+	}
+
+    /**
+     * Makes a standard encoder for drive train.
+     * 
+     * @param a DIO for 'A' channel.
+     * @param b DIO for 'B' channel.
+     * @param reverseDirection Set to true if the encoder direction should be reversed.
+     * @return Standard Encoder for DriveTrain.
+     */
+	private Encoder makeEncoder(int a, int b, boolean reverseDirection) {
+		Encoder encoder = new Encoder(a, b, false, Encoder.EncodingType.k4X);
+		encoder.setMaxPeriod(.1);
+		encoder.setMinRate(10);
+		encoder.setDistancePerPulse(5);
+		encoder.setReverseDirection(reverseDirection);
+		encoder.setSamplesToAverage(7);
+		return encoder;
 	}
   
     /**
@@ -120,9 +144,23 @@ public class DriveTrain extends Subsystem {
 		rightMotor2.enableBrakeMode(brake);
 		leftMotor1.enableBrakeMode(brake);
 		leftMotor2.enableBrakeMode(brake);
+		SmartDashboard.putString("Brake Mode", brakeMode ? "On" : "Off");
 	}
 
 	public boolean isBrakeModeEnabled() {
 		return brakeMode;
+	}
+
+	public Encoder getLeftEncoder() {
+		return leftEncoder;
+	}
+
+	public Encoder getRightEncoder() {
+		return rightEncoder;
+	}
+	
+	public void resetEncoders() {
+		leftEncoder.reset();
+		rightEncoder.reset();
 	}
 }
