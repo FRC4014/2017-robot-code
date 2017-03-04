@@ -16,6 +16,8 @@ public class SlowGearApproach extends Command{
 		this.driveTrain = driveTrain;
 		this.speed = speed;
 		this.gear = gear;
+		requires(driveTrain);
+		requires(gear);
 	}
 	
 	protected void execute(){

@@ -20,6 +20,7 @@ public class Drive extends Command {
 		this.driveTrain = driveTrain;
 		this.distance = distance;
 		this.speed = speed;
+		requires(driveTrain);
 	}
 
 	protected void initialize (){
