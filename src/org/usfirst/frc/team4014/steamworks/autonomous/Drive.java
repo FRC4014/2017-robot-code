@@ -38,15 +38,7 @@ public class Drive extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		if(driveTrain.encoderDistance() >= distance){
-			driveTrain.encoderReset();
-			return true;
-		}
-		else {
-			return false;
-		}
-		// TODO: Return false until encoder reaches the right value; then return true.
-		
+		return driveTrain.isDestinationReached(distance);
 	}
 	
 }

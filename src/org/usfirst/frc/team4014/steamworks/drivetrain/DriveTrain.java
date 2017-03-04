@@ -4,6 +4,7 @@ import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,7 +23,7 @@ public class DriveTrain extends Subsystem {
     
     public final RobotDrive robotDrive;
 	private final OI oi;
-	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
+//	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 	private boolean isReversed;
 	private double speedMultiplier = 1.0;
 	
@@ -33,6 +34,15 @@ public class DriveTrain extends Subsystem {
 		//ENCODER.setDistancePerPulse(18.8495559); //wheel diameter * pi
 		//ENCODER.setMaxPeriod(.1);
 		//ENCODER.setMinRate(10);
+		leftMotor2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		rightMotor1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		leftMotor2.configEncoderCodesPerRev(2048);
+		rightMotor1.configEncoderCodesPerRev(2048); //TODO figure out what this number needs to be
+		leftMotor2.reverseSensor(false);
+		rightMotor1.reverseSensor(false);
+//		leftMotor2.enc
+		//TODO maybe there's more setup we need for the encoders?
+		
 		
 		JoystickButton t = new JoystickButton(oi.getDriverJoystick(), 11);
 		t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
@@ -84,12 +94,21 @@ public class DriveTrain extends Subsystem {
 		drive(0,0);	
 	}
 
-	public double encoderDistance(){
-		return ENCODER.getDistance();
+	public boolean isDestinationReached(double distance){
+		double targetNum = distance * 38603.8905273;
+		SmartDashboard.putNumber("Autonomous target distance inches", distance);
+		SmartDashboard.putNumber("Autonomous target Distance", targetNum);
+		SmartDashboard.putNumber("encoder Position", rightMotor1.getEncPosition());
+		if (rightMotor1.getEncPosition() >= targetNum){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void encoderReset(){
-		ENCODER.reset();
+		rightMotor1.setPosition(0);//the manual said to use setPosition, but there is a setEncPosition function if this doesn't work
+		leftMotor2.setPosition(0);
 	}
 
 	public void reverseDriveDirection(){
