@@ -4,7 +4,6 @@ import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,7 +22,6 @@ public class DriveTrain extends Subsystem {
     
     public final RobotDrive robotDrive;
 	private final OI oi;
-	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 	private boolean isReversed;
 	private double speedMultiplier = 1.0;
 
@@ -36,9 +34,6 @@ public class DriveTrain extends Subsystem {
 		this.oi = oi;
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 		isReversed = false;
-		ENCODER.setDistancePerPulse(18.8495559); //wheel diameter * pi
-		ENCODER.setMaxPeriod(.1);
-		ENCODER.setMinRate(10);
 		
 		JoystickButton t = new JoystickButton(oi.getDriverJoystick(), 11);
 		t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
@@ -62,7 +57,7 @@ public class DriveTrain extends Subsystem {
 		Encoder encoder = new Encoder(a, b, false, Encoder.EncodingType.k4X);
 		encoder.setMaxPeriod(.1);
 		encoder.setMinRate(10);
-		encoder.setDistancePerPulse(5);
+		encoder.setDistancePerPulse(18.8495559); //wheel diameter * pi
 		encoder.setReverseDirection(reverseDirection);
 		encoder.setSamplesToAverage(7);
 		return encoder;
@@ -85,7 +80,12 @@ public class DriveTrain extends Subsystem {
      * @param right the speed of the right wheels (between -1 and 1)
      */
     public void drive(double left, double right) {
-        robotDrive.tankDrive(left, right);
+    	if (isReversed) {
+            robotDrive.tankDrive(-left, -right);
+    	} 
+    	else {
+            robotDrive.tankDrive(left, right);
+    	}
     }
     
     /**
@@ -96,11 +96,11 @@ public class DriveTrain extends Subsystem {
      * attenuator)
      */
     public void drive(Joystick joystick) {
-    	if (isReversed == false){
-    		robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
+    	if (isReversed) {
+    		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
     	} 
     	else {
-    		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
+    		robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
     	}
     }
 	
@@ -109,19 +109,6 @@ public class DriveTrain extends Subsystem {
      */
 	public void stop() {
 		drive(0,0);	
-	}
-
-	public boolean isDestinationReached(double distance){
-		SmartDashboard.putNumber("Encoder Distance", ENCODER.getDistance());
-		if (ENCODER.getDistance() >= distance){
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public void encoderReset(){
-		ENCODER.reset();
 	}
 
 	public void reverseDriveDirection(){
