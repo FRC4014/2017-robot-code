@@ -3,6 +3,7 @@ package org.usfirst.frc.team4014.steamworks;
 
 import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionBlue;
 import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionRed;
+import org.usfirst.frc.team4014.steamworks.autonomous.CenterNoEncoders;
 import org.usfirst.frc.team4014.steamworks.autonomous.CenterPosition;
 import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionBlue;
 import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionRed;
@@ -81,6 +82,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
 		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, GYRO));
 		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
+		chooser.addObject("CenterNoEncoders", new CenterNoEncoders(driveTrain, gear));
 		chooser.addObject("Do Nothing", new InstantCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
 
