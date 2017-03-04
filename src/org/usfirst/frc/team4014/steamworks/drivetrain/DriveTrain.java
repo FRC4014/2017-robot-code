@@ -8,6 +8,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -30,8 +31,11 @@ public class DriveTrain extends Subsystem {
 	private double speedMultiplier = 1.0;
 
 	private boolean brakeMode;
+
+	private final Preferences prefs;
 	
     public DriveTrain(OI oi, Gyro gyro) {
+		prefs = Preferences.getInstance();
 		this.oi = oi;
 		this.gyro = gyro;
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
@@ -76,8 +80,9 @@ public class DriveTrain extends Subsystem {
      */
     public void driveStraight(double speed, double initialGyro){
     	double deltaAngle = gyro.getAngle() - initialGyro;
-    	double LturnMod = deltaAngle * 0.02;
-    	double RturnMod = deltaAngle * -0.02;
+    	double x = prefs.getDouble("drivetrain.DriveTrain.straight.adjustRate", 0.002);
+    	double LturnMod = deltaAngle * x;
+    	double RturnMod = deltaAngle * -x;
     	robotDrive.tankDrive(speed + LturnMod, speed + RturnMod);
     }
     
