@@ -88,6 +88,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public boolean isDestinationReached(double distance){
+		SmartDashboard.putNumber("Encoder Distance", ENCODER.getDistance());
 		if (ENCODER.getDistance() >= distance){
 			return true;
 		} else {
