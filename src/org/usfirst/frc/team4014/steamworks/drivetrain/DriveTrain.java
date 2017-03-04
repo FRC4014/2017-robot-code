@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends Subsystem {
@@ -23,14 +24,16 @@ public class DriveTrain extends Subsystem {
     
     public final RobotDrive robotDrive;
 	private final OI oi;
+	private final Gyro gyro;
 	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 	private boolean isReversed;
 	private double speedMultiplier = 1.0;
 
 	private boolean brakeMode;
 	
-    public DriveTrain(OI oi) {
+    public DriveTrain(OI oi, Gyro gyro) {
 		this.oi = oi;
+		this.gyro = gyro;
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 		isReversed = false;
 		ENCODER.setDistancePerPulse(18.8495559); //wheel diameter * pi
@@ -71,6 +74,14 @@ public class DriveTrain extends Subsystem {
      * @param joystick a joystick device to control the robot (must have x and y
      * attenuator)
      */
+    public void driveStraight(double speed, double initialGyro){
+    	double deltaAngle = gyro.getAngle() - initialGyro;
+    	double LturnMod = deltaAngle * 0.02;
+    	double RturnMod = deltaAngle * -0.02;
+    	robotDrive.tankDrive(speed + LturnMod, speed + RturnMod);
+    }
+    
+    
     public void drive(Joystick joystick) {
     	if (isReversed == false){
     		robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist() * speedMultiplier, true);

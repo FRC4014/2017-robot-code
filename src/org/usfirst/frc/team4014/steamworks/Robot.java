@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		driveTrain = new DriveTrain(oi);
+		driveTrain = new DriveTrain(oi,GYRO);
 		new Shooter(oi);
 		Gear gear = new Gear(oi);
 		new Winch(oi, gear);
@@ -81,7 +81,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
 		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, GYRO));
 		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
-		chooser.addObject("CenterNoEncoders", new CenterNoEncoders(driveTrain, gear));
+		chooser.addObject("CenterNoEncoders", new CenterNoEncoders(driveTrain, gear, GYRO));
 		chooser.addObject("Do Nothing", new InstantCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
 

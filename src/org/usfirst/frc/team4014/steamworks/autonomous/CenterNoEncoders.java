@@ -5,13 +5,14 @@ import org.usfirst.frc.team4014.steamworks.gear.Gear;
 import org.usfirst.frc.team4014.steamworks.gear.OpenGearClamp;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class CenterNoEncoders extends CommandGroup{
 	
-	public CenterNoEncoders(DriveTrain driveTrain,Gear gear){
-		addSequential(new SlowGearApproach(driveTrain, -0.8, gear));
+	public CenterNoEncoders(DriveTrain driveTrain,Gear gear, Gyro gyro){
+		addSequential(new SlowGearApproach(driveTrain, -0.8, gear, gyro));
 		addSequential(new OpenGearClamp(gear));
-		addSequential(new DriveByTime(driveTrain, 0.6, 1), 2);
+		addSequential(new DriveByTime(driveTrain, 0.6, 0.5), 1);
 	}
 	
 }

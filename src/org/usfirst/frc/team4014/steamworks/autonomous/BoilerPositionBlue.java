@@ -29,7 +29,7 @@ public class BoilerPositionBlue extends CommandGroup {
 		addSequential(new Drive(driveTrain, drive2Distance, drive2Speed));
 		
 		double gearApproachSpeed = prefs.getDouble("auto.BoilerPositionBlue.gearApproach.speed", 0.5);
-		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear));
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear, gyro));
 		
 		addSequential(new OpenGearClamp(gear));
 		
