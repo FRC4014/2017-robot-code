@@ -51,17 +51,14 @@ public class VisionTracker {
 			if (rs.size() == 1) {
 		    	 xs = new int[] {centerx(rs.get(0))};
 		    	 ys = new int[] {centery(rs.get(0))};
-		    	 System.out.println("Size = 1");
 		    }
 		    else if (rs.size() > 1) {
 		    	 xs = new int[] {centerx(rs.get(0)), centerx(rs.get(1))};
 		    	 ys = new int[] {centery(rs.get(0)), centery(rs.get(1))};
-		    	 System.out.println("Size = 2");
 		    }
 		    else{
 		    	 xs = new int[] {};
 		    	 ys = new int[] {};
-		    	 System.out.println("Size = 0");
 		    }
 			synchronized (imgLock) {
 				centerXs = xs;
@@ -135,9 +132,10 @@ public class VisionTracker {
 			verticalDeltaAngle = getVerticalDeltaAngle(ys[0], ys[1]);
 			horizontalDeltaAngle = getHorizontalDeltaAngle(xs[0], xs[1]);
 			System.out.println(verticalDeltaAngle);
-			xCentered = (Math.abs(horizontalDeltaAngle) < 1);
-			yCentered = (Math.abs(verticalDeltaAngle) < 1);
+			xCentered = (Math.abs(horizontalDeltaAngle) < 1.5);
+			yCentered = (Math.abs(verticalDeltaAngle) < 1.5);
 		}
+		System.out.println(horizontalDeltaAngle);
 		
 		return new VisionState(horizontalDeltaAngle, xCentered, contourcount, yCentered, verticalDeltaAngle );
 	}

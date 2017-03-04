@@ -18,9 +18,8 @@ public final class VisionState {
 		this.yCentered = yCentered;
 		this.verticalDeltaAngle = verticalDeltaAngle;
 		SmartDashboard.putNumber("contours", this.contourCount);
-		System.out.println(verticalDeltaAngle);
-		System.out.println(yCentered);
-		
+		System.out.print("Horizontal Delta: ");
+		System.out.println(horizontalDeltaAngle);		
 	}
 
 	public boolean quickEquals(VisionState other){
