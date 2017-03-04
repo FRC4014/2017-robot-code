@@ -25,8 +25,8 @@ public class VisionTracker {
 	private VisionThread visionThread;
 	private final Object imgLock = new Object();
 	public UsbCamera camera;
-	private int[] centerXs;
-	private int[] centerYs;
+	private int[] centerXs = new int[0];
+	private int[] centerYs = new int[0];
 	
 	public VisionTracker() {
 		camera = USBCameraFactory.getCamera();
