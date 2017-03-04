@@ -60,13 +60,13 @@ public class GripPipeline implements VisionPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 80.0;
+		double filterContoursMinArea = 5.0;
 		double filterContoursMinPerimeter = 0.0;
 		double filterContoursMinWidth = 0.0;
 		double filterContoursMaxWidth = 1000.0;
 		double filterContoursMinHeight = 0.0;
 		double filterContoursMaxHeight = 1000.0;
-		double filterContoursMinSolidity = 60; 
+		double filterContoursMinSolidity = 50; 
 		double filterContoursMaxSolidity = 100; 
 		double filterContoursMaxVertices = 1000000;
 		double filterContoursMinVertices = 0;

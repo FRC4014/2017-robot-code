@@ -38,8 +38,8 @@ public class DriveTrain extends Subsystem {
 		//ENCODER.setMinRate(10);
 		leftMotor2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		rightMotor1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		leftMotor2.configEncoderCodesPerRev(2048);
-		rightMotor1.configEncoderCodesPerRev(2048); //TODO figure out what this number needs to be
+//		leftMotor2.configEncoderCodesPerRev(2048);
+//		rightMotor1.configEncoderCodesPerRev(2048); //TODO figure out what this number needs to be
 		leftMotor2.reverseSensor(false);
 		rightMotor1.reverseSensor(false);
 //		leftMotor2.enc

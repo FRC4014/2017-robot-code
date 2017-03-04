@@ -25,8 +25,8 @@ public class VisionTracker {
 	private VisionThread visionThread;
 	private final Object imgLock = new Object();
 	public UsbCamera camera;
-	private int[] centerXs = new int[0];
-	private int[] centerYs = new int[0];
+	private int[] centerXs;
+	private int[] centerYs;
 	
 	public VisionTracker() {
 		camera = USBCameraFactory.getCamera();
@@ -51,14 +51,17 @@ public class VisionTracker {
 			if (rs.size() == 1) {
 		    	 xs = new int[] {centerx(rs.get(0))};
 		    	 ys = new int[] {centery(rs.get(0))};
+		    	 System.out.println("Size = 1");
 		    }
 		    else if (rs.size() > 1) {
 		    	 xs = new int[] {centerx(rs.get(0)), centerx(rs.get(1))};
 		    	 ys = new int[] {centery(rs.get(0)), centery(rs.get(1))};
+		    	 System.out.println("Size = 2");
 		    }
 		    else{
 		    	 xs = new int[] {};
 		    	 ys = new int[] {};
+		    	 System.out.println("Size = 0");
 		    }
 			synchronized (imgLock) {
 				centerXs = xs;
