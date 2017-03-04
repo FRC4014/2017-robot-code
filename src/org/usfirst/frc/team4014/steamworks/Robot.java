@@ -120,6 +120,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
+		driveTrain.enableBrakeMode(true);
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -148,7 +149,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-			
+		
+		driveTrain.enableBrakeMode(false);
 	}
 
 	/**

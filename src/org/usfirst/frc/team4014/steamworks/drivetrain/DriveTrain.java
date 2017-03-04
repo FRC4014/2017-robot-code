@@ -26,6 +26,8 @@ public class DriveTrain extends Subsystem {
 //	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 	private boolean isReversed;
 	private double speedMultiplier = 1.0;
+
+	private boolean brakeMode;
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
@@ -123,5 +125,17 @@ public class DriveTrain extends Subsystem {
 
 	public void setSpeedMultiplier (double multiplier) {
 		speedMultiplier = multiplier;
+	}
+	
+	public void enableBrakeMode(boolean brake) {
+		brakeMode = brake;
+		rightMotor1.enableBrakeMode(brake);
+		rightMotor2.enableBrakeMode(brake);
+		leftMotor1.enableBrakeMode(brake);
+		leftMotor2.enableBrakeMode(brake);
+	}
+
+	public boolean isBrakeModeEnabled() {
+		return brakeMode;
 	}
 }
