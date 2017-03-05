@@ -22,23 +22,45 @@ public class DriveTrain extends Subsystem {
     
     public final RobotDrive robotDrive;
 	private final OI oi;
-	private static final Encoder ENCODER = new Encoder(0,1,false, Encoder.EncodingType.k4X);
 	private boolean isReversed;
 	private double speedMultiplier = 1.0;
+
+	private boolean brakeMode;
+
+	private final Encoder leftEncoder;
+	private final Encoder rightEncoder;
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 		isReversed = false;
-		//ENCODER.setDistancePerPulse(18.8495559); //wheel diameter * pi
-		//ENCODER.setMaxPeriod(.1);
-		//ENCODER.setMinRate(10);
 		
 		JoystickButton t = new JoystickButton(oi.getDriverJoystick(), 11);
 		t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
 		
 		JoystickButton h = new JoystickButton(oi.getDriverJoystick(), 12);
 		h.whileHeld(new HalfSpeed(this));
+		
+		leftEncoder = makeEncoder(0, 1, false);
+		rightEncoder = makeEncoder(2, 3, false);
+	}
+
+    /**
+     * Makes a standard encoder for drive train.
+     * 
+     * @param a DIO for 'A' channel.
+     * @param b DIO for 'B' channel.
+     * @param reverseDirection Set to true if the encoder direction should be reversed.
+     * @return Standard Encoder for DriveTrain.
+     */
+	private Encoder makeEncoder(int a, int b, boolean reverseDirection) {
+		Encoder encoder = new Encoder(a, b, false, Encoder.EncodingType.k4X);
+		encoder.setMaxPeriod(.1);
+		encoder.setMinRate(10);
+		encoder.setDistancePerPulse(18.8495559); //wheel diameter * pi
+		encoder.setReverseDirection(reverseDirection);
+		encoder.setSamplesToAverage(7);
+		return encoder;
 	}
   
     /**
@@ -58,7 +80,12 @@ public class DriveTrain extends Subsystem {
      * @param right the speed of the right wheels (between -1 and 1)
      */
     public void drive(double left, double right) {
-        robotDrive.tankDrive(left, right);
+    	if (isReversed) {
+            robotDrive.tankDrive(-left, -right);
+    	} 
+    	else {
+            robotDrive.tankDrive(left, right);
+    	}
     }
     
     /**
@@ -69,11 +96,11 @@ public class DriveTrain extends Subsystem {
      * attenuator)
      */
     public void drive(Joystick joystick) {
-    	if (isReversed == false){
-    		robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
+    	if (isReversed) {
+    		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
     	} 
     	else {
-    		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
+    		robotDrive.arcadeDrive(-joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
     	}
     }
 	
@@ -82,14 +109,6 @@ public class DriveTrain extends Subsystem {
      */
 	public void stop() {
 		drive(0,0);	
-	}
-
-	public double encoderDistance(){
-		return ENCODER.getDistance();
-	}
-
-	public void encoderReset(){
-		ENCODER.reset();
 	}
 
 	public void reverseDriveDirection(){
@@ -104,5 +123,31 @@ public class DriveTrain extends Subsystem {
 
 	public void setSpeedMultiplier (double multiplier) {
 		speedMultiplier = multiplier;
+	}
+	
+	public void enableBrakeMode(boolean brake) {
+		brakeMode = brake;
+		rightMotor1.enableBrakeMode(brake);
+		rightMotor2.enableBrakeMode(brake);
+		leftMotor1.enableBrakeMode(brake);
+		leftMotor2.enableBrakeMode(brake);
+		SmartDashboard.putString("Brake Mode", brakeMode ? "On" : "Off");
+	}
+
+	public boolean isBrakeModeEnabled() {
+		return brakeMode;
+	}
+
+	public Encoder getLeftEncoder() {
+		return leftEncoder;
+	}
+
+	public Encoder getRightEncoder() {
+		return rightEncoder;
+	}
+	
+	public void resetEncoders() {
+		leftEncoder.reset();
+		rightEncoder.reset();
 	}
 }

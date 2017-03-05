@@ -14,6 +14,7 @@ public class InclineCamera extends Command {
 	private VisionState visionState;
 	private final boolean boilerMode;
 	private boolean oneAndDone = false;
+	private boolean headingUp = true;
 	private Preferences prefs;
 	
 	
@@ -47,6 +48,12 @@ public class InclineCamera extends Command {
 		System.out.println("Got Angle!");
 		System.out.println(currentAngle);
 		VisionState newVisionState = vision.getState();
+		if (currentAngle > 178) {
+			headingUp = true;
+		}
+		else if (currentAngle < 80) {
+			headingUp = false;
+		}
 		if (!newVisionState.quickEquals(visionState) || newVisionState.contourCount == 0) {
 			visionState = newVisionState;
 			if (visionState.contourCount == 2){
@@ -57,7 +64,11 @@ public class InclineCamera extends Command {
 			}
 			else {
 				double defaultDeltaAngle = prefs.getDouble("vision.InclineCamera.defaultDeltaCameraServo", 0.5);
-				cameraServo.setAngle(currentAngle + defaultDeltaAngle);
+				if (headingUp) {
+					cameraServo.setAngle(currentAngle + defaultDeltaAngle);
+				}
+				else 
+					cameraServo.setAngle(currentAngle - defaultDeltaAngle);
 			}
 				SmartDashboard.putNumber("cameraServo Angle", cameraServo.getAngle());
 				SmartDashboard.putNumber("verticalDeltaAngle", visionState.verticalDeltaAngle);
@@ -69,8 +80,9 @@ public class InclineCamera extends Command {
 
 	@Override
 	protected void end() {
-		double endAngle = prefs.getDouble("vision.InclineCamera.endAngle", 80);
-		cameraServo.setAngle(endAngle);
+		//commented out because possibly messes up vision
+		//double endAngle = prefs.getDouble("vision.InclineCamera.endAngle", 80);
+		//cameraServo.setAngle(endAngle);
 	}
 
 

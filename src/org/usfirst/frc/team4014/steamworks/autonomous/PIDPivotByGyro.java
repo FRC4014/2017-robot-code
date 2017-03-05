@@ -13,6 +13,7 @@ public class PIDPivotByGyro extends PIDCommand{
 	private double speedFactor;
 	private double angle;
 	private long timeInit;
+	private boolean onTarget;
 	
 	public PIDPivotByGyro(DriveTrain driveTrain, Gyro gyro, double speedFactor, double angle) {
 		super(0.7, 0, 0);
@@ -31,6 +32,8 @@ public class PIDPivotByGyro extends PIDCommand{
 		gyro.reset();
 		long after = System.currentTimeMillis();
 		System.out.println("Gyro reset delay: " + (after - before));
+		
+		onTarget = false;
 
 //		setSetpointRelative(angle);
 
@@ -55,7 +58,11 @@ public class PIDPivotByGyro extends PIDCommand{
 	protected boolean isFinished() {
 		boolean done = getPIDController().onTarget();
 		if (done) SmartDashboard.putNumber("PID Piv Time:", System.currentTimeMillis() - timeInit);
+		onTarget = done;
 		return done;
 	}
 
+	public boolean isOnTarget() {
+		return onTarget;
+	}
 }

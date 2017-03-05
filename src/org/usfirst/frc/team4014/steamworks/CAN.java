@@ -19,5 +19,16 @@ public final class CAN {
 	 */
 	private CAN() {
 	}
-
+	
+	/**
+	 * Mapping values for botlobster
+	 * SRX plug covers use a 5/64th
+	 * SRX ID = 7, CAN ID = 5, Port Drive Two
+	 * SRX ID = 4, CAN ID = 3. Starboard Drive Two
+	 * SRX ID = 5, CAN ID = 9. Ball Intake
+	 * SRX ID = 8, CAN ID = 8. Shooter 1
+	 * SRX ID = 2, CAN ID = 6. Winch
+	 * SRX ID = 6, CAN ID = 4. Starboard Drive One
+	 * SRX ID = 3, CAN ID = 2. Port Drive One
+	 */
 }

@@ -3,6 +3,7 @@ package org.usfirst.frc.team4014.steamworks;
 
 import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionBlue;
 import org.usfirst.frc.team4014.steamworks.autonomous.BoilerPositionRed;
+import org.usfirst.frc.team4014.steamworks.autonomous.CenterNoEncoders;
 import org.usfirst.frc.team4014.steamworks.autonomous.CenterPosition;
 import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionBlue;
 import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionRed;
@@ -75,16 +76,17 @@ public class Robot extends IterativeRobot {
 		new LEDs(oi);
 		vision = new VisionTracker();
 		new Camera(oi, vision, driveTrain, GYRO);
-
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
 		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, GYRO));
 		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
+		chooser.addObject("CenterNoEncoders", new CenterNoEncoders(driveTrain, gear));
 		chooser.addObject("Do Nothing", new InstantCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
 
 		// ---- The following is just for testing. Remove as soon as reasonable. -----------------
+		SmartDashboard.putData("pivot Slow Small:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -10));
 		SmartDashboard.putData("pivot Slow 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, 45));
 		SmartDashboard.putData("pivot Slow -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -45));
 		SmartDashboard.putData("pivot Fast 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, 45));
@@ -120,6 +122,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
+		driveTrain.enableBrakeMode(true);
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -148,7 +151,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-			
+		
+		driveTrain.enableBrakeMode(false);
 	}
 
 	/**

@@ -1,279 +1,74 @@
 <xml version="1.0">
 <dashboard>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="22" y="400"/>
-		<property name="Text" value="Autonomous Position"/>
+		<location x="269" y="24"/>
+		<property name="Text" value="Connected:"/>
 	</static-widget>
-	<widget field="Vis Piv Time:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="180" y="0"/>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="28" y="194"/>
+		<property name="Text" value="Choose Autonomous Postition"/>
+	</static-widget>
+	<widget field="Gear Control Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="18" y="102"/>
 	</widget>
-	<widget field="Autonomous Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="22" y="419"/>
+	<widget field="Fuel Intake" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="67" y="74"/>
 	</widget>
-	<widget field="PID Piv Time:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="279"/>
-	</widget>
-	<widget field="contours" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="256"/>
-	</widget>
-	<widget field="verticalDeltaAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="169"/>
-	</widget>
-	<widget field="cameraServo Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="69"/>
+	<widget field="Reversed Joystick" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="32" y="44"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="329" y="288"/>
-		<width>335</width>
-		<height>349</height>
+		<location x="589" y="360"/>
 		<property name="Camera Choice" value=""/>
 	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="746" y="18"/>
-		<width>571</width>
-		<height>268</height>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.MjpgStreamViewerImpl">
+		<location x="400" y="359"/>
 	</static-widget>
-	<widget field="Reversed Joystick" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="46"/>
-	</widget>
-	<widget field="Gear Control Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="23"/>
-	</widget>
-	<widget field="Fuel Intake" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="0"/>
-	</widget>
-	<widget field="pivot 1 -45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="1164" y="478"/>
-	</widget>
-	<widget field="pivot 1 45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="1170" y="439"/>
-	</widget>
-	<widget field="pivot 0.8 -45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="994" y="478"/>
-	</widget>
-	<widget field="pivot 0.8 45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="995" y="444"/>
-	</widget>
-	<widget field="pivot 0.5 -45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="797" y="480"/>
-	</widget>
-	<widget field="pivot 0.5 45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="802" y="445"/>
-	</widget>
-	<widget field="Pivot by Vision" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="97"/>
-	</widget>
-	<widget field="Delta Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="373" y="84"/>
-	</widget>
-	<widget field="middle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="399" y="54"/>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="337" y="12"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="399" y="10"/>
+		<width>942</width>
+		<height>303</height>
+	</static-widget>
+	<widget field="verticalDeltaAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="761" y="512"/>
 	</widget>
 	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
-		<location x="0" y="203"/>
+		<location x="32" y="134"/>
 	</widget>
-	<widget field="Abs Tolerance:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="351" y="25"/>
+	<widget field="pivot Slow 45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="878" y="392"/>
 	</widget>
-	<widget field="P:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="403" y="116"/>
+	<widget field="pivot Fast -45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="1114" y="435"/>
 	</widget>
-	<widget field="I:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="405" y="147"/>
+	<widget field="pivot Fast 45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="1109" y="390"/>
 	</widget>
-	<widget field="D:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="408" y="174"/>
+	<widget field="Autonomous Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="33" y="215"/>
 	</widget>
-	<widget field="Pivot Speed Factor:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="312" y="203"/>
-		<height>22</height>
+	<widget field="contours" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="586" y="486"/>
+	</widget>
+	<widget field="PID Piv Time:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="968" y="355"/>
+	</widget>
+	<widget field="cameraServo Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="521" y="512"/>
+	</widget>
+	<widget field="pivot Slow -45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="869" y="434"/>
 	</widget>
 </dashboard>
 <live-window>
-	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<widget field="CANTalon[8]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[8]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Encoder[0]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Encoder[0]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="AnalogInput[1]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.SingleNumberDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="AnalogInput[1]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.SingleNumberDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Solenoid[0,2]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Solenoid[0,2]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[0]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[0]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[7]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[7]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[1]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="DigitalInput[1]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalInputDisplay">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[3]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[3]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Solenoid[0,1]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Solenoid[0,1]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[5]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[5]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[2]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[2]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="AnalogGyro[1]" type="Table" class="edu.wpi.first.smartdashboard.gui.elements.Compass">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="AnalogGyro[1]" type="Table" class="edu.wpi.first.smartdashboard.gui.elements.Compass">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[6]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[6]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Servo[4]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.ServoController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Servo[4]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.ServoController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Servo[1]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.ServoController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Servo[1]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.ServoController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[9]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[9]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[4]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="CANTalon[4]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Servo[2]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.ServoController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<widget field="Servo[2]" type="Table" class="edu.wpi.first.smartdashboard.livewindow.elements.ServoController">
-			<location x="0" y="0"/>
-			<height>0</height>
-			<width>0</width>
-		</widget>
-		<location x="0" y="0"/>
-		<width>321</width>
-		<height>1806</height>
-	</widget>
 </live-window>
+	<hidden field="pivot 0.5 -45:"/>
+	<hidden field="pivot 0.8 -45:"/>
+	<hidden field="pivot 1 45:"/>
+	<hidden field="pivot 1 -45:"/>
+	<hidden field="pivot 0.5 45:"/>
+	<hidden field="pivot 0.8 45:"/>
 </xml>

@@ -132,9 +132,10 @@ public class VisionTracker {
 			verticalDeltaAngle = getVerticalDeltaAngle(ys[0], ys[1]);
 			horizontalDeltaAngle = getHorizontalDeltaAngle(xs[0], xs[1]);
 			System.out.println(verticalDeltaAngle);
-			xCentered = (Math.abs(horizontalDeltaAngle) < 1);
-			yCentered = (Math.abs(verticalDeltaAngle) < 1);
+			xCentered = (Math.abs(horizontalDeltaAngle) < 1.5);
+			yCentered = (Math.abs(verticalDeltaAngle) < 1.5);
 		}
+		System.out.println(horizontalDeltaAngle);
 		
 		return new VisionState(horizontalDeltaAngle, xCentered, contourcount, yCentered, verticalDeltaAngle );
 	}
