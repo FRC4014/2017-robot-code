@@ -33,7 +33,7 @@ public class FuelIntake extends Subsystem {
 
 	public void start() {
 		Preferences prefs = Preferences.getInstance();
-		double speed = prefs.getDouble("fuelintake.Fuelintake.speed", 0.8);
+		double speed = 0.5;/*prefs.getDouble("fuelintake.Fuelintake.speed", 0.8);*/
 		motor.set(speed);
 	}
 
