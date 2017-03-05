@@ -1,5 +1,6 @@
  package org.usfirst.frc.team4014.steamworks.gear;
 
+import org.usfirst.frc.team4014.steamworks.DPIO;
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -14,7 +15,7 @@ public class Gear extends Subsystem {
 	private static final Servo 
 		leftServo = new Servo(1),
 		rightServo = new Servo(2);
-	private static final DigitalInput limit = new DigitalInput(3);
+	private static final DigitalInput limit = new DigitalInput(DPIO.GEAR_PEG_LIMIT);
 	
 	private final OI oi;
 	private Preferences prefs;

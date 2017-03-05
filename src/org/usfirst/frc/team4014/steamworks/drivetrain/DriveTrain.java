@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4014.steamworks.drivetrain;
 
 import org.usfirst.frc.team4014.steamworks.CAN;
+import org.usfirst.frc.team4014.steamworks.DPIO;
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import com.ctre.CANTalon;
@@ -33,6 +34,7 @@ public class DriveTrain extends Subsystem {
 
 	private final Encoder leftEncoder;
 	private final Encoder rightEncoder;
+
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
@@ -44,10 +46,9 @@ public class DriveTrain extends Subsystem {
 		
 		JoystickButton h = new JoystickButton(oi.getDriverJoystick(), 12);
 		h.whileHeld(new HalfSpeed(this));
-		
-		leftEncoder = makeEncoder(0, 1, false);
-		rightEncoder = makeEncoder(2, 3, false);
-		//SmartDashboard.putData("Change Drive Direction", new ToggleDriveDirection(this, this.oi));
+
+		leftEncoder = makeEncoder(DPIO.LEFT_ENCODER_A_CHANNEL, DPIO.LEFT_ENCODER_B_CHANNEL, false);
+		rightEncoder = makeEncoder(DPIO.RIGHT_ENCODER_A_CHANNEL, DPIO.RIGHT_ENCODER_B_CHANNEL, false);
 	}
 
     /**
