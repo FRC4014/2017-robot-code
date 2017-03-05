@@ -8,6 +8,7 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,6 +20,9 @@ public class DriveTrain extends Subsystem {
     	leftMotor2 = new CANTalon(CAN.DRIVE_TRAIN_LEFT_MOTOR_2),
     	rightMotor1 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_1),
     	rightMotor2 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_2);
+    
+    private Solenoid directionLEDOne = new Solenoid(16, 0);
+    private Solenoid directionLEDTwo = new Solenoid(16, 1);
     
     public final RobotDrive robotDrive;
 	private final OI oi;
@@ -43,6 +47,7 @@ public class DriveTrain extends Subsystem {
 		
 		leftEncoder = makeEncoder(0, 1, false);
 		rightEncoder = makeEncoder(2, 3, false);
+		//SmartDashboard.putData("Change Drive Direction", new ToggleDriveDirection(this, this.oi));
 	}
 
     /**
@@ -113,14 +118,26 @@ public class DriveTrain extends Subsystem {
 
 	public void reverseDriveDirection(){
 		isReversed = true;
+		reverseLight();
 		SmartDashboard.putBoolean("Reversed Joystick", isReversed);
+	}
+	
+	public void reverseLight() {
+		directionLEDOne.set(true);
+		directionLEDTwo.set(false);
 	}
 
 	public void standardDriveDirection(){
 		isReversed = false;
+		standardLight();
 		SmartDashboard.putBoolean("Reversed Joystick", isReversed);
 	}
 
+	public void standardLight() {
+		directionLEDOne.set(false);
+		directionLEDTwo.set(true);
+	}
+	
 	public void setSpeedMultiplier (double multiplier) {
 		speedMultiplier = multiplier;
 	}
