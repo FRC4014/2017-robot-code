@@ -39,12 +39,12 @@ public class GripPipeline implements VisionPipeline {
 	public void process(Mat source0) {
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = source0;
-		double hsvThresholdMinHue = 66;
-		double hsvThresholdMaxHue = 81;
+		double hsvThresholdMinHue = 60;
+		double hsvThresholdMaxHue = 95;
 		double hsvThresholdMinSaturation = 200;
 		double hsvThresholdMaxSaturation = 255.0;
-		double hsvThresholdMinValue = 41;
-		double hsvThresholdMaxValue = 255.0;
+		double hsvThresholdMinValue = 66;
+		double hsvThresholdMaxValue = 230.0;
 		
 		hsvThreshold(hsvThresholdInput, 
 				hsvThresholdMinHue, hsvThresholdMaxHue,
