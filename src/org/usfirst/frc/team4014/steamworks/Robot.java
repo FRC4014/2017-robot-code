@@ -76,7 +76,6 @@ public class Robot extends IterativeRobot {
 		new LEDs(oi);
 		vision = new VisionTracker();
 		new Camera(oi, vision, driveTrain, GYRO);
-		
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));

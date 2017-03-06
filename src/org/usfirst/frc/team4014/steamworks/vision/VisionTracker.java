@@ -34,6 +34,7 @@ public class VisionTracker {
 			System.out.println("VisionTracker: There is a camera!");
 		
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
+			System.out.println("Vision Pipeline is running");
 			ArrayList<Rect> rs = new ArrayList<Rect>();
 			Iterator<MatOfPoint> itr = pipeline.filterContoursOutput().iterator();
 			while(itr.hasNext()){

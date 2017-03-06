@@ -10,8 +10,8 @@ public class CenterNoEncoders extends CommandGroup{
 	
 	public CenterNoEncoders(DriveTrain driveTrain,Gear gear){
 		addSequential(new SlowGearApproach(driveTrain, -0.45, gear));
-		addSequential(new OpenGearClamp(gear),0.5);
-		addSequential(new DriveByTime(driveTrain, 0.6, 1), 2);
+		addSequential(new OpenGearClamp(gear),1);
+		addSequential(new DriveByTime(driveTrain, 0.6, 4), 10);
 	}
 	
 }

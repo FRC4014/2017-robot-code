@@ -11,7 +11,7 @@ public class OpenGearClamp extends Command{
 		this.gear = gear;
 		requires(gear);
 	}
-	protected void initalize(){
+	protected void execute(){
 		gear.open();
 		SmartDashboard.putString("Gear Control Status", "Open");
 	}
