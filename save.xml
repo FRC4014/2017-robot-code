@@ -1,5 +1,20 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Brake Mode" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="247"/>
+	</widget>
+	<widget field="Incline Camera" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="54" y="211"/>
+	</widget>
+	<widget field="drive motor 3" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="411"/>
+	</widget>
+	<widget field="pivot Slow Small:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="151"/>
+	</widget>
+	<widget field="Limit Switch Status" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="0"/>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="269" y="24"/>
 		<property name="Text" value="Connected:"/>
@@ -65,10 +80,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="pivot 0.5 -45:"/>
-	<hidden field="pivot 0.8 -45:"/>
-	<hidden field="pivot 1 45:"/>
-	<hidden field="pivot 1 -45:"/>
-	<hidden field="pivot 0.5 45:"/>
-	<hidden field="pivot 0.8 45:"/>
 </xml>

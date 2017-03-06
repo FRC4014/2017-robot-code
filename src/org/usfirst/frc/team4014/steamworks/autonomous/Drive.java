@@ -35,10 +35,32 @@ public class Drive extends Command {
 	
 	@Override
 	protected boolean isFinished() {
+		boolean finished = isFinishedJustLeftEncoder();
+//		boolean finished = isFinishedJustRightEncoder();
+//		boolean finished = isFinishedBothEncoders();
+		if (finished) {
+			driveTrain.stop();
+		}
+		return finished;
+	}
+
+	private boolean isFinishedBothEncoders() {
 		double leftDistance  = driveTrain.getLeftEncoder().getDistance();
 		double rightDistance = driveTrain.getRightEncoder().getDistance();
 		double averageDistance = (leftDistance + rightDistance) / 2;
 		boolean inTolerance = (distance - averageDistance) < tolerance;
+		return inTolerance;
+	}
+	
+	private boolean isFinishedJustLeftEncoder() {
+		double leftDistance  = driveTrain.getLeftEncoder().getDistance();
+		boolean inTolerance = (distance - leftDistance) < tolerance;
+		return inTolerance;
+	}
+	
+	private boolean isFinishedJustRightEncoder() {
+		double rightDistance = driveTrain.getRightEncoder().getDistance();
+		boolean inTolerance = (distance - rightDistance) < tolerance;
 		return inTolerance;
 	}
 	

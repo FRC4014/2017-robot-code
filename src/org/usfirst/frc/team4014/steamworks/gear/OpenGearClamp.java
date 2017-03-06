@@ -9,6 +9,7 @@ public class OpenGearClamp extends Command{
 	
 	public OpenGearClamp(Gear gear){
 		this.gear = gear;
+		requires(gear);
 	}
 	protected void initalize(){
 		gear.open();
@@ -16,7 +17,7 @@ public class OpenGearClamp extends Command{
 	}
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 }

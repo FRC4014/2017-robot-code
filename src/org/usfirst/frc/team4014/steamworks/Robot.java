@@ -70,18 +70,19 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain(oi);
 		new Shooter(oi);
-		//Gear gear = new Gear(oi);
-		//new Winch(oi, gear);
+		Gear gear = new Gear(oi);
+		new Winch(oi, gear);
 		new FuelIntake(oi);	
 		new LEDs(oi);
 		vision = new VisionTracker();
 		new Camera(oi, vision, driveTrain, GYRO);
-		//chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
-		//chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
-//		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
-//		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, GYRO));
-//		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
-//		chooser.addObject("CenterNoEncoders", new CenterNoEncoders(driveTrain, gear));
+		
+		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
+		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
+		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
+		chooser.addObject("Loading Zone Position Blue", new LoadingZonePositionBlue(driveTrain, gear, GYRO));
+		chooser.addObject("Loading Zone Position Red", new LoadingZonePositionRed(driveTrain, gear, GYRO));
+		chooser.addObject("CenterNoEncoders", new CenterNoEncoders(driveTrain, gear));
 		chooser.addObject("Do Nothing", new InstantCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
 
