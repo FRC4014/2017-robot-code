@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4014.steamworks.vision;
 
+import org.usfirst.frc.team4014.steamworks.PWM;
+
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,7 +12,7 @@ public class InclineCamera extends Command {
 	private static final int MIN_SERVO_ANGLE = 20;
 	
 	final VisionTracker vision;
-	private static final Servo cameraServo = new Servo(4);
+	private static final Servo cameraServo = new Servo(PWM.CAMERA_INCLINE_SERVO);
 	private VisionState visionState;
 	private final boolean boilerMode;
 	private boolean oneAndDone = false;

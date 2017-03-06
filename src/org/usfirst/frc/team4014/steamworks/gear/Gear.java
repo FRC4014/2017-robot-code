@@ -2,6 +2,7 @@
 
 import org.usfirst.frc.team4014.steamworks.DPIO;
 import org.usfirst.frc.team4014.steamworks.OI;
+import org.usfirst.frc.team4014.steamworks.PWM;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Preferences;
@@ -13,8 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Gear extends Subsystem {
 
 	private static final Servo 
-		leftServo = new Servo(1),
-		rightServo = new Servo(2);
+		stovepipeFlapServo = new Servo(PWM.STOVEPIPE_FLAP_SERVO),
+		leftServo = new Servo(PWM.GEAR_DOOR_LEFT_SERVO),
+		rightServo = new Servo(PWM.GEAR_DOOR_RIGHT_SERVO);
 	private static final DigitalInput limit = new DigitalInput(DPIO.GEAR_PEG_LIMIT);
 	
 	private final OI oi;
@@ -68,4 +70,11 @@ public class Gear extends Subsystem {
 		return limit.get();
 	}
 	
+	public void openStovePipeFlap() {
+		stovepipeFlapServo.setAngle(prefs.getDouble("gear.Gear.openStovePipeFlap.angle", 0));
+	}
+
+	public void closeStovePipeFlap() {
+		stovepipeFlapServo.setAngle(prefs.getDouble("gear.Gear.closeStovePipeFlap.angle", 180));
+	}
 }
