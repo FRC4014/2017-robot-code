@@ -25,6 +25,7 @@ public class ToggleStovepipeFlap extends Command {
 
 	@Override
 	protected boolean isFinished() {
+		// always return false because this command is toggled
 		return false;
 	}
 

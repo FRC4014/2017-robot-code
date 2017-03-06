@@ -24,13 +24,20 @@ public class Gear extends Subsystem {
 	
 	public Gear (OI oi) {
 		this.oi = oi;
+
 		JoystickButton b = new JoystickButton(oi.getMateJoystick(), 10);
 		b.toggleWhenPressed(new ToggleGearClamp(this));
 		SmartDashboard.putString("Gear Control Status", "Super Closed");
+
 		prefs = Preferences.getInstance();
+		
 		JoystickButton p = new JoystickButton(oi.getMateJoystick(), 8);
 		p.toggleWhenPressed(new TestLimitSwitch(this));
+
 //		new TestLimitSwitch(this).start();
+		
+		JoystickButton stoveFlapButton = new JoystickButton(oi.getMateJoystick(), 2);
+		stoveFlapButton.toggleWhenPressed(new ToggleStovepipeFlap(this));
 	}
 	
 	@Override
