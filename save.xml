@@ -1,5 +1,11 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="front LED On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1383" y="213"/>
+	</widget>
+	<widget field="Back LED On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1381" y="183"/>
+	</widget>
 	<widget field="Brake Mode" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="247"/>
 	</widget>
@@ -7,7 +13,7 @@
 		<location x="54" y="211"/>
 	</widget>
 	<widget field="drive motor 3" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="411"/>
+		<location x="1456" y="315"/>
 	</widget>
 	<widget field="pivot Slow Small:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="0" y="151"/>
@@ -63,7 +69,7 @@
 		<location x="1109" y="390"/>
 	</widget>
 	<widget field="Autonomous Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="33" y="215"/>
+		<location x="62" y="311"/>
 	</widget>
 	<widget field="contours" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="586" y="486"/>

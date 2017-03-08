@@ -14,7 +14,7 @@ public class CenterPosition extends CommandGroup {
 	public CenterPosition(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 		
-		int drive1Distance = prefs.getInt("auto.CenterPosition.drive1.distance", 20);
+		int drive1Distance = prefs.getInt("auto.CenterPosition.drive1.distance", 40);
 		double drive1Speed = prefs.getDouble("auto.CenterPosition.drive1.speed", 0.8);
 		System.out.println("CenterPosition: drive1Distance = " + drive1Distance); 
 		System.out.println("CenterPosition: drive1Speed = " + drive1Speed); 
@@ -29,7 +29,7 @@ public class CenterPosition extends CommandGroup {
 //		double drive2Speed = prefs.getDouble("auto.CenterPosition.drive2.speed", -0.8);
 //		addSequential(new Drive(driveTrain, drive2Distance, drive2Speed));
 
-		addSequential(new CloseGearClamp(gear));
+//		addSequential(new CloseGearClamp(gear));
 	}
 	
 }

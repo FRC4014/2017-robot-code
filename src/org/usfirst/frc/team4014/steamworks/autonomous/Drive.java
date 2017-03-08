@@ -2,6 +2,7 @@ package org.usfirst.frc.team4014.steamworks.autonomous;
 
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -45,23 +46,32 @@ public class Drive extends Command {
 	}
 
 	private boolean isFinishedBothEncoders() {
-		double leftDistance  = driveTrain.getLeftEncoder().getDistance();
-		double rightDistance = driveTrain.getRightEncoder().getDistance();
+		double leftDistance  = Math.abs(driveTrain.getLeftEncoder().getDistance());
+		double rightDistance = Math.abs(driveTrain.getRightEncoder().getDistance());
 		double averageDistance = (leftDistance + rightDistance) / 2;
 		boolean inTolerance = (distance - averageDistance) < tolerance;
-		return inTolerance;
+		return inTolerance  || (averageDistance > distance);
 	}
 	
 	private boolean isFinishedJustLeftEncoder() {
-		double leftDistance  = driveTrain.getLeftEncoder().getDistance();
+		Encoder leftEncoder = driveTrain.getLeftEncoder();
+		double leftDistance  = Math.abs(leftEncoder.getDistance());
 		boolean inTolerance = (distance - leftDistance) < tolerance;
-		return inTolerance;
+		System.out.println("Drive:"
+				+ " [target distance="+distance+"]" 
+				+ " stopped?="+leftEncoder.getStopped() 
+				+ " rate="+leftEncoder.getRate() 
+				+ " encodingScale="+leftEncoder.getEncodingScale()
+				+ " get="+leftEncoder.get()
+				+ " raw="+leftEncoder.getRaw()
+				+ " distance=" + leftEncoder.getDistance());
+		return inTolerance || (leftDistance > distance + tolerance);
 	}
 	
 	private boolean isFinishedJustRightEncoder() {
-		double rightDistance = driveTrain.getRightEncoder().getDistance();
+		double rightDistance = Math.abs(driveTrain.getRightEncoder().getDistance());
 		boolean inTolerance = (distance - rightDistance) < tolerance;
-		return inTolerance;
+		return inTolerance || (rightDistance > distance);
 	}
 	
 }

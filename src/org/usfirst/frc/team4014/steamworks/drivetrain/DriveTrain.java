@@ -8,6 +8,7 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -47,7 +48,7 @@ public class DriveTrain extends Subsystem {
 		JoystickButton h = new JoystickButton(oi.getDriverJoystick(), 12);
 		h.whileHeld(new HalfSpeed(this));
 
-		leftEncoder = makeEncoder(DPIO.LEFT_ENCODER_A_CHANNEL, DPIO.LEFT_ENCODER_B_CHANNEL, false);
+		leftEncoder = makeEncoder(DPIO.LEFT_ENCODER_A_CHANNEL, DPIO.LEFT_ENCODER_B_CHANNEL, true);
 		rightEncoder = makeEncoder(DPIO.RIGHT_ENCODER_A_CHANNEL, DPIO.RIGHT_ENCODER_B_CHANNEL, false);
 	}
 
@@ -60,11 +61,12 @@ public class DriveTrain extends Subsystem {
      * @return Standard Encoder for DriveTrain.
      */
 	private Encoder makeEncoder(int a, int b, boolean reverseDirection) {
-		Encoder encoder = new Encoder(a, b, false, Encoder.EncodingType.k4X);
-		encoder.setMaxPeriod(.1);
+		Encoder encoder = new Encoder(a, b, reverseDirection, Encoder.EncodingType.k4X);
+		encoder.setMaxPeriod(0.1);
 		encoder.setMinRate(10);
-		encoder.setDistancePerPulse(18.8495559); //wheel diameter * pi
-		encoder.setReverseDirection(reverseDirection);
+//		encoder.setDistancePerPulse(18.8495559); //wheel diameter * pi
+		double distancePerPulse = Preferences.getInstance().getDouble("drivetrian.DriveTrain.encoder.distancePerPulse", 0.25);
+		encoder.setDistancePerPulse(distancePerPulse); // 1/8
 		encoder.setSamplesToAverage(7);
 		return encoder;
 	}
@@ -167,5 +169,6 @@ public class DriveTrain extends Subsystem {
 	public void resetEncoders() {
 		leftEncoder.reset();
 		rightEncoder.reset();
+		System.out.println("DriveTrain.resetEncoders: done");
 	}
 }
