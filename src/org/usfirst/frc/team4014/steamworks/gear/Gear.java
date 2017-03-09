@@ -73,10 +73,6 @@ public class Gear extends Subsystem {
 		return limit.get();
 	}
 	
-	public boolean writeLimitSwitchStatus() {
-		return limit.get();
-	}
-	
 	public void openStovePipeFlap() {
 		stovepipeFlapServo.setAngle(prefs.getDouble("gear.Gear.openStovePipeFlap.angle", 0));
 	}

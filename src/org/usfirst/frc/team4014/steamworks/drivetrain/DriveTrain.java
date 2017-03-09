@@ -23,8 +23,8 @@ public class DriveTrain extends Subsystem {
     	rightMotor1 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_1),
     	rightMotor2 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_2);
     
-    private Solenoid directionLEDOne = new Solenoid(16, 0);
-    private Solenoid directionLEDTwo = new Solenoid(16, 1);
+    private Solenoid winchDirectionLED = new Solenoid(16, 0);
+    private Solenoid gearDirectionLED = new Solenoid(16, 1);
     
     public final RobotDrive robotDrive;
 	private final OI oi;
@@ -35,6 +35,8 @@ public class DriveTrain extends Subsystem {
 
 	private final Encoder leftEncoder;
 	private final Encoder rightEncoder;
+
+	private int blinkLightCallCount;
 
 	
     public DriveTrain(OI oi) {
@@ -121,24 +123,14 @@ public class DriveTrain extends Subsystem {
 
 	public void reverseDriveDirection(){
 		isReversed = true;
-		reverseLight();
+		setLightsByDirection();
 		SmartDashboard.putBoolean("Reversed Joystick", isReversed);
 	}
 	
-	public void reverseLight() {
-		directionLEDOne.set(true);
-		directionLEDTwo.set(false);
-	}
-
 	public void standardDriveDirection(){
 		isReversed = false;
-		standardLight();
+		setLightsByDirection();
 		SmartDashboard.putBoolean("Reversed Joystick", isReversed);
-	}
-
-	public void standardLight() {
-		directionLEDOne.set(false);
-		directionLEDTwo.set(true);
 	}
 	
 	public void setSpeedMultiplier (double multiplier) {
@@ -170,5 +162,23 @@ public class DriveTrain extends Subsystem {
 		leftEncoder.reset();
 		rightEncoder.reset();
 		System.out.println("DriveTrain.resetEncoders: done");
+	}
+
+	private void setLightsByDirection() {
+		winchDirectionLED.set(!isReversed);
+		gearDirectionLED.set(isReversed);
+	}
+
+	public void blinkLights(boolean pegInGear) {
+		if (!pegInGear) {
+			blinkLightCallCount = 0;
+			setLightsByDirection();
+		}
+		else {
+			blinkLightCallCount = (blinkLightCallCount + 1) % 40;
+			boolean on = blinkLightCallCount < 20;
+			winchDirectionLED.set(on);
+			gearDirectionLED.set(on);
+		}
 	}
 }

@@ -11,6 +11,7 @@ import org.usfirst.frc.team4014.steamworks.autonomous.PIDPivotByGyro;
 import org.usfirst.frc.team4014.steamworks.autonomous.PivotTest;
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.gear.Gear;
+import org.usfirst.frc.team4014.steamworks.gear.TestLimitSwitch;
 import org.usfirst.frc.team4014.steamworks.fuelintake.FuelIntake;
 import org.usfirst.frc.team4014.steamworks.shooter.Shooter;
 
@@ -59,6 +60,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	private DriveTrain driveTrain;
 	private VisionTracker vision;
+	private TestLimitSwitch testLimitSwitchCommand;
 	
 
 	/**
@@ -92,6 +94,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("pivot Fast 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, 45));
 		SmartDashboard.putData("pivot Fast -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, -45));
 		// ---------------------------------------------------------------------------------------
+
+		testLimitSwitchCommand = new TestLimitSwitch(driveTrain, gear);
 	}
 
 	@Override
@@ -127,6 +131,9 @@ public class Robot extends IterativeRobot {
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+
+		if (testLimitSwitchCommand != null)
+			testLimitSwitchCommand.start();
 	}
 
 	/**
@@ -155,6 +162,9 @@ public class Robot extends IterativeRobot {
 		
 		driveTrain.enableBrakeMode(false);
 		driveTrain.standardDriveDirection();
+
+		if (testLimitSwitchCommand != null)
+			testLimitSwitchCommand.start();
 	}
 
 	/**
