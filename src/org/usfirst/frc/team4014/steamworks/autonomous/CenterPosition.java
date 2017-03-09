@@ -14,11 +14,11 @@ public class CenterPosition extends CommandGroup {
 	public CenterPosition(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 		
-		int drive1Distance = prefs.getInt("auto.CenterPosition.drive1.distance", 40);
-		double drive1Speed = prefs.getDouble("auto.CenterPosition.drive1.speed", 0.8);
-		System.out.println("CenterPosition: drive1Distance = " + drive1Distance); 
-		System.out.println("CenterPosition: drive1Speed = " + drive1Speed); 
-		addSequential(new Drive(driveTrain, drive1Distance, drive1Speed));
+//		int drive1Distance = prefs.getInt("auto.CenterPosition.drive1.distance", 40);
+//		double drive1Speed = prefs.getDouble("auto.CenterPosition.drive1.speed", 0.8);
+//		System.out.println("CenterPosition: drive1Distance = " + drive1Distance); 
+//		System.out.println("CenterPosition: drive1Speed = " + drive1Speed); 
+//		addSequential(new Drive(driveTrain, drive1Distance, drive1Speed));
 		
 //		double gearApproachSpeed = prefs.getDouble("auto.CenterPosition.slowApproach.speed", 0.5);
 //		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear));
@@ -30,6 +30,16 @@ public class CenterPosition extends CommandGroup {
 //		addSequential(new Drive(driveTrain, drive2Distance, drive2Speed));
 
 //		addSequential(new CloseGearClamp(gear));
+		
+		double gearApproachSpeed = prefs.getDouble("auto.CenterNoEncoders.gearApproachSpeed", -0.45);
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear));
+		
+		addSequential(new OpenGearClamp(gear), 1);
+		
+		double driveSpeed = prefs.getDouble("auto.CenterNoEncoders.driveSpeed", 0.6);
+		int driveTime = prefs.getInt("auto.CenterNoEncoders.driveTime", 2);
+		int driveTimeout = prefs.getInt("auto.CenterNoEncoders.driveTimeout", 5);
+		addSequential(new DriveByTime(driveTrain, driveSpeed, driveTime), driveTimeout);
 	}
 	
 }

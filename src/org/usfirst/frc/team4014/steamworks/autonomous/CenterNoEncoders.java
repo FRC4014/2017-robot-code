@@ -18,8 +18,8 @@ public class CenterNoEncoders extends CommandGroup{
 		addSequential(new OpenGearClamp(gear), 1);
 		
 		double driveSpeed = prefs.getDouble("auto.CenterNoEncoders.driveSpeed", 0.6);
-		int driveTime = prefs.getInt("auto.CenterNoEncoders.driveTime", 4);
-		int driveTimeout = prefs.getInt("auto.CenterNoEncoders.driveTimeout", 10);
+		int driveTime = prefs.getInt("auto.CenterNoEncoders.driveTime", 2);
+		int driveTimeout = prefs.getInt("auto.CenterNoEncoders.driveTimeout", 5);
 		addSequential(new DriveByTime(driveTrain, driveSpeed, driveTime), driveTimeout);
 	}
 	

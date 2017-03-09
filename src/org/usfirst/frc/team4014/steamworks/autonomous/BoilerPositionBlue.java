@@ -14,29 +14,24 @@ public class BoilerPositionBlue extends CommandGroup {
 	public BoilerPositionBlue(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 
-		int drive1Distance = prefs.getInt("auto.BoilerPositionBlue.drive1.distance", 108);
-		double drive1Speed = prefs.getDouble("auto.BoilerPositionBlue.drive1.speed", 0.8);
+		int drive1Distance = prefs.getInt("auto.BoilerPositionBlue.drive1.distance", 101);
+		double drive1Speed = prefs.getDouble("auto.BoilerPositionBlue.drive1.speed", 0.5);
 		addSequential(new Drive(driveTrain, drive1Distance, drive1Speed));
 		
 		double pivotSpeed = prefs.getDouble("auto.BoilerPositionBlue.pivot.speed", 0.5);
-		int pivotAngle = prefs.getInt("auto.BoilerPositionBlue.pivot.angle", -45);
-		addSequential(new PivotByGyro(driveTrain, pivotSpeed, pivotAngle, gyro));
+		int pivotAngle = prefs.getInt("auto.BoilerPositionBlue.pivot.angle", -90);
+		addSequential(new PIDPivotByGyro(driveTrain, gyro, pivotSpeed, pivotAngle));
 
 		//TODO: adjust using vision
 		
-		int drive2Distance = prefs.getInt("auto.BoilerPositionBlue.drive2.distance", 72);
-		double drive2Speed = prefs.getDouble("auto.BoilerPositionBlue.drive2.speed", 0.8);
-		addSequential(new Drive(driveTrain, drive2Distance, drive2Speed));
-		
-		double gearApproachSpeed = prefs.getDouble("auto.BoilerPositionBlue.gearApproach.speed", 0.5);
+		double gearApproachSpeed = prefs.getDouble("auto.CenterNoEncoders.gearApproachSpeed", -0.45);
 		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear));
 		
-		addSequential(new OpenGearClamp(gear));
+		addSequential(new OpenGearClamp(gear), 1);
 		
-		int drive3Distance = prefs.getInt("auto.BoilerPositionBlue.drive3.distance", -12);
-		double drive3Speed = prefs.getDouble("auto.BoilerPositionBlue.drive3.speed", -0.8);
-		addSequential(new Drive(driveTrain, drive3Distance, drive3Speed));
-		
-		addSequential(new CloseGearClamp(gear));
+		double driveSpeed = prefs.getDouble("auto.CenterNoEncoders.driveSpeed", 0.6);
+		int driveTime = prefs.getInt("auto.CenterNoEncoders.driveTime", 2);
+		int driveTimeout = prefs.getInt("auto.CenterNoEncoders.driveTimeout", 5);
+		addSequential(new DriveByTime(driveTrain, driveSpeed, driveTime), driveTimeout);
 	}
 }
