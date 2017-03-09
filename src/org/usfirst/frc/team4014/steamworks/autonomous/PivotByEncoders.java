@@ -24,9 +24,9 @@ public class PivotByEncoders extends Command {
 	@Override
 	protected void initialize() {
 		driveTrain.resetEncoders();
-		speed = prefs.getDouble("auto.PivotByEncoders.speed", 0.5);
-		degreesPerPulse = prefs.getDouble("auto.PivotByEncoders.degreesPerPulse", 1.0);
-		tolerance = prefs.getDouble("auto.PivotByEncoders.tolerance", 2.0);
+		speed = prefs.getDouble("auto.PivotByEncoders.speed", 0.7);
+		degreesPerPulse = prefs.getDouble("auto.PivotByEncoders.degreesPerPulse", 0.032);
+		tolerance = prefs.getDouble("auto.PivotByEncoders.tolerance", 0.005);
 	}
 
 	@Override
@@ -47,13 +47,16 @@ public class PivotByEncoders extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		double leftDistance = Math.abs(driveTrain.getLeftEncoder().getDistance());
-		double degreesDistance = leftDistance * degreesPerPulse;
+		// Use absolute values so calculation works both ways.
+		double absPulses = Math.abs(driveTrain.getLeftEncoder().get());
+		double absAngle = Math.abs(angle);
+
+		double degreesPivoted = absPulses * degreesPerPulse;
 		System.out.println("PivotByEncoders: angle= " + angle
 				+ "  tolerance= " + tolerance
 				+ "  degreesPerPulse= " + degreesPerPulse
-				+ "  degreesDistance= " + degreesDistance
-				+ "  leftDistance= " + leftDistance);
-		return degreesDistance + tolerance > Math.abs(angle);
+				+ "  degreesPivoted= " + degreesPivoted
+				+ "  leftDistance= " + absPulses);
+		return degreesPivoted + tolerance > absAngle;
 	}
 }
