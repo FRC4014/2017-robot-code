@@ -20,7 +20,8 @@ public class LoadingZonePositionBlue extends CommandGroup {
 
 		double pivotSpeed = prefs.getDouble("auto.LoadingZonePositionBlue.pivot.speed", 0.5);
 		int pivotAngle = prefs.getInt("auto.LoadingZonePositionBlue.pivot.angle", 60);
-		addSequential(new PIDPivotByGyro(driveTrain, gyro, pivotSpeed, pivotAngle));
+		addSequential(new PivotByEncoders(driveTrain, pivotAngle));
+//		addSequential(new PIDPivotByGyro(driveTrain, gyro, pivotSpeed, pivotAngle));
 
 		//TODO: adjust using vision
 

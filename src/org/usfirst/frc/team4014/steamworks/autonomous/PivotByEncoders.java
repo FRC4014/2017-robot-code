@@ -38,11 +38,22 @@ public class PivotByEncoders extends Command {
 			driveTrain.drive(speed, -speed);
 		}
 	}
+	
+	@Override
+	protected void end() {
+		super.end();
+		driveTrain.drive(0, 0);
+	}
 
 	@Override
 	protected boolean isFinished() {
-		double leftDistance = driveTrain.getLeftEncoder().getDistance();
+		double leftDistance = Math.abs(driveTrain.getLeftEncoder().getDistance());
 		double degreesDistance = leftDistance * degreesPerPulse;
-		return degreesDistance + tolerance > angle;
+		System.out.println("PivotByEncoders: angle= " + angle
+				+ "  tolerance= " + tolerance
+				+ "  degreesPerPulse= " + degreesPerPulse
+				+ "  degreesDistance= " + degreesDistance
+				+ "  leftDistance= " + leftDistance);
+		return degreesDistance + tolerance > Math.abs(angle);
 	}
 }

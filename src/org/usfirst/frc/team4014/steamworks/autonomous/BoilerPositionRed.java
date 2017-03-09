@@ -20,7 +20,8 @@ public class BoilerPositionRed extends CommandGroup {
 
 		double pivotSpeed = prefs.getDouble("auto.BoilerPositionRed.pivot.speed", 0.5);
 		int pivotAngle = prefs.getInt("auto.BoilerPositionRed.pivot.angle", 90);
-		addSequential(new PIDPivotByGyro(driveTrain, gyro, pivotSpeed, pivotAngle));
+		addSequential(new PivotByEncoders(driveTrain, pivotAngle));
+//		addSequential(new PIDPivotByGyro(driveTrain, gyro, pivotSpeed, pivotAngle));
 
 		//TODO: adjust using vision
 

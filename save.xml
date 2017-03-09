@@ -1,32 +1,30 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="front LED On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="1383" y="213"/>
+	<widget field="pivot encoder -45:" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="1326" y="438"/>
 	</widget>
-	<widget field="Back LED On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="1381" y="183"/>
+	<widget field="pivot encoder 45:" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="1331" y="395"/>
+	</widget>
+	<widget field="PID Piv Time:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="211"/>
+	</widget>
+	<widget field="Limit Switch Status" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="0"/>
 	</widget>
 	<widget field="Brake Mode" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="247"/>
 	</widget>
-	<widget field="Incline Camera" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="54" y="211"/>
-	</widget>
-	<widget field="drive motor 3" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="1456" y="315"/>
-	</widget>
 	<widget field="pivot Slow Small:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="0" y="151"/>
-	</widget>
-	<widget field="Limit Switch Status" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="0"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="269" y="24"/>
 		<property name="Text" value="Connected:"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="28" y="194"/>
+		<location x="43" y="299"/>
+		<height>17</height>
 		<property name="Text" value="Choose Autonomous Postition"/>
 	</static-widget>
 	<widget field="Gear Control Status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
@@ -53,9 +51,6 @@
 		<width>942</width>
 		<height>303</height>
 	</static-widget>
-	<widget field="verticalDeltaAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="761" y="512"/>
-	</widget>
 	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
 		<location x="32" y="134"/>
 	</widget>
@@ -70,15 +65,6 @@
 	</widget>
 	<widget field="Autonomous Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="62" y="311"/>
-	</widget>
-	<widget field="contours" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="586" y="486"/>
-	</widget>
-	<widget field="PID Piv Time:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="968" y="355"/>
-	</widget>
-	<widget field="cameraServo Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="521" y="512"/>
 	</widget>
 	<widget field="pivot Slow -45:" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="869" y="434"/>

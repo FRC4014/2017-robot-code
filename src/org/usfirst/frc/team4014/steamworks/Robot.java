@@ -8,6 +8,7 @@ import org.usfirst.frc.team4014.steamworks.autonomous.CenterPosition;
 import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionBlue;
 import org.usfirst.frc.team4014.steamworks.autonomous.LoadingZonePositionRed;
 import org.usfirst.frc.team4014.steamworks.autonomous.PIDPivotByGyro;
+import org.usfirst.frc.team4014.steamworks.autonomous.PivotByEncoders;
 import org.usfirst.frc.team4014.steamworks.autonomous.PivotTest;
 import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 import org.usfirst.frc.team4014.steamworks.gear.Gear;
@@ -93,6 +94,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("pivot Slow -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -45));
 		SmartDashboard.putData("pivot Fast 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, 45));
 		SmartDashboard.putData("pivot Fast -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, -45));
+		SmartDashboard.putData("pivot encoder 45:", new PivotByEncoders(driveTrain, 45));
+		SmartDashboard.putData("pivot encoder -45:", new PivotByEncoders(driveTrain, -45));
 		// ---------------------------------------------------------------------------------------
 
 		testLimitSwitchCommand = new TestLimitSwitch(driveTrain, gear);
