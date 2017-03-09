@@ -123,6 +123,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 		driveTrain.enableBrakeMode(true);
+		driveTrain.reverseDriveDirection();
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -153,6 +154,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		
 		driveTrain.enableBrakeMode(false);
+		driveTrain.standardDriveDirection();
 	}
 
 	/**
