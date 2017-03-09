@@ -25,7 +25,7 @@ public class BoilerPositionBlue extends CommandGroup {
 		//TODO: adjust using vision
 		
 		double gearApproachSpeed = prefs.getDouble("auto.CenterNoEncoders.gearApproachSpeed", -0.45);
-		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear));
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),8);
 		
 		addSequential(new OpenGearClamp(gear), 1);
 		

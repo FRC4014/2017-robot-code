@@ -12,8 +12,10 @@ public class OpenGearClamp extends Command{
 		requires(gear);
 	}
 	protected void execute(){
-		gear.open();
-		SmartDashboard.putString("Gear Control Status", "Open");
+		if (gear.isPegInGear()){
+			gear.open();
+			SmartDashboard.putString("Gear Control Status", "Open");
+		}
 	}
 	@Override
 	protected boolean isFinished() {

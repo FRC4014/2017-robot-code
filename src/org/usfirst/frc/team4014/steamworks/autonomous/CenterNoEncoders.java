@@ -13,7 +13,7 @@ public class CenterNoEncoders extends CommandGroup{
 		Preferences prefs = Preferences.getInstance();
 
 		double gearApproachSpeed = prefs.getDouble("auto.CenterNoEncoders.gearApproachSpeed", -0.45);
-		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear));
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),8);
 		
 		addSequential(new OpenGearClamp(gear), 1);
 		
