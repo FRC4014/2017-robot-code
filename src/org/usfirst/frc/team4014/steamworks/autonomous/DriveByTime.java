@@ -18,6 +18,11 @@ public class DriveByTime extends Command{
 		this.timeCounter = 0;
 	}
 	
+	@Override
+	protected void initialize() {
+		driveTrain.resetEncoders();
+	}
+
 	protected void execute() {
 		double[] s = driveTrain.speedsAdjustedForEncoders(speed);
 		driveTrain.drive(s[0], s[1]);
