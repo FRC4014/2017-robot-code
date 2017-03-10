@@ -31,7 +31,8 @@ public class Drive extends Command {
 	}
 	
 	protected void execute() {
-		driveTrain.drive(speed, speed);
+		double[] s = driveTrain.speedsAdjustedForEncoders(speed);
+		driveTrain.drive(s[0], s[1]);
 	}
 	
 	@Override

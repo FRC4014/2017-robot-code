@@ -21,13 +21,12 @@ public class SlowGearApproach extends Command{
 	}
 	
 	protected void execute(){
-		driveTrain.drive(speed, speed);
+		double[] s = driveTrain.speedsAdjustedForEncoders(speed);
+		driveTrain.drive(s[0], s[1]);
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		// TODO: This is returning true just until we get the DIO error figured out.
-//		return true;
 		return gear.isPegInGear();
 	}
 

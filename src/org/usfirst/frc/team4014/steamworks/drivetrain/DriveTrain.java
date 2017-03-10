@@ -31,21 +31,27 @@ public class DriveTrain extends Subsystem {
     
     public final RobotDrive robotDrive;
 	private final OI oi;
+
+	private final Encoder leftEncoder;
+	private final Encoder rightEncoder;
+
+	private final Preferences prefs;
+
 	private boolean isReversed = false;
 	private double speedMultiplier = 1.0;
 
 	private boolean brakeMode = false;
 
-	private final Encoder leftEncoder;
-	private final Encoder rightEncoder;
-
 	private int blinkLightCallCount = 0;
+
 
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 		isReversed = false;
+		
+		prefs = Preferences.getInstance();
 		
 		JoystickButton t = new JoystickButton(oi.getDriverJoystick(), 11);
 		t.toggleWhenPressed(new ToggleDriveDirection(this, oi));
@@ -191,5 +197,19 @@ public class DriveTrain extends Subsystem {
 			winchDirectionLED.set(onOrOff);
 			gearDirectionLED.set(onOrOff);
 		}
+	}
+
+	/**
+	 * Produces array of left and right speed adjusted to keep the robot driving straight.
+	 */
+	public double[] speedsAdjustedForEncoders(double speed) {
+		double left  = Math.abs(getLeftEncoder().getRaw());
+		double right = Math.abs(getRightEncoder().getRaw());
+		double delta = left - right;
+		double multiplier = prefs.getDouble("drivetrain.DriveTrain.straightening.multiplier", 0.005);
+		return new double[] {
+				speed - (delta * multiplier),
+				speed + (delta * multiplier)
+		};
 	}
 }

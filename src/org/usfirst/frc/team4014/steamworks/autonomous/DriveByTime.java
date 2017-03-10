@@ -19,7 +19,8 @@ public class DriveByTime extends Command{
 	}
 	
 	protected void execute() {
-		driveTrain.drive(speed, speed);
+		double[] s = driveTrain.speedsAdjustedForEncoders(speed);
+		driveTrain.drive(s[0], s[1]);
 		timeCounter = timeCounter + 0.02; //TODO there's probably a way to make this more accurate
 	}
 	
