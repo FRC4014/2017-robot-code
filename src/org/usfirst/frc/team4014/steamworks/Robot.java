@@ -87,7 +87,10 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("CenterNoEncoders", new CenterNoEncoders(driveTrain, gear));
 		chooser.addObject("Do Nothing", new InstantCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
-		SmartDashboard.putData("Test CANCommand", new TestCANCommand(driveTrain));
+		
+		// disable the CAN test because the winch runs wrong way with it.
+//		SmartDashboard.putData("Test CANCommand", new TestCANCommand(driveTrain));
+
 		// ---- The following is just for testing. Remove as soon as reasonable. -----------------
 //		SmartDashboard.putData("pivot Slow Small:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -10));
 //		SmartDashboard.putData("pivot Slow 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, 45));

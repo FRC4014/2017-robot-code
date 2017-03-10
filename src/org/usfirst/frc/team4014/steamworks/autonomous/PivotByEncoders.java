@@ -48,15 +48,19 @@ public class PivotByEncoders extends Command {
 	@Override
 	protected boolean isFinished() {
 		// Use absolute values so calculation works both ways.
-		double absPulses = Math.abs(driveTrain.getLeftEncoder().get());
+		double absLeftPulses = Math.abs(driveTrain.getLeftEncoder().get());
+		double absRightPulses = Math.abs(driveTrain.getRightEncoder().get());
 		double absAngle = Math.abs(angle);
 
-		double degreesPivoted = absPulses * degreesPerPulse;
+		double degreesPivoted = absLeftPulses * degreesPerPulse;
 		System.out.println("PivotByEncoders: angle= " + angle
 				+ "  tolerance= " + tolerance
 				+ "  degreesPerPulse= " + degreesPerPulse
 				+ "  degreesPivoted= " + degreesPivoted
-				+ "  leftDistance= " + absPulses);
+				+ "  absLeftPulses= " + absLeftPulses
+				+ "  absRightPulses= " + absRightPulses
+				);
 		return degreesPivoted + tolerance > absAngle;
 	}
+
 }
