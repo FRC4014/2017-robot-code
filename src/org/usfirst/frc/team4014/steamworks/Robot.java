@@ -73,7 +73,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain(oi);
 		new Shooter(oi);
-		Gear gear = new Gear(oi);
+		Gear gear = new Gear(driveTrain, oi);
 		new Winch(oi, gear);
 		new FuelIntake(oi);	
 		new LEDs(oi);
@@ -87,19 +87,20 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("CenterNoEncoders", new CenterNoEncoders(driveTrain, gear));
 		chooser.addObject("Do Nothing", new InstantCommand());
 		SmartDashboard.putData("Autonomous Mode Chooser", chooser);
-
+		SmartDashboard.putData("Test CANCommand", new TestCANCommand(driveTrain));
 		// ---- The following is just for testing. Remove as soon as reasonable. -----------------
-		SmartDashboard.putData("pivot Slow Small:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -10));
-		SmartDashboard.putData("pivot Slow 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, 45));
-		SmartDashboard.putData("pivot Slow -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -45));
-		SmartDashboard.putData("pivot Fast 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, 45));
-		SmartDashboard.putData("pivot Fast -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, -45));
+//		SmartDashboard.putData("pivot Slow Small:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -10));
+//		SmartDashboard.putData("pivot Slow 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, 45));
+//		SmartDashboard.putData("pivot Slow -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.7, -45));
+//		SmartDashboard.putData("pivot Fast 45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, 45));
+//		SmartDashboard.putData("pivot Fast -45:", new PIDPivotByGyro(driveTrain, GYRO, 0.9, -45));
 		SmartDashboard.putData("pivot encoder 45:", new PivotByEncoders(driveTrain, 45));
 		SmartDashboard.putData("pivot encoder -45:", new PivotByEncoders(driveTrain, -45));
 		// ---------------------------------------------------------------------------------------
 
-		testLimitSwitchCommand = new TestLimitSwitch(driveTrain, gear);
+//		testLimitSwitchCommand = new TestLimitSwitch(driveTrain, gear);
 	}
+	
 
 	@Override
 	public void robotPeriodic() {

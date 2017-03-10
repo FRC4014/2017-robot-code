@@ -3,6 +3,7 @@
 import org.usfirst.frc.team4014.steamworks.DPIO;
 import org.usfirst.frc.team4014.steamworks.OI;
 import org.usfirst.frc.team4014.steamworks.PWM;
+import org.usfirst.frc.team4014.steamworks.drivetrain.DriveTrain;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Preferences;
@@ -19,10 +20,13 @@ public class Gear extends Subsystem {
 		rightServo = new Servo(PWM.GEAR_DOOR_RIGHT_SERVO);
 	private static final DigitalInput limit = new DigitalInput(DPIO.GEAR_PEG_LIMIT);
 	
+	private final DriveTrain driveTrain;
 	private final OI oi;
+
 	private Preferences prefs;
 	
-	public Gear (OI oi) {
+	public Gear (DriveTrain driveTrain, OI oi) {
+		this.driveTrain = driveTrain;
 		this.oi = oi;
 
 		JoystickButton b = new JoystickButton(oi.getMateJoystick(), 10);
@@ -32,9 +36,10 @@ public class Gear extends Subsystem {
 		prefs = Preferences.getInstance();
 		
 		JoystickButton p = new JoystickButton(oi.getMateJoystick(), 8);
-		
-		JoystickButton stoveFlapButton = new JoystickButton(oi.getMateJoystick(), 2);
-		stoveFlapButton.toggleWhenPressed(new ToggleStovepipeFlap(this));
+		p.toggleWhenPressed(new TestLimitSwitch(driveTrain, this));
+
+//		JoystickButton stoveFlapButton = new JoystickButton(oi.getMateJoystick(), 2);
+//		stoveFlapButton.toggleWhenPressed(new ToggleStovepipeFlap(this));
 	}
 	
 	@Override
@@ -43,16 +48,16 @@ public class Gear extends Subsystem {
 	}
 
 	public void open() {
-		double left = prefs.getDouble("gear.Gear.open.leftServo", 15);
-		double right = prefs.getDouble("gear.Gear.open.rightServo", 15);
+		double left = prefs.getDouble("gear.Gear.open.leftServo", 0);
+		double right = prefs.getDouble("gear.Gear.open.rightServo", 180);
 		leftServo.setAngle(left);
 		rightServo.setAngle(right); // Formerly 165
 		SmartDashboard.putString("Gear Control Status", "Open");
 	}
 
 	public void close() {
-		double left = prefs.getDouble("gear.Gear.close.leftServo", 90);
-		double right = prefs.getDouble("gear.Gear.close.rightServo", 90);
+		double left = prefs.getDouble("gear.Gear.close.leftServo", 70);
+		double right = prefs.getDouble("gear.Gear.close.rightServo", 95);
 		leftServo.setAngle(left);
 		rightServo.setAngle(right);
 		SmartDashboard.putString("Gear Control Status", "Closed");

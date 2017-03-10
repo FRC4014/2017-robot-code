@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LEDs extends Subsystem{
 
-	Solenoid frontLED = new Solenoid(1);
-	Solenoid backLED = new Solenoid(2);
+	Solenoid frontLED = new Solenoid(2);
+	Solenoid backLED = new Solenoid(3);
 	
 	private final OI oi;
 	

@@ -31,7 +31,7 @@ public class Winch extends Subsystem {
 
 	public void start() {
 		Preferences prefs = Preferences.getInstance();
-		double speed = prefs.getDouble("winch.Winch.speed", -1);
+		double speed = prefs.getDouble("winch.Winch.speed", 1);
 		winchmotor.set(speed);
 	}
 	

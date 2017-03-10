@@ -2,6 +2,7 @@ package org.usfirst.frc.team4014.steamworks.shooter;
 
 import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
+import org.usfirst.frc.team4014.steamworks.PWM;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -18,9 +19,9 @@ public class Shooter extends Subsystem {
 		shooterMotorOne = new CANTalon(CAN.SHOOTER_MOTOR_1), 
 		shooterMotorTwo = new CANTalon(CAN.SHOOTER_MOTOR_2);
 	
-//	private static final Servo
-//		leftGate = new Servo(3),
-//		rightGate = new Servo(4);
+	private static final Servo
+		leftShooterDoor = new Servo(PWM.SHOOTER_SERVO_LEFT),
+		rightShooterDoor = new Servo(PWM.SHOOTER_SERVO_RIGHT);
 	
 	private final OI oi;
 	
@@ -29,6 +30,9 @@ public class Shooter extends Subsystem {
 		this.oi = oi;
 		Button shooterButton = new JoystickButton(this.oi.getMateJoystick(),3);
 		shooterButton.toggleWhenPressed(new ShootWithJoystick(this.oi, this));
+		
+		Button doorButton = new JoystickButton(this.oi.getMateJoystick(), 9);
+		doorButton.toggleWhenPressed(new ToggleShooterFlaps(this));
 	}
 	
 	
@@ -54,15 +58,15 @@ public class Shooter extends Subsystem {
 	
 	// TODO: set the angles once the cad/placement of the servos is done
 	public void leftGateOpen() {
-//		leftGate.setAngle();
+		leftShooterDoor.setAngle(180);
 	}
 	public void leftGateClose() {
-//		leftGate.setAngle();
+		leftShooterDoor.setAngle(155);
 	}
 	public void rightGateOpen() {
-//		rightGate.setAngle();
+		rightShooterDoor.setAngle(25);
 	}
 	public void rightGateClose() {
-//		rightGate.setAngle();
+		rightShooterDoor.setAngle(0);
 	}
 }

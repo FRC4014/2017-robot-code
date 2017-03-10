@@ -14,12 +14,12 @@ public class BoilerPositionRed extends CommandGroup {
 	public BoilerPositionRed(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 
-		int drive1Distance = prefs.getInt("auto.BoilerPositionRed.drive1.distance", 101);
+		int drive1Distance = prefs.getInt("auto.BoilerPositionRed.drive1.distance", 90);
 		double drive1Speed = prefs.getDouble("auto.BoilerPositionRed.drive1.speed", 0.5);
 		addSequential(new Drive(driveTrain, drive1Distance, drive1Speed));
 
-		double pivotSpeed = prefs.getDouble("auto.BoilerPositionRed.pivot.speed", 0.5);
-		int pivotAngle = prefs.getInt("auto.BoilerPositionRed.pivot.angle", 90);
+		double pivotSpeed = prefs.getDouble("auto.BoilerPositionRed.pivot.speed", 0.7);
+		int pivotAngle = prefs.getInt("auto.BoilerPositionRed.pivot.angle", 60);
 		addSequential(new PivotByEncoders(driveTrain, pivotAngle));
 //		addSequential(new PIDPivotByGyro(driveTrain, gyro, pivotSpeed, pivotAngle));
 

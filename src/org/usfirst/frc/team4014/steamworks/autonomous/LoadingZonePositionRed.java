@@ -14,12 +14,12 @@ public class LoadingZonePositionRed extends CommandGroup {
 	public LoadingZonePositionRed(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 
-		int drive1Distance = prefs.getInt("auto.LoadingZonePositionRed.drive1.distance", 94);
+		int drive1Distance = prefs.getInt("auto.LoadingZonePositionRed.drive1.distance", 90);
 		double drive1Speed = prefs.getDouble("auto.LoadingZonePositionRed.drive1.speed", 0.5);
 		addSequential(new Drive(driveTrain, drive1Distance, drive1Speed));
 
-		double pivotSpeed = prefs.getDouble("auto.LoadingZonePositionRed.pivot.speed", 0.5);
-		int pivotAngle = prefs.getInt("auto.LoadingZonePositionRed.pivot.angle", -60);
+		double pivotSpeed = prefs.getDouble("auto.LoadingZonePositionRed.pivot.speed", 0.7);
+		int pivotAngle = prefs.getInt("auto.LoadingZonePositionRed.pivot.angle", 60);
 		addSequential(new PivotByEncoders(driveTrain, pivotAngle));
 //		addSequential(new PIDPivotByGyro(driveTrain, gyro, pivotSpeed, pivotAngle));
 

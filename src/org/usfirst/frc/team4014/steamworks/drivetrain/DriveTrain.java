@@ -6,6 +6,7 @@ import org.usfirst.frc.team4014.steamworks.OI;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Preferences;
@@ -26,17 +27,19 @@ public class DriveTrain extends Subsystem {
     private Solenoid winchDirectionLED = new Solenoid(16, 0);
     private Solenoid gearDirectionLED = new Solenoid(16, 1);
     
+    private AnalogInput ultrasonicOne = new AnalogInput(0), ultrasonicTwo = new AnalogInput(2);
+    
     public final RobotDrive robotDrive;
 	private final OI oi;
-	private boolean isReversed;
+	private boolean isReversed = false;
 	private double speedMultiplier = 1.0;
 
-	private boolean brakeMode;
+	private boolean brakeMode = false;
 
 	private final Encoder leftEncoder;
 	private final Encoder rightEncoder;
 
-	private int blinkLightCallCount;
+	private int blinkLightCallCount = 0;
 
 	
     public DriveTrain(OI oi) {
@@ -52,6 +55,8 @@ public class DriveTrain extends Subsystem {
 
 		leftEncoder = makeEncoder(DPIO.LEFT_ENCODER_A_CHANNEL, DPIO.LEFT_ENCODER_B_CHANNEL, true);
 		rightEncoder = makeEncoder(DPIO.RIGHT_ENCODER_A_CHANNEL, DPIO.RIGHT_ENCODER_B_CHANNEL, false);
+		SmartDashboard.putNumber("Ultrasonic One", 0);
+		SmartDashboard.putNumber("Ultrasonic Two", 0);
 	}
 
     /**
@@ -68,7 +73,7 @@ public class DriveTrain extends Subsystem {
 		encoder.setMinRate(10);
 //		encoder.setDistancePerPulse(18.8495559); //wheel diameter * pi
 		double distancePerPulse = Preferences.getInstance().getDouble("drivetrian.DriveTrain.encoder.distancePerPulse", 0.25);
-		encoder.setDistancePerPulse(distancePerPulse); // 1/8
+		encoder.setDistancePerPulse(distancePerPulse);
 		encoder.setSamplesToAverage(7);
 		return encoder;
 	}
@@ -106,6 +111,8 @@ public class DriveTrain extends Subsystem {
      * attenuator)
      */
     public void drive(Joystick joystick) {
+    	//SmartDashboard.putNumber("Ultrasonic One", ultrasonicOne.getVoltage() /**512*/);
+    	//SmartDashboard.putNumber("Ultrasonic Two", ultrasonicTwo.getVoltage() /**512*/);
     	if (isReversed) {
     		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
     	} 
@@ -175,10 +182,10 @@ public class DriveTrain extends Subsystem {
 			setLightsByDirection();
 		}
 		else {
-			blinkLightCallCount = (blinkLightCallCount + 1) % 40;
-			boolean on = blinkLightCallCount < 20;
-			winchDirectionLED.set(on);
-			gearDirectionLED.set(on);
+			blinkLightCallCount = (blinkLightCallCount + 1) % 20;
+			boolean onOrOff = blinkLightCallCount < 10;
+			winchDirectionLED.set(onOrOff);
+			gearDirectionLED.set(onOrOff);
 		}
 	}
 }
