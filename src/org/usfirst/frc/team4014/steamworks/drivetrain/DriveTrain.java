@@ -201,15 +201,18 @@ public class DriveTrain extends Subsystem {
 
 	/**
 	 * Produces array of left and right speed adjusted to keep the robot driving straight.
+	 * Encoders need to be reset in initialize before using this in a command.
 	 */
 	public double[] speedsAdjustedForEncoders(double speed) {
 		double left  = Math.abs(getLeftEncoder().getRaw());
 		double right = Math.abs(getRightEncoder().getRaw());
 		double delta = left - right;
 		double multiplier = prefs.getDouble("drivetrain.DriveTrain.straightening.multiplier", 0.005);
+		double leftSpeed = speed - (delta * multiplier);
+		double rightSpeed = speed + (delta * multiplier);
 		return new double[] {
-				speed - (delta * multiplier),
-				speed + (delta * multiplier)
+				leftSpeed,
+				rightSpeed
 		};
 	}
 }
