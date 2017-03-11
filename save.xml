@@ -1,5 +1,14 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="verticalDeltaAngle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="254"/>
+	</widget>
+	<widget field="cameraServo Angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="231"/>
+	</widget>
+	<widget field="contours" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="208"/>
+	</widget>
 	<widget field="Right One" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="519"/>
 	</widget>
