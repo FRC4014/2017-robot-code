@@ -32,14 +32,15 @@ public class CenterPosition extends CommandGroup {
 //		addSequential(new CloseGearClamp(gear));
 		
 		double gearApproachSpeed = prefs.getDouble("auto.CenterNoEncoders.gearApproachSpeed", 0.5);
-		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear));
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),7);
 		
 		addSequential(new OpenGearClamp(gear), 1);
 		
-		double driveSpeed = prefs.getDouble("auto.CenterNoEncoders.driveSpeed", -0.6);
-		int driveTime = prefs.getInt("auto.CenterNoEncoders.driveTime", 2);
-		int driveTimeout = prefs.getInt("auto.CenterNoEncoders.driveTimeout", 5);
+		double driveSpeed = prefs.getDouble("auto.Center.driveSpeed", -0.6);
+		int driveTime = prefs.getInt("auto.Center.driveTime", 2);
+		int driveTimeout = prefs.getInt("auto.Center.driveTimeout", 5);
 		addSequential(new DriveByTime(driveTrain, driveSpeed, driveTime), driveTimeout);
+
 	}
 	
 }

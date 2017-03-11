@@ -62,6 +62,7 @@ public class Robot extends IterativeRobot {
 	private DriveTrain driveTrain;
 	private VisionTracker vision;
 	private TestLimitSwitch testLimitSwitchCommand;
+	private Gear gear;
 	
 
 	/**
@@ -73,12 +74,13 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain(oi);
 		new Shooter(oi);
-		Gear gear = new Gear(driveTrain, oi);
+		gear = new Gear(driveTrain, oi);
 		new Winch(oi, gear);
 		new FuelIntake(oi);	
 		new LEDs(oi);
-//		vision = new VisionTracker();
-//		new Camera(oi, vision, driveTrain, GYRO);
+		UsbCamera camera = USBCameraFactory.getCamera();
+		//vision = new VisionTracker();
+		//new Camera(oi, vision, driveTrain, GYRO);
 		chooser.addDefault("Center", new CenterPosition(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Blue", new BoilerPositionBlue(driveTrain, gear, GYRO));
 		chooser.addObject("Boiler Position Red", new BoilerPositionRed(driveTrain, gear, GYRO));
@@ -107,6 +109,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotPeriodic() {
+		driveTrain.blinkLights(gear.isPegInGear());
 		Scheduler.getInstance().run();
 	}
 
@@ -148,6 +151,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		driveTrain.blinkLights(gear.isPegInGear());
 		Scheduler.getInstance().run();
 	}
 //		SmartDashboard.putNumber("centerX", centerX);

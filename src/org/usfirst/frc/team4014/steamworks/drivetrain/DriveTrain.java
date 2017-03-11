@@ -24,8 +24,8 @@ public class DriveTrain extends Subsystem {
     	rightMotor1 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_1),
     	rightMotor2 = new CANTalon(CAN.DRIVE_TRAIN_RIGHT_MOTOR_2);
     
-    private Solenoid winchDirectionLED = new Solenoid(16, 0);
-    private Solenoid gearDirectionLED = new Solenoid(16, 1);
+    private Solenoid winchDirectionLED = new Solenoid(CAN.PNEUMATIC_CONTROL_MODULE, 0);
+    private Solenoid gearDirectionLED = new Solenoid(CAN.PNEUMATIC_CONTROL_MODULE, 1);
     
     private AnalogInput ultrasonicOne = new AnalogInput(0), ultrasonicTwo = new AnalogInput(2);
     
@@ -48,6 +48,7 @@ public class DriveTrain extends Subsystem {
 	
     public DriveTrain(OI oi) {
 		this.oi = oi;
+		
 		robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 		isReversed = false;
 		
@@ -119,8 +120,13 @@ public class DriveTrain extends Subsystem {
      * attenuator)
      */
     public void drive(Joystick joystick) {
-    	//SmartDashboard.putNumber("Ultrasonic One", ultrasonicOne.getVoltage() /**512*/);
-    	//SmartDashboard.putNumber("Ultrasonic Two", ultrasonicTwo.getVoltage() /**512*/);
+    	SmartDashboard.putNumber("Ultrasonic One", ultrasonicOne.getVoltage());
+    	SmartDashboard.putNumber("Ultrasonic Two", ultrasonicTwo.getVoltage());
+
+		SmartDashboard.putNumber("Left One", leftMotor1.getBusVoltage());
+		SmartDashboard.putNumber("Left Two", leftMotor2.getBusVoltage());
+		SmartDashboard.putNumber("Right One", rightMotor1.getBusVoltage());
+		SmartDashboard.putNumber("Right Two", rightMotor2.getBusVoltage());
     	if (isReversed) {
     		robotDrive.arcadeDrive(joystick.getY(), -joystick.getTwist() * speedMultiplier, true);
     	} 
@@ -204,12 +210,30 @@ public class DriveTrain extends Subsystem {
 	 * Encoders need to be reset in initialize before using this in a command.
 	 */
 	public double[] speedsAdjustedForEncoders(double speed) {
+//		return internalSpeedAdjustByEncoders(speed);
+		return internalSpeedAdjustDirect(speed);
+	}
+
+	private double[] internalSpeedAdjustDirect(double speed) {
+		double rightMult = prefs.getDouble("drivetrain.DriveTrain.straightening.rightAdd", 0.03);
+		return new double[] {
+				speed,
+				(speed + (isReversed ? -rightMult : rightMult))
+		};
+	}
+
+	private double[] internalSpeedAdjustByEncoders(double speed) {
 		double left  = Math.abs(getLeftEncoder().getRaw());
 		double right = Math.abs(getRightEncoder().getRaw());
 		double delta = left - right;
 		double multiplier = prefs.getDouble("drivetrain.DriveTrain.straightening.multiplier", 0.005);
 		double leftSpeed = speed - (delta * multiplier);
 		double rightSpeed = speed + (delta * multiplier);
+		System.out.println("DriveTrain.speedAdjust: "
+				+ "delta=" + delta
+				+ "   leftSpeed=" + leftSpeed
+				+ "   rightSpeed=" + rightSpeed
+				);
 		return new double[] {
 				leftSpeed,
 				rightSpeed

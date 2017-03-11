@@ -14,7 +14,7 @@ public class LoadingZonePositionBlue extends CommandGroup {
 	public LoadingZonePositionBlue(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 
-		int drive1Distance = prefs.getInt("auto.LoadingZonePositionBlue.drive1.distance", 90);
+		int drive1Distance = prefs.getInt("auto.LoadingZonePositionBlue.drive1.distance", 88);
 		double drive1Speed = prefs.getDouble("auto.LoadingZonePositionBlue.drive1.speed", 0.5);
 		addSequential(new Drive(driveTrain, drive1Distance, drive1Speed));
 
@@ -26,7 +26,7 @@ public class LoadingZonePositionBlue extends CommandGroup {
 		//TODO: adjust using vision
 
 		double gearApproachSpeed = prefs.getDouble("auto.CenterNoEncoders.gearApproachSpeed", -0.45);
-		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),8);
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),4);
 		
 		addSequential(new OpenGearClamp(gear), 1);
 		

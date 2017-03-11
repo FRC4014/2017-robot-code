@@ -13,6 +13,7 @@ public final class CAN {
 	public static final int SHOOTER_MOTOR_1 = 7;
 	public static final int SHOOTER_MOTOR_2 = 8;
 	public static final int FUEL_INTAKE_MOTOR = 9;
+	public static final int PNEUMATIC_CONTROL_MODULE = 16;
 
 	/**
 	 * This class is only used for static references, so hide the constructor.

@@ -35,8 +35,8 @@ public class Gear extends Subsystem {
 
 		prefs = Preferences.getInstance();
 		
-		JoystickButton p = new JoystickButton(oi.getMateJoystick(), 8);
-		p.toggleWhenPressed(new TestLimitSwitch(driveTrain, this));
+//		JoystickButton p = new JoystickButton(oi.getMateJoystick(), 8);
+//		p.toggleWhenPressed(new TestLimitSwitch(driveTrain, this));
 
 //		JoystickButton stoveFlapButton = new JoystickButton(oi.getMateJoystick(), 2);
 //		stoveFlapButton.toggleWhenPressed(new ToggleStovepipeFlap(this));

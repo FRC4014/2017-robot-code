@@ -14,7 +14,7 @@ public class BoilerPositionRed extends CommandGroup {
 	public BoilerPositionRed(DriveTrain driveTrain, Gear gear, Gyro gyro) {
 		Preferences prefs = Preferences.getInstance();
 
-		int drive1Distance = prefs.getInt("auto.BoilerPositionRed.drive1.distance", 90);
+		int drive1Distance = prefs.getInt("auto.BoilerPositionRed.drive1.distance", 88);
 		double drive1Speed = prefs.getDouble("auto.BoilerPositionRed.drive1.speed", 0.5);
 		addSequential(new Drive(driveTrain, drive1Distance, drive1Speed));
 
@@ -26,7 +26,7 @@ public class BoilerPositionRed extends CommandGroup {
 		//TODO: adjust using vision
 
 		double gearApproachSpeed = prefs.getDouble("auto.CenterNoEncoders.gearApproachSpeed", -0.45);
-		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),8);
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),4);
 		
 		addSequential(new OpenGearClamp(gear), 1);
 		

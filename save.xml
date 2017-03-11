@@ -1,5 +1,23 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Right One" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="519"/>
+	</widget>
+	<widget field="Right Two" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="547"/>
+	</widget>
+	<widget field="Left One" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="190" y="549"/>
+	</widget>
+	<widget field="Left Two" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="188" y="514"/>
+	</widget>
+	<widget field="front LED On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="185"/>
+	</widget>
+	<widget field="Back LED On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="160"/>
+	</widget>
 	<widget field="Limit Switch Status" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="46"/>
 	</widget>
@@ -9,14 +27,13 @@
 	<widget field="Brake Mode" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="0"/>
 	</widget>
-	<widget field="Test CANCommand" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="1324" y="488"/>
-	</widget>
 	<widget field="Ultrasonic Two" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="975" y="395"/>
+		<location x="973" y="431"/>
+		<width>263</width>
 	</widget>
 	<widget field="Ultrasonic One" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="5" y="192"/>
+		<location x="975" y="405"/>
+		<width>271</width>
 	</widget>
 	<widget field="pivot encoder -45:" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="1326" y="438"/>
@@ -40,17 +57,16 @@
 		<location x="67" y="74"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="589" y="360"/>
+		<location x="353" y="347"/>
+		<width>579</width>
+		<height>358</height>
 		<property name="Camera Choice" value=""/>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.MjpgStreamViewerImpl">
-		<location x="400" y="359"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
 		<location x="337" y="12"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="399" y="10"/>
+		<location x="401" y="15"/>
 		<width>942</width>
 		<height>303</height>
 	</static-widget>

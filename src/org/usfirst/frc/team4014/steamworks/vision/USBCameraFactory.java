@@ -13,9 +13,9 @@ public final class USBCameraFactory {
 		if (camera == null) {
 		    camera = CameraServer.getInstance().startAutomaticCapture();
 			camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-			camera.setExposureManual(-100);
-			camera.setExposureHoldCurrent();
-//			camera.setBrightness(-1000);
+//			camera.setBrightness(-100);
+//			camera.setExposureManual(-10);
+//			camera.setExposureHoldCurrent();
 			System.out.println("USBCameraFactory.getCamera: The camera has been created");
 		}
 		return camera;

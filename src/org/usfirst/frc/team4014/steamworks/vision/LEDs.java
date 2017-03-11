@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4014.steamworks.vision;
 
+import org.usfirst.frc.team4014.steamworks.CAN;
 import org.usfirst.frc.team4014.steamworks.OI;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -9,8 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LEDs extends Subsystem{
 
-	Solenoid frontLED = new Solenoid(2);
-	Solenoid backLED = new Solenoid(3);
+	Solenoid frontLED = new Solenoid(CAN.PNEUMATIC_CONTROL_MODULE, 2);
+	Solenoid backLED = new Solenoid(CAN.PNEUMATIC_CONTROL_MODULE, 3);
 	
 	private final OI oi;
 	
