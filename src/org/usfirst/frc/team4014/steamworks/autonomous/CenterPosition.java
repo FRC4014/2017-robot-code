@@ -32,7 +32,7 @@ public class CenterPosition extends CommandGroup {
 //		addSequential(new CloseGearClamp(gear));
 		
 		double gearApproachSpeed = prefs.getDouble("auto.CenterNoEncoders.gearApproachSpeed", 0.5);
-		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),7);
+		addSequential(new SlowGearApproach(driveTrain, gearApproachSpeed, gear),10);
 		
 		addSequential(new OpenGearClamp(gear), 1);
 		
