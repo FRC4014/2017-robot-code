@@ -20,7 +20,7 @@ public class Winch extends Subsystem {
  
 	public Winch(OI oi, Gear gear) {
 		super("Winch");
-		winchbutton = new JoystickButton(oi.getMateJoystick(), 1);
+		winchbutton = new JoystickButton(oi.getDriverJoystick(), 5);
 		winchbutton.whileHeld(new WinchIntakeWithButton(this, gear));
 	}
 

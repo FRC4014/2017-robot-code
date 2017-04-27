@@ -29,7 +29,7 @@ public class Gear extends Subsystem {
 		this.driveTrain = driveTrain;
 		this.oi = oi;
 
-		JoystickButton b = new JoystickButton(oi.getMateJoystick(), 10);
+		JoystickButton b = new JoystickButton(oi.getDriverJoystick(), 2);
 		b.toggleWhenPressed(new ToggleGearClamp(this));
 		SmartDashboard.putString("Gear Control Status", "Super Closed");
 

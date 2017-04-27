@@ -17,8 +17,8 @@ public class LEDs extends Subsystem{
 	
 	public LEDs(OI oi){
 		this.oi = oi;
-		JoystickButton f = new JoystickButton(oi.getMateJoystick(), 11);
-		JoystickButton a = new JoystickButton(oi.getMateJoystick(), 6);
+		JoystickButton f = new JoystickButton(oi.getDriverJoystick(), 3);
+		JoystickButton a = new JoystickButton(oi.getDriverJoystick(), 4);
 		f.toggleWhenPressed(new FrontLEDOnOff(this));
 		a.toggleWhenPressed(new BackLEDOnOff(this));
 	}

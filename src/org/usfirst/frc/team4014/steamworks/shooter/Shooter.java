@@ -28,10 +28,10 @@ public class Shooter extends Subsystem {
 	
 	public Shooter(OI oi) {
 		this.oi = oi;
-		Button shooterButton = new JoystickButton(this.oi.getMateJoystick(),3);
+		Button shooterButton = new JoystickButton(this.oi.getDriverJoystick(),6);
 		shooterButton.toggleWhenPressed(new ShootWithJoystick(this.oi, this));
 		
-		Button doorButton = new JoystickButton(this.oi.getMateJoystick(), 9);
+		Button doorButton = new JoystickButton(this.oi.getDriverJoystick(), 8);
 		doorButton.toggleWhenPressed(new ToggleShooterFlaps(this));
 	}
 	

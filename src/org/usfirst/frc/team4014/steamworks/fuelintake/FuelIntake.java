@@ -20,7 +20,7 @@ public class FuelIntake extends Subsystem {
 		super("Fuel Intake");
 		this.oi = oi;
 
-		button = new JoystickButton(oi.getMateJoystick(), 7);
+		button = new JoystickButton(oi.getDriverJoystick(), 7);
 		button.toggleWhenPressed(new EatFuel(this));
 		
 		SmartDashboard.putString("Fuel Intake", "OFF");
